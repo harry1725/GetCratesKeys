@@ -37,7 +37,7 @@ public class GCK_commands extends AbstractCommand {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
-            if (label.equalsIgnoreCase("gck")) {    //베이스 명령어
+            if (label.equalsIgnoreCase("gck")) {    // 베이스 명령어
                 if (args.length <= 0) {
                     player.sendMessage("");
                     player.sendMessage(ChatColor.GRAY + "=====================================================");
@@ -50,7 +50,7 @@ public class GCK_commands extends AbstractCommand {
                     player.sendMessage(ChatColor.GRAY + "=====================================================");
                     player.sendMessage("");
                 } else {
-                    if (args[0].equalsIgnoreCase("info")) { //플러그인 정보
+                    if (args[0].equalsIgnoreCase("info")) { // 플러그인 정보
                         player.sendMessage("");
                         player.sendMessage(ChatColor.GRAY + "=====================================================");
                         player.sendMessage("");
@@ -61,17 +61,45 @@ public class GCK_commands extends AbstractCommand {
                         player.sendMessage("");
                         player.sendMessage(ChatColor.GRAY + "=====================================================");
                         player.sendMessage("");
-                    }   else if (args[0].equalsIgnoreCase("help")) {    //명령어 목록
+                    }   else if (args[0].equalsIgnoreCase("help")) {    // 명령어 목록
                         if (args.length >= 2) {
-                            if (args[1].equalsIgnoreCase("")) {
-
+                            if (args[1].equalsIgnoreCase("keys")) {
+                                player.sendMessage("");
+                            } else if (args[1].equalsIgnoreCase("edit")) {
+                                player.sendMessage("");
                             }
                         }
-                    } else if (args[0].equalsIgnoreCase("keys")) {  //등록된 열쇠를 보여줌
-
+                    } else if (args[0].equalsIgnoreCase("keys")) {  // 등록된 열쇠를 보여줌
+                        player.sendMessage("");
+                    } else if (args[0].equalsIgnoreCase("chance")) {    // 현재 설정된 열쇠 드랍 확률을 보여줌
+                        if (args[1].equalsIgnoreCase("digging")) {  // 삽질 항목
+                            player.sendMessage("");
+                        } else if (args[1].equalsIgnoreCase("farming")) {   // 농사 항목
+                            player.sendMessage("");
+                        } else if (args[1].equalsIgnoreCase("fishing")) {   // 낚시 항목
+                            player.sendMessage("");
+                        } else if (args[1].equalsIgnoreCase("mining")) {    // 광질
+                            player.sendMessage("");
+                        } else {
+                            player.sendMessage("");
+                        }
+                    } else if (args[0].equalsIgnoreCase("edit")) {  // 10,000번 중 몇 번 꼴로 열쇠가 드랍되게 할 건지 설정
+                        if (args[1].equalsIgnoreCase("digging")) {  // 삽질 항목
+                            player.sendMessage("");
+                        } else if (args[1].equalsIgnoreCase("farming")) {   // 농사 항목
+                            player.sendMessage("");
+                        } else if (args[1].equalsIgnoreCase("fishing")) {   // 낚시 항목
+                            player.sendMessage("");
+                        } else if (args[1].equalsIgnoreCase("mining")) {    // 광질 항목
+                            player.sendMessage("");
+                        } else {
+                            player.sendMessage("");
+                        }
                     }
                 }
             }
         }
+
+        return false;
     }
 }

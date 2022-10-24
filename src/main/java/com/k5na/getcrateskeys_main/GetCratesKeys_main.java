@@ -1,6 +1,7 @@
 package com.k5na.getcrateskeys_main;
 
 import com.k5na.getcrateskeys_main.commands.GCK_commands;
+import com.k5na.getcrateskeys_main.events.GCK_events;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
@@ -51,7 +52,7 @@ public final class GetCratesKeys_main extends JavaPlugin implements Listener {
 
         //.key 파일 불러오기
 
-        gck.console(ChatColor.YELLOW + pfName + ChatColor.WHITE + " is now enabled!");
+        GetCratesKeys_main.console(ChatColor.YELLOW + pfName + ChatColor.WHITE + " is now enabled!");
 
         super.onEnable();
     }
@@ -60,7 +61,7 @@ public final class GetCratesKeys_main extends JavaPlugin implements Listener {
     public void onDisable() {
         //.key 파일 저장
 
-        gck.console(ChatColor.YELLOW + pfName + ChatColor.WHITE + " is now disabled!");
+        GetCratesKeys_main.console(ChatColor.YELLOW + pfName + ChatColor.WHITE + " is now disabled!");
         super.onDisable();
     }
 }
