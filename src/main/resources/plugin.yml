@@ -1,0 +1,4 @@
+name: GetCratesKeys
+version: '${project.version}'
+main: com.k5na.getcrateskeys_main.GetCratesKeys_main
+api-version: 1.19
