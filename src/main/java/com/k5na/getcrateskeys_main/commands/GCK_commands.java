@@ -2,6 +2,7 @@ package com.k5na.getcrateskeys_main.commands;
 
 import com.k5na.getcrateskeys_main.GetCratesKeys_main;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

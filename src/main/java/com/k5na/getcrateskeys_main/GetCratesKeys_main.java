@@ -50,7 +50,8 @@ public final class GetCratesKeys_main extends JavaPlugin implements Listener {
         pManager.registerEvents(new GCK_events(this), this);
         console(ChatColor.WHITE + "GCK_events" + ChatColor.WHITE + " have been added!");
 
-        //.key 파일 불러오기
+        getConfig().options().copyDefaults(true);
+        saveConfig();
 
         GetCratesKeys_main.console(ChatColor.YELLOW + pfName + ChatColor.WHITE + " is now enabled!");
 
@@ -59,7 +60,7 @@ public final class GetCratesKeys_main extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        //.key 파일 저장
+        saveConfig();
 
         GetCratesKeys_main.console(ChatColor.YELLOW + pfName + ChatColor.WHITE + " is now disabled!");
         super.onDisable();
