@@ -1,11 +1,12 @@
 package com.k5na.getcrateskeys_main.commands;
 
-import com.k5na.getcrateskeys_main.GetCratesKeys_main;
+import com.k5na.getcrateskeys_main.GetCratesKeys;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,12 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.k5na.getcrateskeys_main.GetCratesKeys_main.conLog;
-import static com.k5na.getcrateskeys_main.GetCratesKeys_main.getLineNumber;
+import static com.k5na.getcrateskeys_main.GetCratesKeys.conLog;
+import static com.k5na.getcrateskeys_main.GetCratesKeys.getLineNumber;
 import static me.clip.placeholderapi.util.Msg.broadcast;
 
 public class GCK_commands extends AbstractCommand {
-    public GCK_commands(GetCratesKeys_main plugin, String commandLabel) {
+    public GCK_commands(GetCratesKeys plugin, String commandLabel) {
         super(plugin, commandLabel);
     }
 
@@ -28,7 +29,7 @@ public class GCK_commands extends AbstractCommand {
     YamlConfiguration atFileConfig = YamlConfiguration.loadConfiguration(actionFile);
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
         List<String> tabs = new ArrayList<>();
 
         if (alias.length() == 0) {
@@ -66,7 +67,7 @@ public class GCK_commands extends AbstractCommand {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             String username = player.getName();

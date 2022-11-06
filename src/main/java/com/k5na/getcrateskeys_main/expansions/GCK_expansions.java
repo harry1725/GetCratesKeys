@@ -1,6 +1,6 @@
 package com.k5na.getcrateskeys_main.expansions;
 
-import com.k5na.getcrateskeys_main.GetCratesKeys_main;
+import com.k5na.getcrateskeys_main.GetCratesKeys;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -10,9 +10,9 @@ import java.io.File;
 import java.util.List;
 
 public class GCK_expansions extends PlaceholderExpansion {
-    public static GetCratesKeys_main gck;
+    public static GetCratesKeys gck;
 
-    public GCK_expansions(GetCratesKeys_main plugin) {
+    public GCK_expansions(GetCratesKeys plugin) {
         gck = plugin;
     }
 

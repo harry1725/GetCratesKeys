@@ -15,9 +15,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-public final class GetCratesKeys_main extends JavaPlugin implements Listener {
+public final class GetCratesKeys extends JavaPlugin implements Listener {
     public static void conLog(final String msg) {
-        GetCratesKeys_main.getPlugin(GetCratesKeys_main.class).getLogger().info(msg);
+        GetCratesKeys.getPlugin(GetCratesKeys.class).getLogger().info(msg);
     }
 
     PluginDescriptionFile pdfFile = this.getDescription();
@@ -90,7 +90,7 @@ public final class GetCratesKeys_main extends JavaPlugin implements Listener {
             throw new RuntimeException(e);
         }
 
-        GetCratesKeys_main.console(ChatColor.YELLOW + getFullName() + ChatColor.WHITE + " is now enabled!");
+        GetCratesKeys.console(ChatColor.YELLOW + getFullName() + ChatColor.WHITE + " is now enabled!");
 
         super.onEnable();
     }
@@ -119,7 +119,7 @@ public final class GetCratesKeys_main extends JavaPlugin implements Listener {
             throw new RuntimeException(e);
         }
 
-        GetCratesKeys_main.console(ChatColor.YELLOW + getFullName() + ChatColor.WHITE + " is now disabled!");
+        GetCratesKeys.console(ChatColor.YELLOW + getFullName() + ChatColor.WHITE + " is now disabled!");
         super.onDisable();
     }
 }

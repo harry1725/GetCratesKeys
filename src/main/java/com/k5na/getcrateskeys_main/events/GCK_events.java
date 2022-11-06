@@ -1,6 +1,6 @@
 package com.k5na.getcrateskeys_main.events;
 
-import com.k5na.getcrateskeys_main.GetCratesKeys_main;
+import com.k5na.getcrateskeys_main.GetCratesKeys;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -16,14 +16,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
-import static com.k5na.getcrateskeys_main.GetCratesKeys_main.conLog;
-import static com.k5na.getcrateskeys_main.GetCratesKeys_main.getLineNumber;
+import static com.k5na.getcrateskeys_main.GetCratesKeys.conLog;
+import static com.k5na.getcrateskeys_main.GetCratesKeys.getLineNumber;
 import static org.bukkit.event.player.PlayerFishEvent.State.CAUGHT_FISH;
 
 public class GCK_events implements Listener {
-    public static GetCratesKeys_main gck;
+    public static GetCratesKeys gck;
 
-    public GCK_events(GetCratesKeys_main plugin) {
+    public GCK_events(GetCratesKeys plugin) {
         gck = plugin;
     }
 
@@ -184,7 +184,7 @@ public class GCK_events implements Listener {
                     }
 
                     for (int i = 1; i <= drop; i++) {
-                        GetCratesKeys_main.console(command);
+                        GetCratesKeys.console(command);
                     }
 
                     if (ceiling_enabled) {
@@ -222,7 +222,7 @@ public class GCK_events implements Listener {
                                 }
 
                                 for (int i = 1; i <= drop; i++) {
-                                    GetCratesKeys_main.console(command);
+                                    GetCratesKeys.console(command);
                                 }
 
                                 ciFileConfig.set(ceiling_excavation_path, ciFileConfig.getInt(ceiling_excavation_path) - ceiling_excavation_max);
@@ -290,7 +290,7 @@ public class GCK_events implements Listener {
                     }
 
                     for (int i = 1; i <= drop; i++) {
-                        GetCratesKeys_main.console(command);
+                        GetCratesKeys.console(command);
                     }
 
                     if (ceiling_enabled) {
@@ -328,7 +328,7 @@ public class GCK_events implements Listener {
                                 }
 
                                 for (int i = 1; i <= drop; i++) {
-                                    GetCratesKeys_main.console(command);
+                                    GetCratesKeys.console(command);
                                 }
 
                                 ciFileConfig.set(ceiling_farming_path, ciFileConfig.getInt(ceiling_farming_path) - ceiling_farming_max);
@@ -396,7 +396,7 @@ public class GCK_events implements Listener {
                     }
 
                     for (int i = 1; i <= drop; i++) {
-                        GetCratesKeys_main.console(command);
+                        GetCratesKeys.console(command);
                     }
 
                     if (ceiling_enabled) {
@@ -434,7 +434,7 @@ public class GCK_events implements Listener {
                                 }
 
                                 for (int i = 1; i <= drop; i++) {
-                                    GetCratesKeys_main.console(command);
+                                    GetCratesKeys.console(command);
                                 }
 
                                 ciFileConfig.set(ceiling_mining_path, ciFileConfig.getInt(ceiling_mining_path) - ceiling_mining_max);
@@ -556,7 +556,7 @@ public class GCK_events implements Listener {
                     }
 
                     for (int i = 1; i <= drop; i++) {
-                        GetCratesKeys_main.console(command);
+                        GetCratesKeys.console(command);
                     }
 
                     if (ceiling_enabled) {
@@ -591,7 +591,7 @@ public class GCK_events implements Listener {
                                 int drop = (int) (Math.random() * max_drop + 1);
 
                                 for (int i = 1; i <= drop; i++) {
-                                    GetCratesKeys_main.console(command);
+                                    GetCratesKeys.console(command);
                                 }
 
                                 ciFileConfig.set(ceiling_fishing_path, ciFileConfig.getInt(ceiling_fishing_path) - ceiling_fishing_max);
