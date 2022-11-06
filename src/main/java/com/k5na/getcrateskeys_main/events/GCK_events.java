@@ -88,6 +88,20 @@ public class GCK_events implements Listener {
         int ceiling_mining_max = kyFileConfig.getInt("key_config.ceiling.mining_max");
 
         int total_key_num = kyFileConfig.getIntegerList("keys").size();
+        int[] enabled_keys = new int[total_key_num];
+        int total_enabled_key_num = 0;
+
+        for (int i = 1; i <= total_key_num; i++) {
+            if (kyFileConfig.getBoolean("keys." + i + ".enabled")) {
+                for (int j = 0; j <= i - 1; j++) {
+                    if (enabled_keys[j] == 0) {
+                        enabled_keys[j] = i;
+                        total_enabled_key_num++;
+                        break;
+                    }
+                }
+            }
+        }
 
         List<String> excavation_block_list = atFileConfig.getStringList("excavation");
         boolean excavation_enabled = atFileConfig.getBoolean("excavation.enabled");
@@ -118,7 +132,7 @@ public class GCK_events implements Listener {
         }
 
         if (keys_drop_enabled) {
-            int key_num;
+            int key_num = 0;
 
             if (excavation_enabled && excavation_block_list.contains(block_name) && atFileConfig.getBoolean("excavation." + block_name + ".enabled")) {
                 String excavation_path = "excavation." + block_name;
@@ -146,12 +160,32 @@ public class GCK_events implements Listener {
 
                 int random_chance = (int)(Math.random() * max_chance + 1);
                 if (random_chance <= chance) {
-                    if (atFileConfig.getInt(excavation_path + ".only_key") == -1) {
-                        key_num = (int) (Math.random() * total_key_num + 1);
+                    int only_key = atFileConfig.getInt(excavation_path + ".only_key");
+
+                    if (only_key == -1 || !kyFileConfig.getBoolean("keys." + only_key + ".enabled")) {
+                        int random = (int) (Math.random() * total_enabled_key_num + 1);
+
+                        for (int i = 0; i <= total_enabled_key_num; i++) {
+                            if (enabled_keys[i] == random) {
+                                key_num = i;
+                                break;
+                            }
+                        }
                     } else {
-                        key_num = atFileConfig.getInt(excavation_path + ".only_key");
+                        key_num = only_key;
                     }
-                    // key_num에 맞는 열쇠를 max_drop 적용시키고 amount 적용 시켜서 지급
+
+                    String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+
+                    int max_drop = kyFileConfig.getInt(("keys." + key_num + ".max_drop"));
+                    int drop = (int) (Math.random() * max_drop + 1);
+                    if (key_drop_boost_enabled && key_drop_boost_amount != -1) {
+                        drop += key_drop_boost_amount;
+                    }
+
+                    for (int i = 1; i <= drop; i++) {
+                        GetCratesKeys_main.console(command);
+                    }
 
                     if (ceiling_enabled) {
                         ciFileConfig.set(ceiling_excavation_path, 0);
@@ -164,12 +198,32 @@ public class GCK_events implements Listener {
                             ciFileConfig.set(ceiling_excavation_path, ciFileConfig.getInt(ceiling_excavation_path) + 1);
 
                             if (ciFileConfig.getInt(ceiling_excavation_path) >= ceiling_excavation_max) {
-                                if (atFileConfig.getInt(excavation_path + ".only_key") == -1) {
-                                    key_num = (int) (Math.random() * total_key_num + 1);
+                                int only_key = atFileConfig.getInt(excavation_path + ".only_key");
+
+                                if (only_key == -1 || !kyFileConfig.getBoolean("keys." + only_key + ".enabled")) {
+                                    int random = (int) (Math.random() * total_enabled_key_num + 1);
+
+                                    for (int i = 0; i <= total_enabled_key_num; i++) {
+                                        if (enabled_keys[i] == random) {
+                                            key_num = i;
+                                            break;
+                                        }
+                                    }
                                 } else {
-                                    key_num = atFileConfig.getInt(excavation_path + ".only_key");
+                                    key_num = only_key;
                                 }
-                                // key_num에 맞는 열쇠를 max_drop 적용시키고 amount 적용 시켜서 지급
+
+                                String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+
+                                int max_drop = kyFileConfig.getInt(("keys." + key_num + ".max_drop"));
+                                int drop = (int) (Math.random() * max_drop + 1);
+                                if (key_drop_boost_enabled && key_drop_boost_amount != -1) {
+                                    drop += key_drop_boost_amount;
+                                }
+
+                                for (int i = 1; i <= drop; i++) {
+                                    GetCratesKeys_main.console(command);
+                                }
 
                                 ciFileConfig.set(ceiling_excavation_path, ciFileConfig.getInt(ceiling_excavation_path) - ceiling_excavation_max);
                                 if (ciFileConfig.getInt(ceiling_excavation_path) < 0) {
@@ -212,12 +266,32 @@ public class GCK_events implements Listener {
 
                 int random_chance = (int)(Math.random() * max_chance + 1);
                 if (random_chance <= chance) {
-                    if (atFileConfig.getInt(farming_path + ".only_key") == -1) {
-                        key_num = (int) (Math.random() * total_key_num + 1);
+                    int only_key = atFileConfig.getInt(farming_path + ".only_key");
+
+                    if (only_key == -1 || !kyFileConfig.getBoolean("keys." + only_key + ".enabled")) {
+                        int random = (int) (Math.random() * total_enabled_key_num + 1);
+
+                        for (int i = 0; i <= total_enabled_key_num; i++) {
+                            if (enabled_keys[i] == random) {
+                                key_num = i;
+                                break;
+                            }
+                        }
                     } else {
-                        key_num = atFileConfig.getInt(farming_path + ".only_key");
+                        key_num = only_key;
                     }
-                    // key_num에 맞는 열쇠를 max_drop 적용시키고 amount 적용 시켜서 지급
+
+                    String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+
+                    int max_drop = kyFileConfig.getInt(("keys." + key_num + ".max_drop"));
+                    int drop = (int) (Math.random() * max_drop + 1);
+                    if (key_drop_boost_enabled && key_drop_boost_amount != -1) {
+                        drop += key_drop_boost_amount;
+                    }
+
+                    for (int i = 1; i <= drop; i++) {
+                        GetCratesKeys_main.console(command);
+                    }
 
                     if (ceiling_enabled) {
                         ciFileConfig.set(ceiling_farming_path, 0);
@@ -230,12 +304,32 @@ public class GCK_events implements Listener {
                             ciFileConfig.set(ceiling_farming_path, ciFileConfig.getInt(ceiling_farming_path) + 1);
 
                             if (ciFileConfig.getInt(ceiling_farming_path) >= ceiling_farming_max) {
-                                if (atFileConfig.getInt(farming_path + ".only_key") == -1) {
-                                    key_num = (int) (Math.random() * total_key_num + 1);
+                                int only_key = atFileConfig.getInt(farming_path + ".only_key");
+
+                                if (only_key == -1 || !kyFileConfig.getBoolean("keys." + only_key + ".enabled")) {
+                                    int random = (int) (Math.random() * total_enabled_key_num + 1);
+
+                                    for (int i = 0; i <= total_enabled_key_num; i++) {
+                                        if (enabled_keys[i] == random) {
+                                            key_num = i;
+                                            break;
+                                        }
+                                    }
                                 } else {
-                                    key_num = atFileConfig.getInt(farming_path + ".only_key");
+                                    key_num = only_key;
                                 }
-                                // key_num에 맞는 열쇠를 max_drop 적용시키고 amount 적용 시켜서 지급
+
+                                String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+
+                                int max_drop = kyFileConfig.getInt(("keys." + key_num + ".max_drop"));
+                                int drop = (int) (Math.random() * max_drop + 1);
+                                if (key_drop_boost_enabled && key_drop_boost_amount != -1) {
+                                    drop += key_drop_boost_amount;
+                                }
+
+                                for (int i = 1; i <= drop; i++) {
+                                    GetCratesKeys_main.console(command);
+                                }
 
                                 ciFileConfig.set(ceiling_farming_path, ciFileConfig.getInt(ceiling_farming_path) - ceiling_farming_max);
                                 if (ciFileConfig.getInt(ceiling_farming_path) < 0) {
@@ -278,12 +372,32 @@ public class GCK_events implements Listener {
 
                 int random_chance = (int)(Math.random() * max_chance + 1);
                 if (random_chance <= chance) {
-                    if (atFileConfig.getInt(mining_path + ".only_key") == -1) {
-                        key_num = (int) (Math.random() * total_key_num + 1);
+                    int only_key = atFileConfig.getInt(mining_path + ".only_key");
+
+                    if (only_key == -1 || !kyFileConfig.getBoolean("keys." + only_key + ".enabled")) {
+                        int random = (int) (Math.random() * total_enabled_key_num + 1);
+
+                        for (int i = 0; i <= total_enabled_key_num; i++) {
+                            if (enabled_keys[i] == random) {
+                                key_num = i;
+                                break;
+                            }
+                        }
                     } else {
-                        key_num = atFileConfig.getInt(mining_path + ".only_key");
+                        key_num = only_key;
                     }
-                    // key_num에 맞는 열쇠를 max_drop 적용시키고 amount 적용 시켜서 지급
+
+                    String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+
+                    int max_drop = kyFileConfig.getInt(("keys." + key_num + ".max_drop"));
+                    int drop = (int) (Math.random() * max_drop + 1);
+                    if (key_drop_boost_enabled && key_drop_boost_amount != -1) {
+                        drop += key_drop_boost_amount;
+                    }
+
+                    for (int i = 1; i <= drop; i++) {
+                        GetCratesKeys_main.console(command);
+                    }
 
                     if (ceiling_enabled) {
                         ciFileConfig.set(ceiling_mining_path, 0);
@@ -296,12 +410,32 @@ public class GCK_events implements Listener {
                             ciFileConfig.set(ceiling_mining_path, ciFileConfig.getInt(ceiling_mining_path) + 1);
 
                             if (ciFileConfig.getInt(ceiling_mining_path) >= ceiling_mining_max) {
-                                if (atFileConfig.getInt(mining_path + ".only_key") == -1) {
-                                    key_num = (int) (Math.random() * total_key_num + 1);
+                                int only_key = atFileConfig.getInt(mining_path + ".only_key");
+
+                                if (only_key == -1 || !kyFileConfig.getBoolean("keys." + only_key + ".enabled")) {
+                                    int random = (int) (Math.random() * total_enabled_key_num + 1);
+
+                                    for (int i = 0; i <= total_enabled_key_num; i++) {
+                                        if (enabled_keys[i] == random) {
+                                            key_num = i;
+                                            break;
+                                        }
+                                    }
                                 } else {
-                                    key_num = atFileConfig.getInt(mining_path + ".only_key");
+                                    key_num = only_key;
                                 }
-                                // key_num에 맞는 열쇠를 max_drop 적용시키고 amount 적용 시켜서 지급
+
+                                String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+
+                                int max_drop = kyFileConfig.getInt(("keys." + key_num + ".max_drop"));
+                                int drop = (int) (Math.random() * max_drop + 1);
+                                if (key_drop_boost_enabled && key_drop_boost_amount != -1) {
+                                    drop += key_drop_boost_amount;
+                                }
+
+                                for (int i = 1; i <= drop; i++) {
+                                    GetCratesKeys_main.console(command);
+                                }
 
                                 ciFileConfig.set(ceiling_mining_path, ciFileConfig.getInt(ceiling_mining_path) - ceiling_mining_max);
                                 if (ciFileConfig.getInt(ceiling_mining_path) < 0) {
@@ -347,6 +481,20 @@ public class GCK_events implements Listener {
         int ceiling_fishing_max = kyFileConfig.getInt("key_config.ceiling.fishing_max");
 
         int total_key_num = kyFileConfig.getIntegerList("keys").size();
+        int[] enabled_keys = new int[total_key_num];
+        int total_enabled_key_num = 0;
+
+        for (int i = 1; i <= total_key_num; i++) {
+            if (kyFileConfig.getBoolean("keys." + i + ".enabled")) {
+                for (int j = 0; j <= i - 1; j++) {
+                    if (enabled_keys[j] == 0) {
+                        enabled_keys[j] = i;
+                        total_enabled_key_num++;
+                        break;
+                    }
+                }
+            }
+        }
 
         boolean fishing_enabled = atFileConfig.getBoolean("fishing.enabled");
 
@@ -358,7 +506,7 @@ public class GCK_events implements Listener {
         }
 
         if (keys_drop_enabled) {
-            int key_num;
+            int key_num = 0;
             if (fishing_enabled && state.equals(CAUGHT_FISH) && atFileConfig.getBoolean(fishing_path + ".enabled")) {
                 int chance = atFileConfig.getInt(fishing_path + ".base_chance");
                 int level = Integer.parseInt(PlaceholderAPI.setPlaceholders(player, "%aureliumskills_fishing%"));
@@ -384,12 +532,32 @@ public class GCK_events implements Listener {
 
                 int random_chance = (int) (Math.random() * max_chance + 1);
                 if (random_chance <= chance) {
-                    if (atFileConfig.getInt(fishing_path + ".only_key") == -1) {
-                        key_num = (int) (Math.random() * total_key_num + 1);
+                    int only_key = atFileConfig.getInt(fishing_path + ".only_key");
+
+                    if (only_key == -1 || !kyFileConfig.getBoolean("keys." + only_key + ".enabled")) {
+                        int random = (int) (Math.random() * total_enabled_key_num + 1);
+
+                        for (int i = 0; i <= total_enabled_key_num; i++) {
+                            if (enabled_keys[i] == random) {
+                                key_num = i;
+                                break;
+                            }
+                        }
                     } else {
-                        key_num = atFileConfig.getInt(fishing_path + ".only_key");
+                        key_num = only_key;
                     }
-                    // key_num에 맞는 열쇠를 max_drop 적용시키고 amount 적용 시켜서 지급
+
+                    String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+
+                    int max_drop = kyFileConfig.getInt(("keys." + key_num + ".max_drop"));
+                    int drop = (int) (Math.random() * max_drop + 1);
+                    if (key_drop_boost_enabled && key_drop_boost_amount != -1) {
+                        drop += key_drop_boost_amount;
+                    }
+
+                    for (int i = 1; i <= drop; i++) {
+                        GetCratesKeys_main.console(command);
+                    }
 
                     if (ceiling_enabled) {
                         ciFileConfig.set(ceiling_fishing_path, 0);
@@ -402,12 +570,29 @@ public class GCK_events implements Listener {
                             ciFileConfig.set(ceiling_fishing_path, ciFileConfig.getInt(ceiling_fishing_path) + 1);
 
                             if (ciFileConfig.getInt(ceiling_fishing_path) >= ceiling_fishing_max) {
-                                if (atFileConfig.getInt(fishing_path + ".only_key") == -1) {
-                                    key_num = (int) (Math.random() * total_key_num + 1);
+                                int only_key = atFileConfig.getInt(fishing_path + ".only_key");
+
+                                if (only_key == -1 || !kyFileConfig.getBoolean("keys." + only_key + ".enabled")) {
+                                    int random = (int) (Math.random() * total_enabled_key_num + 1);
+
+                                    for (int i = 0; i <= total_enabled_key_num; i++) {
+                                        if (enabled_keys[i] == random) {
+                                            key_num = i;
+                                            break;
+                                        }
+                                    }
                                 } else {
-                                    key_num = atFileConfig.getInt(fishing_path + ".only_key");
+                                    key_num = only_key;
                                 }
-                                // key_num에 맞는 열쇠를 max_drop 적용시키고 amount 적용 시켜서 지급
+
+                                String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+
+                                int max_drop = kyFileConfig.getInt(("keys." + key_num + ".max_drop"));
+                                int drop = (int) (Math.random() * max_drop + 1);
+
+                                for (int i = 1; i <= drop; i++) {
+                                    GetCratesKeys_main.console(command);
+                                }
 
                                 ciFileConfig.set(ceiling_fishing_path, ciFileConfig.getInt(ceiling_fishing_path) - ceiling_fishing_max);
                                 if (ciFileConfig.getInt(ceiling_fishing_path) < 0) {

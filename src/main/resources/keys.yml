@@ -58,10 +58,11 @@ key_config:
 #     enabled: < true / false >
 #     - 해당 열쇠 드랍 여부. true는 활성화, false는 비활성화
 #
-#     crate_name: < "상자 이름" >
+#     display_name: < "상자 이름" >
 #     - 열쇠가 열 수 있는 상자 이름. 색코드 넣어도 상관 없음
 #
-#     path: < 해당 열쇠 정보가 들어있는 SpecializedCrate .crate 파일의 경로 >
+#     crate_name: < "상자 이름" >
+#     - SpecializedCrates 열쇠 지급 때 사용되는 상자 이름. 색코드 넣으면 안됨.
 #
 #     max_drop: < # >
 #     - 열쇠 최대 드랍 갯수
@@ -69,12 +70,12 @@ key_config:
 keys:
   1:
     enabled: true
-    crate_name: "판도라의 상자"
-    path:
+    display_name: "판도라의 상자"
+    crate_name: "k5na_PandoraCrate"
     max_drop: 1
 
   2:
     enabled: true
-    crate_name: "겨울 상자"
-    path:
+    display_name: "겨울 상자"
+    crate_name: "k5na_WinterCrate"
     max_drop: 1
