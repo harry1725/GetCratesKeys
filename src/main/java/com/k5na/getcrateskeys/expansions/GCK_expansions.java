@@ -1,6 +1,6 @@
-package com.k5na.getcrateskeys_main.expansions;
+package com.k5na.getcrateskeys.expansions;
 
-import com.k5na.getcrateskeys_main.GetCratesKeys;
+import com.k5na.getcrateskeys.GetCratesKeys;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;

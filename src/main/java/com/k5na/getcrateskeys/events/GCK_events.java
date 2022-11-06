@@ -1,6 +1,6 @@
-package com.k5na.getcrateskeys_main.events;
+package com.k5na.getcrateskeys.events;
 
-import com.k5na.getcrateskeys_main.GetCratesKeys;
+import com.k5na.getcrateskeys.GetCratesKeys;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
-import static com.k5na.getcrateskeys_main.GetCratesKeys.conLog;
-import static com.k5na.getcrateskeys_main.GetCratesKeys.getLineNumber;
+import static com.k5na.getcrateskeys.GetCratesKeys.conLog;
+import static com.k5na.getcrateskeys.GetCratesKeys.getLineNumber;
 import static org.bukkit.event.player.PlayerFishEvent.State.CAUGHT_FISH;
 
 public class GCK_events implements Listener {

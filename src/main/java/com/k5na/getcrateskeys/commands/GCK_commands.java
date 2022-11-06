@@ -1,6 +1,6 @@
-package com.k5na.getcrateskeys_main.commands;
+package com.k5na.getcrateskeys.commands;
 
-import com.k5na.getcrateskeys_main.GetCratesKeys;
+import com.k5na.getcrateskeys.GetCratesKeys;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.k5na.getcrateskeys_main.GetCratesKeys.conLog;
-import static com.k5na.getcrateskeys_main.GetCratesKeys.getLineNumber;
+import static com.k5na.getcrateskeys.GetCratesKeys.conLog;
+import static com.k5na.getcrateskeys.GetCratesKeys.getLineNumber;
 import static me.clip.placeholderapi.util.Msg.broadcast;
 
 public class GCK_commands extends AbstractCommand {

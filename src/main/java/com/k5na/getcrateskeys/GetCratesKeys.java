@@ -1,8 +1,8 @@
-package com.k5na.getcrateskeys_main;
+package com.k5na.getcrateskeys;
 
-import com.k5na.getcrateskeys_main.commands.GCK_commands;
-import com.k5na.getcrateskeys_main.events.GCK_events;
-import com.k5na.getcrateskeys_main.expansions.GCK_expansions;
+import com.k5na.getcrateskeys.commands.GCK_commands;
+import com.k5na.getcrateskeys.events.GCK_events;
+import com.k5na.getcrateskeys.expansions.GCK_expansions;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;

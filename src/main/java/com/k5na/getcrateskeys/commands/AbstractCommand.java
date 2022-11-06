@@ -1,6 +1,6 @@
-package com.k5na.getcrateskeys_main.commands;
+package com.k5na.getcrateskeys.commands;
 
-import com.k5na.getcrateskeys_main.GetCratesKeys;
+import com.k5na.getcrateskeys.GetCratesKeys;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
