@@ -1,0 +1,81 @@
+# GetCratesKeys keys.yml
+# 오타 수정 및 궁금한 내용은 Derman_e (더맨이 / harry1725@naver.com) 에게 연락 바람
+# 여기서는 열쇠에 대한 전체 사항과 세부 사항을 설정할 수 있습니다.
+#
+# ======================= # 설 정 # ======================
+# 열쇠 전체 설정 방법:
+# key_config:
+#   enabled: < true / false >
+#   - 해당 열쇠 드랍 여부. true는 활성화, false는 비활성화
+#
+#   max_chance: < # >
+#   - 최대 확률 단위 - 총 확률은 max_chance 분의 base_chance + Aureliumlevel * multiplier 확률.
+#   - 1이상의 10의 제곱 단위의 정수 추천. 기본 설정은 100000 (base_chance가 1이면 0.001 % 확률)
+#
+#   drop_boost:
+#     enabled: < true / false >
+#     - 전체 열쇠에 대하여 드랍 부스트 적용. true는 활성화, false는 비활성화
+#
+#     amount: < # / -1 >
+#     - 전체 열쇠에 대하여 #개의 추가 갯수 드랍 부스트 적용. -1은 비활성화
+#
+#     chance_fixed: < # / -1 >
+#     - 전체 열쇠에 대하여 # %의 추가 확률 드랍 부스트 적용. -1은 비활성화
+#
+#     chance_multiplier: < # / -1 >
+#     - 전체 열쇠에 대하여 #배의 추가 확률 드랍 부스트 적용. -1은 비활성화
+#
+#   ceiling:
+#     enabled: < true / false >
+#     - 천장 시스템 설정. true는 활성화, false는 비활성화
+#
+#     excavation_max_num / farming_max_num / fishing_max_num / mining_max_num : < # >
+#     - 천장을 찍을 때까지 필요한 행동 횟수
+# ========================================================
+key_config:
+  enabled: true
+
+  max_chance: 100000                  # 1 / 100000 * 100 = 0.001 %
+
+  drop_boost:
+    enabled: false
+    amount: -1
+    chance_fixed: -1
+    chance_multiplier: -1
+
+  ceiling:
+    enabled: true
+    excavation_max: 100000
+    farming_max: 100000
+    fishing_max: 100000
+    mining_max: 100000
+
+
+# ======================= # 열 쇠 # =======================
+# 열쇠 추가 방법:
+# keys:
+#   번호(정수 순서대로):
+#     enabled: < true / false >
+#     - 해당 열쇠 드랍 여부. true는 활성화, false는 비활성화
+#
+#     display_name: < "상자 이름" >
+#     - 열쇠가 열 수 있는 상자 이름. 색코드 넣어도 상관 없음
+#
+#     crate_name: < "상자 이름" >
+#     - SpecializedCrates 열쇠 지급 때 사용되는 상자 이름. 색코드 넣으면 안됨.
+#
+#     max_drop: < # >
+#     - 열쇠 최대 드랍 갯수
+# ========================================================
+keys:
+  1:
+    enabled: true
+    display_name: "판도라의 상자"
+    crate_name: "k5na_PandoraCrate"
+    max_drop: 1
+
+  2:
+    enabled: true
+    display_name: "겨울 상자"
+    crate_name: "k5na_WinterCrate"
+    max_drop: 1

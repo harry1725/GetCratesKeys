@@ -15,6 +15,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
+import static com.k5na.getcrateskeys.events.GCK_events.gck;
+
 public final class GetCratesKeys extends JavaPlugin implements Listener {
     public static void conLog(final String msg) {
         GetCratesKeys.getPlugin(GetCratesKeys.class).getLogger().info(msg);
@@ -42,11 +44,11 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         return Thread.currentThread().getStackTrace()[2].getLineNumber();
     }
 
-    File keyFile = new File(getDataFolder().getPath() + "/", "keys.yml");
+    File keyFile = new File(getDataFolder(), "/keys.yml");
     YamlConfiguration kyFileConfig = YamlConfiguration.loadConfiguration(keyFile);
-    File actionFile = new File(getDataFolder().getPath() + "/", "action.yml");
+    File actionFile = new File(getDataFolder(), "/action.yml");
     YamlConfiguration atFileConfig = YamlConfiguration.loadConfiguration(actionFile);
-    File ceilingFile = new File(getDataFolder().getPath() + "/", "ceiling.yml");
+    File ceilingFile = new File(getDataFolder(), "/ceiling.yml");
     YamlConfiguration ciFileConfig = YamlConfiguration.loadConfiguration(ceilingFile);
 
     @Override
@@ -55,7 +57,7 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
 
         Objects.requireNonNull(getCommand(cmd_gck.getLabel())).setExecutor(cmd_gck);
         Objects.requireNonNull(getCommand(cmd_gck.getLabel())).setTabCompleter(cmd_gck);
-        console(ChatColor.WHITE + "Commands " + ChatColor.YELLOW + "/gck" + ChatColor.WHITE + "has been added!");
+        console(ChatColor.WHITE + "Commands " + ChatColor.YELLOW + "/gck" + ChatColor.WHITE + " has been added!");
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new GCK_expansions(this).register();

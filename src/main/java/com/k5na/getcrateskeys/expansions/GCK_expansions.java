@@ -8,15 +8,18 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
+
+import static com.k5na.getcrateskeys.events.GCK_events.gck;
 
 public class GCK_expansions extends PlaceholderExpansion {
-    public static GetCratesKeys gck;
+    private GetCratesKeys plugin;
 
     public GCK_expansions(GetCratesKeys plugin) {
-        gck = plugin;
+        this.plugin = plugin;
     }
 
-    File keyFile = new File(gck.getDataFolder().getPath() + "/", "keys.yml");
+    File keyFile = new File(plugin.getDataFolder(), "/keys.yml");
     YamlConfiguration kyFileConfig = YamlConfiguration.loadConfiguration(keyFile);
     List<Integer> key_nums = kyFileConfig.getIntegerList("keys");
 

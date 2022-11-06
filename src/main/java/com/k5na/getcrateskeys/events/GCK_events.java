@@ -32,7 +32,7 @@ public class GCK_events implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
 
-        File ceilingFile = new File(gck.getDataFolder().getPath() + "/", "ceiling.yml");
+        File ceilingFile = new File(gck.getDataFolder(), "/ceiling.yml");
         YamlConfiguration ciFileConfig = YamlConfiguration.loadConfiguration(ceilingFile);
 
         String ceiling_excavation_path = "ceiling" + uuid + ".excavation";
@@ -67,11 +67,11 @@ public class GCK_events implements Listener {
         UUID uuid = player.getUniqueId();
         String block_name = event.getBlock().getBlockData().getMaterial().name();
 
-        File keyFile = new File(gck.getDataFolder().getPath() + "/", "keys.yml");
+        File keyFile = new File(gck.getDataFolder(), "/keys.yml");
         YamlConfiguration kyFileConfig = YamlConfiguration.loadConfiguration(keyFile);
-        File actionFile = new File(gck.getDataFolder().getPath() + "/", "actions.yml");
+        File actionFile = new File(gck.getDataFolder(), "/actions.yml");
         YamlConfiguration atFileConfig = YamlConfiguration.loadConfiguration(actionFile);
-        File ceilingFile = new File(gck.getDataFolder().getPath() + "/", "ceiling.yml");
+        File ceilingFile = new File(gck.getDataFolder(), "/ceiling.yml");
         YamlConfiguration ciFileConfig = YamlConfiguration.loadConfiguration(ceilingFile);
 
         boolean keys_drop_enabled = kyFileConfig.getBoolean("key_config.enabled");
@@ -462,11 +462,11 @@ public class GCK_events implements Listener {
         UUID uuid = player.getUniqueId();
         PlayerFishEvent.State state = event.getState();
 
-        File keyFile = new File(gck.getDataFolder().getPath() + "/", "keys.yml");
+        File keyFile = new File(gck.getDataFolder(), "/keys.yml");
         YamlConfiguration kyFileConfig = YamlConfiguration.loadConfiguration(keyFile);
-        File actionFile = new File(gck.getDataFolder().getPath() + "/", "actions.yml");
+        File actionFile = new File(gck.getDataFolder(), "/actions.yml");
         YamlConfiguration atFileConfig = YamlConfiguration.loadConfiguration(actionFile);
-        File ceilingFile = new File(gck.getDataFolder().getPath() + "/", "ceiling.yml");
+        File ceilingFile = new File(gck.getDataFolder(), "/ceiling.yml");
         YamlConfiguration ciFileConfig = YamlConfiguration.loadConfiguration(ceilingFile);
 
         boolean keys_drop_enabled = kyFileConfig.getBoolean("key_config.enabled");

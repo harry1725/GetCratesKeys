@@ -1,0 +1,429 @@
+# GetCratesKeys actions.yml
+# 오타 수정 및 궁금한 내용은 Derman_e (더맨이 / harry1725@naver.com) 에게 연락 바람
+# 여기서는 각 행동에 대한 열쇠 드랍을 설정할 수 있습니다.
+#
+# ======================= # 삽 질 # =======================
+# 블럭 추가 방법:
+# excavation:
+#   enabled: < true / false >
+#   - 해당 블럭을 "캤을 때" 열쇠 드랍 가능 여부. true는 활성화, false는 비활성화
+#
+#   대문자 블럭 이름:
+#     enabled: < true / false >
+#     - 해당 블럭을 캤을 때 열쇠 드랍 여부. true는 활성화, false는 비활성화
+#
+#     base_chance: < # >
+#     - 아우렐리움 레벨이 0일 때의 최소 확률. max_chance 분의 # * 100 = 확률 (%)
+#
+#     multiplier_enabled: < true / false >
+#     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수 적용 여부. true는 활성화, false는 비활성화
+#
+#     multiplier: < # >
+#     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수.
+#
+#     only_key: < # / -1 >
+#     - #번 열쇠만 드랍 설정. -1은 비활성화
+# ========================================================
+excavation:
+  enabled: true
+
+  CLAY:                               # 점토 블럭
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  COARSE_DIRT:                        # 거친 흙
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  DIRT:                               # 흙
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  GRASS_BLOCK:                        # 잔디 블럭
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  GRAVEL:                             # 자갈
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  MUD:                                # 진흙
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  MYCELIUM:                           # 균사체
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  PODZOL:                             # 회백토
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  POWDER_SNOW:                        # 가루눈
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  RED_SAND:                           # 붉은 모래
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  ROOTED_DIRT:                        # 뿌리가 박힌 흙
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  SAND:                               # 모래
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  SNOW:                               # 눈 (바닥에 1픽셀로 깔린 눈)
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  SNOW_BLOCK:                         # 눈 블럭
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  SOUL_SAND:                          # 영혼 모래
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  SOUL_SOIL:                          # 영혼 흙
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+
+# ======================= # 농 사 # =======================
+# 블럭 추가 방법:
+# farming:
+#   enabled: < true / false >
+#   - 해당 블럭을 "캤을 때" 열쇠 드랍 가능 여부. true는 활성화, false는 비활성화
+#
+#   대문자 블럭 이름:
+#     enabled: < true / false >
+#     - 해당 블럭을 캤을 때 열쇠 드랍 여부. true는 활성화, false는 비활성화
+#
+#     base_chance: < # >
+#     - 아우렐리움 레벨이 0일 때의 최소 확률. max_chance 분의 # * 100 = 확률 (%)
+#
+#     multiplier_enabled: < true / false >
+#     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수 적용 여부. true는 활성화, false는 비활성화
+#
+#     multiplier: < # >
+#     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수.
+#
+#     only_key: < # / -1 >
+#     - #번 열쇠만 드랍 설정. -1은 비활성화
+# ========================================================
+farming:
+  enabled: true
+
+  BEETROOT_SEEDS:                     # 사탕무 씨앗 (심었을 때에도 이름이 씨앗)
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  CARROT:                             # 당근
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  GLOW_BERRIES:                       # 발광 열매
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  MELON:                              # 수박 블럭
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  POTATO:                             # 감자
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  PUMPKIN:                            # 호박
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  SUGAR_CANE:                         # 사탕수수
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  SWEET_BERRIES:                      # 달콤한 열매
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  WHEAT_SEEDS:                        # 밀 씨앗 (심었을 때에도 이름이 씨앗)
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+
+# ======================= # 낚 시 # =======================
+# 블럭 추가 방법:
+# fishng:
+#   enabled: < true / false >
+#   - 물에서 낚시에 성공해서 "아이템을 들어올릴 때" 열쇠 드랍 가능 여부. true는 활성화, false는 비활성화
+#
+#   fishing:
+#     enabled: < true / false >
+#     - 낚시에 성공했을 때 열쇠 드랍 여부. true는 활성화, false는 비활성화
+#
+#     base_chance: < # >
+#     - 아우렐리움 레벨이 0일 때의 최소 확률. max_chance 분의 # * 100 = 확률 (%)
+#
+#     multiplier_enabled: < true / false >
+#     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수 적용 여부. true는 활성화, false는 비활성화
+#
+#     multiplier: < # >
+#     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수.
+#
+#     only_key: < # / -1 >
+#     - #번 열쇠만 드랍 설정. -1은 비활성화
+# ========================================================
+fishing:
+  enabled: true
+
+  fishing:
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+
+# ======================= # 광 질 # =======================
+# 블럭 추가 방법:
+# minng:
+#   enabled: < true / false >
+#   - 해당 블럭을 "캤을 때" 열쇠 드랍 가능 여부. true는 활성화, false는 비활성화
+#
+#   대문자 블럭 이름:
+#     enabled: < true / false >
+#     - 해당 블럭을 캤을 때 열쇠 드랍 여부. true는 활성화, false는 비활성화
+#
+#     base_chance: < # >
+#     - 아우렐리움 레벨이 0일 때의 최소 확률. max_chance 분의 # * 100 = 확률 (%)
+#
+#     multiplier_enabled: < true / false >
+#     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수 적용 여부. true는 활성화, false는 비활성화
+#
+#     multiplier: < # >
+#     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수.
+#
+#     only_key: < # / -1 >
+#     - #번 열쇠만 드랍 설정. -1은 비활성화
+# ========================================================
+mining:
+  enabled: true
+
+  ANCIENT_DEBRIS:                     # 고대 잔해
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  COAL_ORE:                           # 석탄 원석
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  COPPER_ORE:                         # 구리 원석
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  DEEPSLATE_COAL_ORE:                 # 심층암 석탄 원석
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  DEEPSLATE_COPPER_ORE:               # 심층암 구리 원석
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  DEEPSLATE_DIAMOND_ORE:              # 심층암 다이아몬드 원석
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  DEEPSLATE_EMERALD_ORE:              # 심층암 에메랄드 원석
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  DEEPSLATE_GOLD_ORE:                 # 심층암 금 원석
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  DEEPSLATE_IRON_ORE:                 # 심층암 철 원석
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  DEEPSLATE_LAPIS_ORE:                # 심층암 청금석 원석
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  DEEPSLATE_REDSTONE_ORE:             # 심층암 레드스톤 원석
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  DIAMOND_ORE:                        # 다이아몬드 원석
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  EMERALD_ORE:                        # 에메랄드 원석
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  GILDED_BLACKSTONE:                  # 금이 박힌 흑암
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  GOLD_ORE:                           # 금 원석
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  IRON_ORE:                           # 철 원석
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  LAPIS_ORE:                          # 청금석 원석
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  NETHER_GOLD_ORE:                    # 지옥 금 원석
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  NETHER_QUARTZ_ORE:                  # 지옥 석영 원석
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  REDSTONE_ORE:                       # 레드스톤 원석
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+

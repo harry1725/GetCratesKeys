@@ -23,9 +23,9 @@ public class GCK_commands extends AbstractCommand {
         super(plugin, commandLabel);
     }
 
-    File keyFile = new File(gck.getDataFolder().getPath() + "/", "keys.yml");
+    File keyFile = new File(gck.getDataFolder(), "/keys.yml");
     YamlConfiguration kyFileConfig = YamlConfiguration.loadConfiguration(keyFile);
-    File actionFile = new File(gck.getDataFolder().getPath() + "/", "actions.yml");
+    File actionFile = new File(gck.getDataFolder(), "/actions.yml");
     YamlConfiguration atFileConfig = YamlConfiguration.loadConfiguration(actionFile);
 
     @Override
