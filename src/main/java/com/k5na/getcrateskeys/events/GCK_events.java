@@ -2,6 +2,7 @@ package com.k5na.getcrateskeys.events;
 
 import com.k5na.getcrateskeys.GetCratesKeys;
 import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -159,6 +160,8 @@ public class GCK_events implements Listener {
 
                     for (int i = 1; i <= drop; i++) {
                         GetCratesKeys.console(command);
+
+                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys." + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                     }
 
                     if (ceiling_enabled) {
@@ -197,6 +200,8 @@ public class GCK_events implements Listener {
 
                                 for (int i = 1; i <= drop; i++) {
                                     GetCratesKeys.console(command);
+
+                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys." + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                                 }
 
                                 gck.getCeilConfig().set(ceiling_excavation_path, gck.getCeilConfig().getInt(ceiling_excavation_path) - ceiling_excavation_max);
@@ -260,6 +265,8 @@ public class GCK_events implements Listener {
 
                     for (int i = 1; i <= drop; i++) {
                         GetCratesKeys.console(command);
+
+                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys." + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                     }
 
                     if (ceiling_enabled) {
@@ -298,6 +305,8 @@ public class GCK_events implements Listener {
 
                                 for (int i = 1; i <= drop; i++) {
                                     GetCratesKeys.console(command);
+
+                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys." + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                                 }
 
                                 gck.getCeilConfig().set(ceiling_farming_path, gck.getCeilConfig().getInt(ceiling_farming_path) - ceiling_farming_max);
@@ -361,6 +370,8 @@ public class GCK_events implements Listener {
 
                     for (int i = 1; i <= drop; i++) {
                         GetCratesKeys.console(command);
+
+                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys." + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                     }
 
                     if (ceiling_enabled) {
@@ -399,6 +410,8 @@ public class GCK_events implements Listener {
 
                                 for (int i = 1; i <= drop; i++) {
                                     GetCratesKeys.console(command);
+
+                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys." + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                                 }
 
                                 gck.getCeilConfig().set(ceiling_mining_path, gck.getCeilConfig().getInt(ceiling_mining_path) - ceiling_mining_max);
@@ -509,6 +522,8 @@ public class GCK_events implements Listener {
 
                     for (int i = 1; i <= drop; i++) {
                         GetCratesKeys.console(command);
+
+                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys." + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                     }
 
                     if (ceiling_enabled) {
@@ -544,6 +559,8 @@ public class GCK_events implements Listener {
 
                                 for (int i = 1; i <= drop; i++) {
                                     GetCratesKeys.console(command);
+
+                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys." + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                                 }
 
                                 gck.getCeilConfig().set(ceiling_fishing_path, gck.getCeilConfig().getInt(ceiling_fishing_path) - ceiling_fishing_max);

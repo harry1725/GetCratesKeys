@@ -289,16 +289,16 @@ mining:
 
   ANCIENT_DEBRIS:                     # 고대 잔해
     enabled: true
-    base_chance: 1000
+    base_chance: 10000
     multiplier_enabled: true
-    multiplier: 1
+    multiplier: 100
     only_key: -1
 
   COAL_ORE:                           # 석탄 원석
     enabled: true
-    base_chance: 100
+    base_chance: 10000
     multiplier_enabled: true
-    multiplier: 1
+    multiplier: 100
     only_key: -1
 
   COPPER_ORE:                         # 구리 원석
