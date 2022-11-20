@@ -163,7 +163,7 @@ public class GCK_commands extends AbstractCommand {
                     } else if (args[0].equalsIgnoreCase("keys")) {  // 등록된 열쇠를 보여줌
                         int total_key_num = gck.getKeysConfig().getIntegerList("keys").size();
 
-                        if (gck.getKeysConfig().getBoolean("key_config.enabled")) {
+                        if (gck.getConfig().getBoolean("config.enabled")) {
                             player.sendMessage(ChatColor.GREEN + "현재 활성화되어 있는 모든 열쇠 목록" + ChatColor.WHITE + ":");
                             for (int i = 0; i <= total_key_num; i++) {
                                 if (gck.getKeysConfig().getBoolean("keys." + i + ".enabled")) {
@@ -174,10 +174,10 @@ public class GCK_commands extends AbstractCommand {
                             player.sendMessage(ChatColor.RED + "현재 열쇠 드랍이 비활성화되어있습니다! 블럭 당 열쇠 드랍 확률은 볼 수 있지만 실제로는 적용되지 않습니다.");
                         }
                     } else if (args[0].equalsIgnoreCase("chance")) {    // 현재 설정된 열쇠 드랍 확률을 보여줌
-                        int max_chance = gck.getKeysConfig().getInt("key_config.max_chance");
+                        int max_chance = gck.getConfig().getInt("config.max_chance");
 
                         if (args.length < 2) {
-                            if (gck.getKeysConfig().getBoolean("key_config.enabled")) {
+                            if (gck.getConfig().getBoolean("config.enabled")) {
                                 player.sendMessage(ChatColor.GREEN + "최대 확률 단위 (max_chance 분의 base_chance + multiplier * level)" + ChatColor.WHITE + ":");
                                 player.sendMessage(ChatColor.WHITE + "" + max_chance + "분의 base_chance + multiplier * level");
                             } else {
@@ -259,20 +259,20 @@ public class GCK_commands extends AbstractCommand {
                     } else if (args[0].equalsIgnoreCase("enable")) {  // 활성화 설정
                         if (player.isOp()) {
                             if (args[1].equalsIgnoreCase("key_drop")) {
-                                if (gck.getKeysConfig().getBoolean("key_config.enabled")) {
+                                if (gck.getConfig().getBoolean("config.enabled")) {
                                     player.sendMessage(ChatColor.RED + "이미 " + ChatColor.YELLOW + "열쇠 드랍" + ChatColor.RED + "설정이 활성화되어있습니다!");
                                 } else {
-                                    gck.getKeysConfig().set("key_config.enabled", true);
+                                    gck.getConfig().set("config.enabled", true);
 
-                                    gck.saveKeysConfig();
+                                    gck.saveConfig();
                                 }
                             } else if (args[1].equalsIgnoreCase("drop_boost")) {
-                                if (gck.getKeysConfig().getBoolean("key_config.drop_boost.enabled")) {
+                                if (gck.getConfig().getBoolean("config.drop_boost.enabled")) {
                                     player.sendMessage(ChatColor.RED + "이미 " + ChatColor.YELLOW + "드랍 부스트" + ChatColor.RED + "설정이 활성화되어있습니다!");
                                 } else {
-                                    gck.getKeysConfig().set("key_config.drop_boost.enabled", true);
+                                    gck.getConfig().set("config.drop_boost.enabled", true);
 
-                                    gck.saveKeysConfig();
+                                    gck.saveConfig();
                                 }
                             }
                         } else {
@@ -282,20 +282,20 @@ public class GCK_commands extends AbstractCommand {
                     } else if (args[0].equalsIgnoreCase("disable")) {  // 비활성화 설정
                         if (player.isOp()) {
                             if (args[1].equalsIgnoreCase("key_drop")) {
-                                if (!gck.getKeysConfig().getBoolean("key_config.enabled")) {
+                                if (!gck.getConfig().getBoolean("config.enabled")) {
                                     player.sendMessage(ChatColor.RED + "이미 " + ChatColor.YELLOW + "열쇠 드랍" + ChatColor.RED + "설정이 비활성화되어있습니다!");
                                 } else {
-                                    gck.getKeysConfig().set("key_config.enabled", false);
+                                    gck.getConfig().set("config.enabled", false);
 
-                                    gck.saveKeysConfig();
+                                    gck.saveConfig();
                                 }
                             } else if (args[1].equalsIgnoreCase("drop_boost")) {
-                                if (!gck.getKeysConfig().getBoolean("key_config.drop_boost.enabled")) {
+                                if (!gck.getConfig().getBoolean("config.drop_boost.enabled")) {
                                     player.sendMessage(ChatColor.RED + "이미 " + ChatColor.YELLOW + "드랍 부스트" + ChatColor.RED + "설정이 비활성화되어있습니다!");
                                 } else {
-                                    gck.getKeysConfig().set("key_config.drop_boost.enabled", false);
+                                    gck.getConfig().set("config.drop_boost.enabled", false);
 
-                                    gck.saveKeysConfig();
+                                    gck.saveConfig();
                                 }
                             }
                         } else {
@@ -308,36 +308,36 @@ public class GCK_commands extends AbstractCommand {
                                 try {
                                     int value = Integer.parseInt(args[2]);
 
-                                    gck.getKeysConfig().set("key_config.drop_boost.amount", value);
+                                    gck.getConfig().set("config.drop_boost.amount", value);
 
-                                    gck.saveKeysConfig();
+                                    gck.saveConfig();
                                 } catch (NumberFormatException e) {
                                     player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. 정수만 입력해 주세요.");
-                                    conLog("Not-INTEGER-TYPE value was entered by " + username + ". (Fc:L" + getLineNumber() + ")");
+                                    conLog("NOT-INTEGER-TYPE value was entered by " + username + ". (Fc:L" + getLineNumber() + ")");
                                     throw new RuntimeException(e);
                                 }
                             } else if (args[1].equalsIgnoreCase("drop_boost_chance_fixed")) {
                                 try {
                                     int value = Integer.parseInt(args[2]);
 
-                                    gck.getKeysConfig().set("key_config.drop_boost.chance_fixed", value);
+                                    gck.getConfig().set("config.drop_boost.chance_fixed", value);
 
-                                    gck.saveKeysConfig();
+                                    gck.saveConfig();
                                 } catch (NumberFormatException e) {
                                     player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. 정수만 입력해 주세요.");
-                                    conLog("Not-INTEGER-TYPE value was entered by " + username + ". (Fc:L" + getLineNumber() + ")");
+                                    conLog("NOT-INTEGER-TYPE value was entered by " + username + ". (Fc:L" + getLineNumber() + ")");
                                     throw new RuntimeException(e);
                                 }
                             } else if (args[1].equalsIgnoreCase("drop_boost_chance_multiplier")) {
                                 try {
                                     float value = Integer.parseInt(args[2]);
 
-                                    gck.getKeysConfig().set("key_config.drop_boost.chance_multiplier", value);
+                                    gck.getConfig().set("config.drop_boost.chance_multiplier", value);
 
-                                    gck.saveKeysConfig();
+                                    gck.saveConfig();
                                 } catch (NumberFormatException e) {
                                     player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. 정수만 입력해 주세요.");
-                                    conLog("Not-INTEGER-TYPE value was entered by " + username + ". (Fc:L" + getLineNumber() + ")");
+                                    conLog("NOT-INTEGER-TYPE value was entered by " + username + ". (Fc:L" + getLineNumber() + ")");
                                     throw new RuntimeException(e);
                                 }
                             } else {
@@ -358,7 +358,15 @@ public class GCK_commands extends AbstractCommand {
                     if (args[0].equalsIgnoreCase("test")) {
                         sender.sendMessage(ChatColor.GREEN + "Console command is working properly.");
                     } else if (args[0].equalsIgnoreCase("reload")) {
-                        gck.reloadConfig();
+                        super.gck.reloadConfig();
+                        gck.saveDefaultConfig();
+                        gck.getConfig().options().copyDefaults(true);
+                        gck.saveConfig();
+
+                        gck.reloadKeysConfig();
+                        gck.reloadActsConfig();
+                        gck.reloadCeilConfig();
+
                         sender.sendMessage(ChatColor.AQUA + "Config has been reloaded. If it doesn't apply, please restart the server to make it sure working.");
                     }
                 }

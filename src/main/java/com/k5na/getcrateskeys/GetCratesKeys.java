@@ -3,7 +3,6 @@ package com.k5na.getcrateskeys;
 import com.k5na.getcrateskeys.commands.GCK_commands;
 import com.k5na.getcrateskeys.events.GCK_events;
 import com.k5na.getcrateskeys.expansions.GCK_expansions;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
@@ -44,8 +43,6 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         return Thread.currentThread().getStackTrace()[2].getLineNumber();
     }
 
-    boolean wasSuccessful;
-
     public File keysConfigFile;
     public File actsConfigFile;
     public File ceilConfigFile;
@@ -58,57 +55,33 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         keysConfigFile = new File(getDataFolder(), "keys.yml");
 
         if (!keysConfigFile.exists()) {
-            wasSuccessful = keysConfigFile.getParentFile().mkdirs();
-            if (wasSuccessful) {
-                saveResource("keys.yml", true);
-            }
+            keysConfigFile.getParentFile().mkdirs();
+            saveResource("keys.yml", true);
         }
 
-        keysConfig = new YamlConfiguration();
-
-        try {
-            keysConfig.load(keysConfigFile);
-        } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
-        }
+        keysConfig = YamlConfiguration.loadConfiguration(keysConfigFile);
     }
 
     public void createActsConfig() {
         actsConfigFile = new File(getDataFolder(), "actions.yml");
 
         if (!actsConfigFile.exists()) {
-            wasSuccessful = actsConfigFile.getParentFile().mkdirs();
-            if (wasSuccessful) {
-                saveResource("actions.yml", true);
-            }
+            actsConfigFile.getParentFile().mkdirs();
+            saveResource("actions.yml", true);
         }
 
-        actsConfig = new YamlConfiguration();
-
-        try {
-            actsConfig.load(actsConfigFile);
-        } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
-        }
+        actsConfig = YamlConfiguration.loadConfiguration(actsConfigFile);
     }
 
     public void createCeilConfig() {
         ceilConfigFile = new File(getDataFolder(), "ceiling.yml");
 
         if (!ceilConfigFile.exists()) {
-            wasSuccessful = ceilConfigFile.getParentFile().mkdirs();
-            if (wasSuccessful) {
-                saveResource("ceiling.yml", true);
-            }
+            ceilConfigFile.getParentFile().mkdirs();
+            saveResource("ceiling.yml", true);
         }
 
-        ceilConfig = new YamlConfiguration();
-
-        try {
-            ceilConfig.load(ceilConfigFile);
-        } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
-        }
+        ceilConfig = YamlConfiguration.loadConfiguration(ceilConfigFile);
     }
 
     public FileConfiguration getKeysConfig() {
@@ -185,6 +158,11 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
             conLog("Could not find PlaceholderAPI! This plugin is required.");
             Bukkit.getPluginManager().disablePlugin(this);
         }
+
+        if (!getDataFolder().exists()) {
+            getConfig().options().copyDefaults(true);
+        }
+        saveConfig();
 
         createKeysConfig();
         createActsConfig();

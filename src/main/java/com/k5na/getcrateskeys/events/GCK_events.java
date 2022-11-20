@@ -8,7 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.List;
 import java.util.UUID;
@@ -54,18 +53,18 @@ public class GCK_events implements Listener {
         UUID uuid = player.getUniqueId();
         String block_name = event.getBlock().getBlockData().getMaterial().name();
 
-        boolean keys_drop_enabled = gck.getKeysConfig().getBoolean("key_config.enabled");
-        int max_chance = gck.getKeysConfig().getInt("key_config.max_chance");
+        boolean keys_drop_enabled = gck.getConfig().getBoolean("config.enabled");
+        int max_chance = gck.getConfig().getInt("config.max_chance");
 
-        boolean key_drop_boost_enabled = gck.getKeysConfig().getBoolean("key_config.drop_boost.enabled");
-        int key_drop_boost_amount = gck.getKeysConfig().getInt("key_config.drop_boost.amount");
-        int key_drop_chance_fixed = gck.getKeysConfig().getInt("key_config.drop_boost.chance_fixed");
-        int key_drop_chance_multiplier = gck.getKeysConfig().getInt("key_config.drop_boost.chance_multiplier");
+        boolean key_drop_boost_enabled = gck.getConfig().getBoolean("config.drop_boost.enabled");
+        int key_drop_boost_amount = gck.getConfig().getInt("config.drop_boost.amount");
+        int key_drop_chance_fixed = gck.getConfig().getInt("config.drop_boost.chance_fixed");
+        int key_drop_chance_multiplier = gck.getConfig().getInt("config.drop_boost.chance_multiplier");
 
-        boolean ceiling_enabled = gck.getKeysConfig().getBoolean("key_config.ceiling.enabled");
-        int ceiling_excavation_max = gck.getKeysConfig().getInt("key_config.ceiling.excavation_max");
-        int ceiling_farming_max = gck.getKeysConfig().getInt("key_config.ceiling.farming_max");
-        int ceiling_mining_max = gck.getKeysConfig().getInt("key_config.ceiling.mining_max");
+        boolean ceiling_enabled = gck.getConfig().getBoolean("config.ceiling.enabled");
+        int ceiling_excavation_max = gck.getConfig().getInt("config.ceiling.excavation_max");
+        int ceiling_farming_max = gck.getConfig().getInt("config.ceiling.farming_max");
+        int ceiling_mining_max = gck.getConfig().getInt("config.ceiling.mining_max");
 
         int total_key_num = gck.getKeysConfig().getIntegerList("keys").size();
         int[] enabled_keys = new int[total_key_num];
@@ -422,16 +421,16 @@ public class GCK_events implements Listener {
         UUID uuid = player.getUniqueId();
         PlayerFishEvent.State state = event.getState();
 
-        boolean keys_drop_enabled = gck.getKeysConfig().getBoolean("key_config.enabled");
-        int max_chance = gck.getKeysConfig().getInt("key_config.max_chance");
+        boolean keys_drop_enabled = gck.getConfig().getBoolean("config.enabled");
+        int max_chance = gck.getConfig().getInt("config.max_chance");
 
-        boolean key_drop_boost_enabled = gck.getKeysConfig().getBoolean("key_config.drop_boost.enabled");
-        int key_drop_boost_amount = gck.getKeysConfig().getInt("key_config.drop_boost.amount");
-        int key_drop_chance_fixed = gck.getKeysConfig().getInt("key_config.drop_boost.chance_fixed");
-        int key_drop_chance_multiplier = gck.getKeysConfig().getInt("key_config.drop_boost.chance_multiplier");
+        boolean key_drop_boost_enabled = gck.getConfig().getBoolean("config.drop_boost.enabled");
+        int key_drop_boost_amount = gck.getConfig().getInt("config.drop_boost.amount");
+        int key_drop_chance_fixed = gck.getConfig().getInt("config.drop_boost.chance_fixed");
+        int key_drop_chance_multiplier = gck.getConfig().getInt("config.drop_boost.chance_multiplier");
 
-        boolean ceiling_enabled = gck.getKeysConfig().getBoolean("key_config.ceiling.enabled");
-        int ceiling_fishing_max = gck.getKeysConfig().getInt("key_config.ceiling.fishing_max");
+        boolean ceiling_enabled = gck.getConfig().getBoolean("config.ceiling.enabled");
+        int ceiling_fishing_max = gck.getConfig().getInt("config.ceiling.fishing_max");
 
         int total_key_num = gck.getKeysConfig().getIntegerList("keys").size();
         int[] enabled_keys = new int[total_key_num];
@@ -559,10 +558,5 @@ public class GCK_events implements Listener {
                 }
             }
         }
-    }
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event) {
-
-        gck.saveCeilConfig();
     }
 }
