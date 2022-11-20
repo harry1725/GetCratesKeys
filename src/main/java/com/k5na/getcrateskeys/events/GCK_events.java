@@ -27,10 +27,10 @@ public class GCK_events implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
 
-        String ceiling_excavation_path = "ceiling" + uuid + ".excavation";
-        String ceiling_farming_path = "ceiling" + uuid + ".farming";
-        String ceiling_fishing_path = "ceiling" + uuid + ".fishing";
-        String ceiling_mining_path = "ceiling" + uuid + ".mining";
+        String ceiling_excavation_path = "ceiling." + uuid + ".excavation";
+        String ceiling_farming_path = "ceiling." + uuid + ".farming";
+        String ceiling_fishing_path = "ceiling." + uuid + ".fishing";
+        String ceiling_mining_path = "ceiling." + uuid + ".mining";
 
         if (!gck.getCeilConfig().isSet(ceiling_excavation_path)) {
             gck.getCeilConfig().set(ceiling_excavation_path, 0);
@@ -90,9 +90,9 @@ public class GCK_events implements Listener {
         List<String> mining_block_list = gck.getActsConfig().getStringList("mining");
         boolean mining_enabled = gck.getActsConfig().getBoolean("mining.enabled");
 
-        String ceiling_excavation_path = "ceiling" + uuid + ".excavation";
-        String ceiling_farming_path = "ceiling" + uuid + ".farming";
-        String ceiling_mining_path = "ceiling" + uuid + ".mining";
+        String ceiling_excavation_path = "ceiling." + uuid + ".excavation";
+        String ceiling_farming_path = "ceiling." + uuid + ".farming";
+        String ceiling_mining_path = "ceiling." + uuid + ".mining";
 
         if (!gck.getCeilConfig().isSet(ceiling_excavation_path)) {
             gck.getCeilConfig().set(ceiling_excavation_path, 0);
@@ -464,7 +464,7 @@ public class GCK_events implements Listener {
         boolean fishing_enabled = gck.getActsConfig().getBoolean("fishing.enabled");
 
         String fishing_path = "fishing.fishing";
-        String ceiling_fishing_path = "ceiling" + uuid + ".fishing";
+        String ceiling_fishing_path = "ceiling." + uuid + ".fishing";
 
         if (!gck.getCeilConfig().isSet(ceiling_fishing_path)) {
             gck.getCeilConfig().set(ceiling_fishing_path, 0);
