@@ -26,7 +26,8 @@ public class GCK_commands extends AbstractCommand {
         if (alias.length() == 0) {
             tabs.add("gck");
         }
-        if (args.length == 1) {
+
+        if (alias.length() == 1) {
             if (args[0].equalsIgnoreCase("gck")) {
                 tabs.add("info");
                 tabs.add("help");
@@ -36,9 +37,18 @@ public class GCK_commands extends AbstractCommand {
                 tabs.add("disable");
                 tabs.add("set");
             }
-        } else if (args.length == 2) {
+        }
+
+        if (alias.length() == 2) {
             if (args[0].equalsIgnoreCase("gck")) {
-                if (args[1].equalsIgnoreCase("chance")) {
+                if (args[1].equalsIgnoreCase("help")) {
+                    tabs.add("info");
+                    tabs.add("reload");
+                    tabs.add("chance");
+                    tabs.add("enable");
+                    tabs.add("disable");
+                    tabs.add("set");
+                } else if (args[1].equalsIgnoreCase("chance")) {
                     tabs.add("excavation");
                     tabs.add("farming");
                     tabs.add("fishing");
@@ -65,7 +75,7 @@ public class GCK_commands extends AbstractCommand {
             UUID uuid = player.getUniqueId();
 
             if (label.equalsIgnoreCase("gck")) {    // 베이스 명령어
-                if (args.length == 0) {
+                if (args.length < 1) {
                     player.sendMessage("");
                     player.sendMessage(ChatColor.GRAY + "=====================================================");
                     player.sendMessage("");
@@ -89,7 +99,7 @@ public class GCK_commands extends AbstractCommand {
                         player.sendMessage(ChatColor.GRAY + "=====================================================");
                         player.sendMessage("");
                     } else if (args[0].equalsIgnoreCase("help")) {    // 명령어 목록
-                        if (args[1].equals("")) {
+                        if (args.length < 2) {
                             player.sendMessage("");
                             player.sendMessage(ChatColor.GRAY + "=====================================================");
                             player.sendMessage("");
@@ -101,45 +111,54 @@ public class GCK_commands extends AbstractCommand {
                             player.sendMessage(ChatColor.GRAY + "-----------------------------------------------------");
                             player.sendMessage("");
                             player.sendMessage(ChatColor.GREEN + "/gck info");
-                            player.sendMessage(ChatColor.GREEN + "/gck help [ chance / enable / disable / set ]");
+                            player.sendMessage(ChatColor.GREEN + "/gck help [ info / reload / chance / enable / disable / set ]");
                             player.sendMessage(ChatColor.RED + "/gck reload");
                             player.sendMessage(ChatColor.GREEN + "/gck chance [ excavation / farming / fishing / mining ]");
                             player.sendMessage(ChatColor.RED + "/gck enable < key_drop / drop_boost >");
                             player.sendMessage(ChatColor.RED + "/gck disable < key_drop / drop_boost >");
                             player.sendMessage(ChatColor.RED + "/gck set < drop_boost_amount / drop_boost_chance_fixed / drop_boost_chance_multiplier > < # >");
-                        } else if (args[1].equalsIgnoreCase("reload")) {
-                            if (player.isOp()) {
-                                super.gck.reloadConfig();
-                                gck.saveDefaultConfig();
-                                gck.getConfig().options().copyDefaults(true);
-                                gck.saveConfig();
-
-                                gck.reloadKeysConfig();
-                                gck.reloadActsConfig();
-                                gck.reloadCeilConfig();
-
-                                player.sendMessage(ChatColor.AQUA + "config가 리로드되었습니다. 미적용시 서버 재시작을 시도해보시기 바랍니다.");
-                                conLog("Config reloaded by " + username + " (UUID : " + uuid + ")");
-                            } else {
-                                player.sendMessage(ChatColor.RED + "이 명령어를 사용할 권한이 없습니다! 서버 관리자에게 문의해보세요.");
-                                conLog(username + "(UUID :" + uuid + ") tried to use /gck reload without OP.");
+                            player.sendMessage("");
+                            player.sendMessage(ChatColor.GRAY + "=====================================================");
+                            player.sendMessage("");
+                        } else {
+                            if (args[1].equalsIgnoreCase("reload")) {
+                                player.sendMessage(ChatColor.RED + "사용 방법" + ChatColor.WHITE + " :");
+                                player.sendMessage(ChatColor.WHITE + "/gck reload");
+                                player.sendMessage(ChatColor.RED + "이 명령어를 사용하기 위해서는 OP가 필요합니다.");
+                            } else if (args[1].equalsIgnoreCase("chance")) {
+                                player.sendMessage(ChatColor.GREEN + "사용 방법" + ChatColor.WHITE + " :");
+                                player.sendMessage(ChatColor.WHITE + "/gck chance [ excavation / farming / fishing / mining ]");
+                                player.sendMessage(ChatColor.GREEN + "맨 뒤 요소를 입력하지 않고 명령어를 사용하면 최대 확률 단위가 출력됩니다.");
+                            } else if (args[1].equalsIgnoreCase("enable")) {
+                                player.sendMessage(ChatColor.RED + "사용 방법" + ChatColor.WHITE + " :");
+                                player.sendMessage(ChatColor.WHITE + "/gck enable < key_drop / drop_boost >");
+                                player.sendMessage(ChatColor.RED + "이 명령어를 사용하기 위해서는 OP가 필요합니다.");
+                            } else if (args[1].equalsIgnoreCase("disable")) {
+                                player.sendMessage(ChatColor.RED + "사용 방법" + ChatColor.WHITE + " :");
+                                player.sendMessage(ChatColor.WHITE + "/gck disable < key_drop / drop_boost >");
+                                player.sendMessage(ChatColor.RED + "이 명령어를 사용하기 위해서는 OP가 필요합니다.");
+                            } else if (args[1].equalsIgnoreCase("set")) {
+                                player.sendMessage(ChatColor.RED + "사용 방법" + ChatColor.WHITE + " :");
+                                player.sendMessage(ChatColor.WHITE + "/gck set < drop_boost_amount / drop_boost_chance_fixed / drop_boost_chance_multiplier > < # >");
+                                player.sendMessage(ChatColor.RED + "이 명령어를 사용하기 위해서는 OP가 필요합니다.");
                             }
-                        } else if (args[1].equalsIgnoreCase("chance")) {
-                            player.sendMessage(ChatColor.GREEN + "사용 방법" + ChatColor.WHITE + " :");
-                            player.sendMessage(ChatColor.WHITE + "/gck chance [ excavation / farming / fishing / mining ]");
-                            player.sendMessage(ChatColor.GREEN + "맨 뒤 요소를 입력하지 않고 명령어를 사용하면 최대 확률 단위가 출력됩니다.");
-                        } else if (args[1].equalsIgnoreCase("enable")) {
-                            player.sendMessage(ChatColor.RED + "사용 방법" + ChatColor.WHITE + " :");
-                            player.sendMessage(ChatColor.WHITE + "/gck enable < key_drop / drop_boost >");
-                            player.sendMessage(ChatColor.RED + "이 명령어를 사용하기 위해서는 OP가 필요합니다.");
-                        } else if (args[1].equalsIgnoreCase("disable")) {
-                            player.sendMessage(ChatColor.RED + "사용 방법" + ChatColor.WHITE + " :");
-                            player.sendMessage(ChatColor.WHITE + "/gck disable < key_drop / drop_boost >");
-                            player.sendMessage(ChatColor.RED + "이 명령어를 사용하기 위해서는 OP가 필요합니다.");
-                        } else if (args[1].equalsIgnoreCase("set")) {
-                            player.sendMessage(ChatColor.RED + "사용 방법" + ChatColor.WHITE + " :");
-                            player.sendMessage(ChatColor.WHITE + "/gck set < drop_boost_amount / drop_boost_chance_fixed / drop_boost_chance_multiplier > < # >");
-                            player.sendMessage(ChatColor.RED + "이 명령어를 사용하기 위해서는 OP가 필요합니다.");
+                        }
+                    } else if (args[0].equalsIgnoreCase("reload")) {
+                        if (player.isOp()) {
+                            super.gck.reloadConfig();
+                            gck.saveDefaultConfig();
+                            gck.getConfig().options().copyDefaults(true);
+                            gck.saveConfig();
+
+                            gck.reloadKeysConfig();
+                            gck.reloadActsConfig();
+                            gck.reloadCeilConfig();
+
+                            player.sendMessage(ChatColor.AQUA + "config가 리로드되었습니다. 미적용시 서버 재시작을 시도해보시기 바랍니다.");
+                            conLog("Config reloaded by " + username + " (UUID : " + uuid + ")");
+                        } else {
+                            player.sendMessage(ChatColor.RED + "이 명령어를 사용할 권한이 없습니다! 서버 관리자에게 문의해보세요.");
+                            conLog(username + "(UUID :" + uuid + ") tried to use /gck reload without OP.");
                         }
                     } else if (args[0].equalsIgnoreCase("keys")) {  // 등록된 열쇠를 보여줌
                         int total_key_num = gck.getKeysConfig().getIntegerList("keys").size();
@@ -157,83 +176,85 @@ public class GCK_commands extends AbstractCommand {
                     } else if (args[0].equalsIgnoreCase("chance")) {    // 현재 설정된 열쇠 드랍 확률을 보여줌
                         int max_chance = gck.getKeysConfig().getInt("key_config.max_chance");
 
-                        if (args[1].equals("")) {
+                        if (args.length < 2) {
                             if (gck.getKeysConfig().getBoolean("key_config.enabled")) {
                                 player.sendMessage(ChatColor.GREEN + "최대 확률 단위 (max_chance 분의 base_chance + multiplier * level)" + ChatColor.WHITE + ":");
                                 player.sendMessage(ChatColor.WHITE + "" + max_chance + "분의 base_chance + multiplier * level");
                             } else {
                                 player.sendMessage(ChatColor.RED + "현재 열쇠 드랍이 비활성화되어있습니다! 블럭 당 열쇠 드랍 확률은 볼 수 있지만 실제로는 적용되지 않습니다.");
                             }
-                        } else if (args[1].equalsIgnoreCase("excavation")) {
-                            List<String> excavation_list = gck.getActsConfig().getStringList("excavation");
-
-                            if (gck.getActsConfig().getBoolean("excavation.enabled")) {
-                                int total_excavation_num = excavation_list.size();
-
-                                player.sendMessage(ChatColor.GREEN + "블럭 당 열쇠 드랍 확률" + ChatColor.WHITE + ":");
-                                for (int i = 0; i <= total_excavation_num; i++) {
-                                    if (gck.getActsConfig().getBoolean("excavation." + excavation_list.get(i) + ".enabled")) {
-                                        player.sendMessage(ChatColor.AQUA + excavation_list.get(i) + ":");
-                                        player.sendMessage(ChatColor.WHITE + "기본 확률: " + gck.getActsConfig().getInt("excavation." + excavation_list.get(i) + ".base_chance"));
-
-                                        if (gck.getActsConfig().getBoolean("excavation." + excavation_list.get(i) + ".multiplier_enabled")) {
-                                            player.sendMessage(ChatColor.YELLOW + "레벨 당 배수" + ChatColor.WHITE + ": " + gck.getActsConfig().getInt("excavation." + excavation_list.get(i) + ".multiplier"));
-                                        }
-                                    }
-                                }
-                            } else {
-                                player.sendMessage(ChatColor.RED + "삽질 항목에 대해 현재 열쇠 드랍이 비활성화 되어있습니다!");
-                            }
-                        } else if (args[1].equalsIgnoreCase("farming")) {   // 농사 항목
-                            List<String> farming_list = gck.getActsConfig().getStringList("farming");
-
-                            if (gck.getActsConfig().getBoolean("farming.enabled")) {
-                                int total_farming_num = farming_list.size();
-
-                                player.sendMessage(ChatColor.GREEN + "블럭 당 열쇠 드랍 확률" + ChatColor.WHITE + ":");
-                                for (int i = 0; i <= total_farming_num; i++) {
-                                    if (gck.getActsConfig().getBoolean("farming." + farming_list.get(i) + ".enabled")) {
-                                        player.sendMessage(ChatColor.AQUA + farming_list.get(i) + ":");
-                                        player.sendMessage(ChatColor.WHITE + "기본 확률: " + gck.getActsConfig().getInt("farming." + farming_list.get(i) + ".base_chance"));
-
-                                        if (gck.getActsConfig().getBoolean("farming." + farming_list.get(i) + ".multiplier_enabled")) {
-                                            player.sendMessage(ChatColor.YELLOW + "레벨 당 배수" + ChatColor.WHITE + ": " + gck.getActsConfig().getInt("farming." + farming_list.get(i) + ".multiplier"));
-                                        }
-                                    }
-                                }
-                            } else {
-                                player.sendMessage(ChatColor.RED + "농사 항목에 대해 현제 열쇠 드랍이 비활성화 되어있습니다!");
-                            }
-                        } else if (args[1].equalsIgnoreCase("fishing")) {   // 낚시 항목
-                            if (gck.getActsConfig().getBoolean("fishing.enabled")) {
-                                player.sendMessage(ChatColor.GREEN + "낚시 성공 횟수 당 열쇠 드랍 확률" + ChatColor.WHITE + ":");
-                                player.sendMessage(ChatColor.WHITE + "기본 확률: " + gck.getActsConfig().getInt("fishing.fishing.base_chance"));
-                                if (gck.getActsConfig().getBoolean("fishing.fishing.multiplier_enabled")) {
-                                    player.sendMessage(ChatColor.YELLOW + "레벨 당 배수" + ChatColor.WHITE + ": " + gck.getActsConfig().getInt("fishing.fishing.multiplier"));
-                                }
-                            }
-                        } else if (args[1].equalsIgnoreCase("mining")) {    // 광질 항목
-                            List<String> mining_list = gck.getActsConfig().getStringList("mining");
-
-                            if (gck.getActsConfig().getBoolean("mining.enabled")) {
-                                int total_mining_num = mining_list.size();
-
-                                player.sendMessage(ChatColor.GREEN + "블럭 당 열쇠 드랍 확률" + ChatColor.WHITE + ":");
-                                for (int i = 0; i <= total_mining_num; i++) {
-                                    if (gck.getActsConfig().getBoolean("mining." + mining_list.get(i) + ".enabled")) {
-                                        player.sendMessage(ChatColor.AQUA + mining_list.get(i) + ":");
-                                        player.sendMessage(ChatColor.WHITE + "기본 확률: " + gck.getActsConfig().getInt("mining." + mining_list.get(i) + ".base_chance"));
-
-                                        if (gck.getActsConfig().getBoolean("mining." + mining_list.get(i) + ".multiplier_enabled")) {
-                                            player.sendMessage(ChatColor.YELLOW + "레벨 당 배수" + ChatColor.WHITE + ": " + gck.getActsConfig().getInt("mining." + mining_list.get(i) + ".multiplier"));
-                                        }
-                                    }
-                                }
-                            } else {
-                                player.sendMessage(ChatColor.RED + "광질 항목에 대해 현재 열쇠 드랍이 비활성화 되어있습니다!");
-                            }
                         } else {
-                            player.sendMessage(ChatColor.RED + "알 수 없는 항목입니다. 명령어를 확인 후 다시 시도해주세요.");
+                            if (args[1].equalsIgnoreCase("excavation")) {
+                                List<String> excavation_list = gck.getActsConfig().getStringList("excavation");
+
+                                if (gck.getActsConfig().getBoolean("excavation.enabled")) {
+                                    int total_excavation_num = excavation_list.size();
+
+                                    player.sendMessage(ChatColor.GREEN + "블럭 당 열쇠 드랍 확률" + ChatColor.WHITE + ":");
+                                    for (int i = 0; i <= total_excavation_num; i++) {
+                                        if (gck.getActsConfig().getBoolean("excavation." + excavation_list.get(i) + ".enabled")) {
+                                            player.sendMessage(ChatColor.AQUA + excavation_list.get(i) + ":");
+                                            player.sendMessage(ChatColor.WHITE + "기본 확률: " + gck.getActsConfig().getInt("excavation." + excavation_list.get(i) + ".base_chance"));
+
+                                            if (gck.getActsConfig().getBoolean("excavation." + excavation_list.get(i) + ".multiplier_enabled")) {
+                                                player.sendMessage(ChatColor.YELLOW + "레벨 당 배수" + ChatColor.WHITE + ": " + gck.getActsConfig().getInt("excavation." + excavation_list.get(i) + ".multiplier"));
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    player.sendMessage(ChatColor.RED + "삽질 항목에 대해 현재 열쇠 드랍이 비활성화 되어있습니다!");
+                                }
+                            } else if (args[1].equalsIgnoreCase("farming")) {   // 농사 항목
+                                List<String> farming_list = gck.getActsConfig().getStringList("farming");
+
+                                if (gck.getActsConfig().getBoolean("farming.enabled")) {
+                                    int total_farming_num = farming_list.size();
+
+                                    player.sendMessage(ChatColor.GREEN + "블럭 당 열쇠 드랍 확률" + ChatColor.WHITE + ":");
+                                    for (int i = 0; i <= total_farming_num; i++) {
+                                        if (gck.getActsConfig().getBoolean("farming." + farming_list.get(i) + ".enabled")) {
+                                            player.sendMessage(ChatColor.AQUA + farming_list.get(i) + ":");
+                                            player.sendMessage(ChatColor.WHITE + "기본 확률: " + gck.getActsConfig().getInt("farming." + farming_list.get(i) + ".base_chance"));
+
+                                            if (gck.getActsConfig().getBoolean("farming." + farming_list.get(i) + ".multiplier_enabled")) {
+                                                player.sendMessage(ChatColor.YELLOW + "레벨 당 배수" + ChatColor.WHITE + ": " + gck.getActsConfig().getInt("farming." + farming_list.get(i) + ".multiplier"));
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    player.sendMessage(ChatColor.RED + "농사 항목에 대해 현제 열쇠 드랍이 비활성화 되어있습니다!");
+                                }
+                            } else if (args[1].equalsIgnoreCase("fishing")) {   // 낚시 항목
+                                if (gck.getActsConfig().getBoolean("fishing.enabled")) {
+                                    player.sendMessage(ChatColor.GREEN + "낚시 성공 횟수 당 열쇠 드랍 확률" + ChatColor.WHITE + ":");
+                                    player.sendMessage(ChatColor.WHITE + "기본 확률: " + gck.getActsConfig().getInt("fishing.fishing.base_chance"));
+                                    if (gck.getActsConfig().getBoolean("fishing.fishing.multiplier_enabled")) {
+                                        player.sendMessage(ChatColor.YELLOW + "레벨 당 배수" + ChatColor.WHITE + ": " + gck.getActsConfig().getInt("fishing.fishing.multiplier"));
+                                    }
+                                }
+                            } else if (args[1].equalsIgnoreCase("mining")) {    // 광질 항목
+                                List<String> mining_list = gck.getActsConfig().getStringList("mining");
+
+                                if (gck.getActsConfig().getBoolean("mining.enabled")) {
+                                    int total_mining_num = mining_list.size();
+
+                                    player.sendMessage(ChatColor.GREEN + "블럭 당 열쇠 드랍 확률" + ChatColor.WHITE + ":");
+                                    for (int i = 0; i <= total_mining_num; i++) {
+                                        if (gck.getActsConfig().getBoolean("mining." + mining_list.get(i) + ".enabled")) {
+                                            player.sendMessage(ChatColor.AQUA + mining_list.get(i) + ":");
+                                            player.sendMessage(ChatColor.WHITE + "기본 확률: " + gck.getActsConfig().getInt("mining." + mining_list.get(i) + ".base_chance"));
+
+                                            if (gck.getActsConfig().getBoolean("mining." + mining_list.get(i) + ".multiplier_enabled")) {
+                                                player.sendMessage(ChatColor.YELLOW + "레벨 당 배수" + ChatColor.WHITE + ": " + gck.getActsConfig().getInt("mining." + mining_list.get(i) + ".multiplier"));
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    player.sendMessage(ChatColor.RED + "광질 항목에 대해 현재 열쇠 드랍이 비활성화 되어있습니다!");
+                                }
+                            } else {
+                                player.sendMessage(ChatColor.RED + "알 수 없는 항목입니다. 명령어를 확인 후 다시 시도해주세요.");
+                            }
                         }
                     } else if (args[0].equalsIgnoreCase("enable")) {  // 활성화 설정
                         if (player.isOp()) {
