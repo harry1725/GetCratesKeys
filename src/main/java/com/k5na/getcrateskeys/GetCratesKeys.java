@@ -3,6 +3,8 @@ package com.k5na.getcrateskeys;
 import com.k5na.getcrateskeys.commands.GCK_commands;
 import com.k5na.getcrateskeys.events.GCK_events;
 import com.k5na.getcrateskeys.expansions.GCK_expansions;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -14,8 +16,6 @@ import org.bukkit.ChatColor;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
-
-import static com.k5na.getcrateskeys.events.GCK_events.gck;
 
 public final class GetCratesKeys extends JavaPlugin implements Listener {
     public static void conLog(final String msg) {
@@ -44,20 +44,128 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         return Thread.currentThread().getStackTrace()[2].getLineNumber();
     }
 
-    File keyFile = new File(getDataFolder(), "/keys.yml");
-    YamlConfiguration kyFileConfig = YamlConfiguration.loadConfiguration(keyFile);
-    File actionFile = new File(getDataFolder(), "/action.yml");
-    YamlConfiguration atFileConfig = YamlConfiguration.loadConfiguration(actionFile);
-    File ceilingFile = new File(getDataFolder(), "/ceiling.yml");
-    YamlConfiguration ciFileConfig = YamlConfiguration.loadConfiguration(ceilingFile);
+    public File keysConfigFile;
+    public File actsConfigFile;
+    public File ceilConfigFile;
+
+    public FileConfiguration keysConfig;
+    public FileConfiguration actsConfig;
+    public FileConfiguration ceilConfig;
+
+    public void createKeysConfig() {
+        keysConfigFile = new File(getDataFolder(), "keys.yml");
+
+        if (!keysConfigFile.exists()) {
+            keysConfigFile.getParentFile().mkdirs();
+            saveResource("keys.yml", false);
+        }
+
+        keysConfig = new YamlConfiguration();
+
+        try {
+            keysConfig.load(keysConfigFile);
+        } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createActsConfig() {
+        actsConfigFile = new File(getDataFolder(), "actions.yml");
+
+        if (!actsConfigFile.exists()) {
+            actsConfigFile.getParentFile().mkdirs();
+            saveResource("actions.yml", false);
+        }
+
+        actsConfig = new YamlConfiguration();
+
+        try {
+            actsConfig.load(actsConfigFile);
+        } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createCeilConfig() {
+        ceilConfigFile = new File(getDataFolder(), "ceiling.yml");
+
+        if (!ceilConfigFile.exists()) {
+            ceilConfigFile.getParentFile().mkdirs();
+            saveResource("ceiling.yml", false);
+        }
+
+        ceilConfig = new YamlConfiguration();
+
+        try {
+            ceilConfig.load(ceilConfigFile);
+        } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public FileConfiguration getKeysConfig() {
+        return this.keysConfig;
+    }
+
+    public FileConfiguration getActsConfig() {
+        return this.actsConfig;
+    }
+
+    public FileConfiguration getCeilConfig() {
+        return this.ceilConfig;
+    }
+
+    public void reloadKeysConfig() {
+        if (keysConfigFile == null) {
+            keysConfigFile = new File(getDataFolder(), "keys.yml");
+        }
+
+        keysConfig = YamlConfiguration.loadConfiguration(keysConfigFile);
+    }
+
+    public void reloadActsConfig() {
+        if (actsConfigFile == null) {
+            actsConfigFile = new File(getDataFolder(), "actions.yml");
+        }
+
+        actsConfig = YamlConfiguration.loadConfiguration(actsConfigFile);
+    }
+
+    public void reloadCeilConfig() {
+        if (ceilConfigFile == null) {
+            ceilConfigFile = new File(getDataFolder(), "ceiling.yml");
+        }
+
+        ceilConfig = YamlConfiguration.loadConfiguration(ceilConfigFile);
+    }
+
+    public void saveKeysConfig() {
+        try {
+            getKeysConfig().save(keysConfigFile);
+        } catch (IOException e){
+            conLog("An Error Occurred During Saving keys.yml Config File");
+        }
+    }
+
+    public void saveActsConfig() {
+        try {
+            getActsConfig().save(actsConfigFile);
+        } catch (IOException e){
+            conLog("An Error Occurred During Saving actions.yml Config File");
+        }
+    }
+
+    public void saveCeilConfig() {
+        try {
+            getCeilConfig().save(ceilConfigFile);
+        } catch (IOException e){
+            conLog("An Error Occurred During Saving ceiling.yml Config File");
+        }
+    }
 
     @Override
     public void onEnable() {
         GCK_commands cmd_gck = new GCK_commands(this, "gck");
-
-        Objects.requireNonNull(getCommand(cmd_gck.getLabel())).setExecutor(cmd_gck);
-        Objects.requireNonNull(getCommand(cmd_gck.getLabel())).setTabCompleter(cmd_gck);
-        console(ChatColor.WHITE + "Commands " + ChatColor.YELLOW + "/gck" + ChatColor.WHITE + " has been added!");
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new GCK_expansions(this).register();
@@ -70,27 +178,20 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
             Bukkit.getPluginManager().disablePlugin(this);
         }
 
-        kyFileConfig.options().copyDefaults(true);
-        try {
-            kyFileConfig.save(keyFile);
-        } catch (IOException e) {
-            conLog("File keyFile could not overwritten or created. Fm:L" + getLineNumber() + ")");
-            throw new RuntimeException(e);
+        if (!getDataFolder().exists()) {
+            getConfig().options().copyDefaults(true);
+            saveConfig();
+        } else {
+            saveConfig();
         }
-        atFileConfig.options().copyDefaults(true);
-        try {
-            atFileConfig.save(actionFile);
-        } catch (IOException e) {
-            conLog("File actionFile could not overwritten or created. Fm:L" + getLineNumber() + ")");
-            throw new RuntimeException(e);
-        }
-        ciFileConfig.options().copyDefaults(true);
-        try {
-            ciFileConfig.save(ceilingFile);
-        } catch (IOException e) {
-            conLog("File ceilingFile could not overwritten or created. Fm:L" + getLineNumber() + ")");
-            throw new RuntimeException(e);
-        }
+
+        createKeysConfig();
+        createActsConfig();
+        createCeilConfig();
+
+        Objects.requireNonNull(getCommand(cmd_gck.getLabel())).setExecutor(cmd_gck);
+        Objects.requireNonNull(getCommand(cmd_gck.getLabel())).setTabCompleter(cmd_gck);
+        console(ChatColor.WHITE + "Commands " + ChatColor.YELLOW + "/gck" + ChatColor.WHITE + " has been added!");
 
         GetCratesKeys.console(ChatColor.YELLOW + getFullName() + ChatColor.WHITE + " is now enabled!");
 
@@ -99,27 +200,9 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        kyFileConfig.options().copyDefaults(true);
-        try {
-            kyFileConfig.save(keyFile);
-        } catch (IOException e) {
-            conLog("File keyFile could not overwritten or created. Fm:L" + getLineNumber() + ")");
-            throw new RuntimeException(e);
-        }
-        atFileConfig.options().copyDefaults(true);
-        try {
-            atFileConfig.save(actionFile);
-        } catch (IOException e) {
-            conLog("File actionFile could not overwritten or created. Fm:L" + getLineNumber() + ")");
-            throw new RuntimeException(e);
-        }
-        ciFileConfig.options().copyDefaults(true);
-        try {
-            ciFileConfig.save(ceilingFile);
-        } catch (IOException e) {
-            conLog("File ceilingFile could not overwritten or created. Fm:L" + getLineNumber() + ")");
-            throw new RuntimeException(e);
-        }
+        saveKeysConfig();
+        saveActsConfig();
+        saveCeilConfig();
 
         GetCratesKeys.console(ChatColor.YELLOW + getFullName() + ChatColor.WHITE + " is now disabled!");
         super.onDisable();
