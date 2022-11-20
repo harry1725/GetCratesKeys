@@ -1,6 +1,6 @@
 # GetCratesKeys config.yml
 # 오타 수정 및 궁금한 내용은 Derman_e (더맨이 / harry1725@naver.com) 에게 연락 바람
-# 여기서는 열쇠에 대한 전체 사항과 세부 사항을 설정할 수 있습니다.
+# 여기서는 열쇠에 대한 전체 사항을 설정할 수 있습니다.
 #
 # ======================= # 설 정 # ======================
 # 열쇠 전체 설정 방법:
@@ -16,14 +16,14 @@
 #     enabled: < true / false >
 #     - 전체 열쇠에 대하여 드랍 부스트 적용. true는 활성화, false는 비활성화
 #
-#     amount: < # / -1 >
-#     - 전체 열쇠에 대하여 #개의 추가 갯수 드랍 부스트 적용. -1은 비활성화
+#     amount: < # >
+#     - 전체 열쇠에 대하여 #개의 추가 갯수 드랍 부스트 적용. 1 미만은 비활성화
 #
-#     chance_fixed: < # / -1 >
-#     - 전체 열쇠에 대하여 # %의 추가 확률 드랍 부스트 적용. -1은 비활성화
+#     chance_fixed: < # >
+#     - 전체 열쇠에 대하여 # %의 추가 확률 드랍 부스트 적용. 0 이하는 비활성화
 #
-#     chance_multiplier: < # / -1 >
-#     - 전체 열쇠에 대하여 #배의 추가 확률 드랍 부스트 적용. -1은 비활성화
+#     chance_multiplier: < # >
+#     - 전체 열쇠에 대하여 #배의 추가 확률 드랍 부스트 적용. 0 미만은 비활성화
 #
 #   ceiling:
 #     enabled: < true / false >
@@ -41,7 +41,7 @@ config:
     enabled: false
     amount: -1
     chance_fixed: -1
-    chance_multiplier: -1
+    chance_multiplier: -1.0
 
   ceiling:
     enabled: true

@@ -1,6 +1,7 @@
 package com.k5na.getcrateskeys.commands;
 
 import com.k5na.getcrateskeys.GetCratesKeys;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -27,40 +28,29 @@ public class GCK_commands extends AbstractCommand {
             tabs.add("gck");
         }
 
-        if (alias.length() == 1) {
-            if (args[0].equalsIgnoreCase("gck")) {
+        if (args[0].equalsIgnoreCase("gck")) {
+            tabs.add("info");
+            tabs.add("help");
+            tabs.add("reload");
+            tabs.add("chance");
+            tabs.add("enable");
+            tabs.add("disable");
+            tabs.add("set");
+
+            if (args[1].equalsIgnoreCase("help")) {
                 tabs.add("info");
-                tabs.add("help");
                 tabs.add("reload");
                 tabs.add("chance");
                 tabs.add("enable");
                 tabs.add("disable");
                 tabs.add("set");
-            }
-        }
-
-        if (alias.length() == 2) {
-            if (args[0].equalsIgnoreCase("gck")) {
-                if (args[1].equalsIgnoreCase("help")) {
-                    tabs.add("info");
-                    tabs.add("reload");
-                    tabs.add("chance");
-                    tabs.add("enable");
-                    tabs.add("disable");
-                    tabs.add("set");
-                } else if (args[1].equalsIgnoreCase("chance")) {
-                    tabs.add("excavation");
-                    tabs.add("farming");
-                    tabs.add("fishing");
-                    tabs.add("mining");
-                } else if (args[1].equalsIgnoreCase("enable") || args[1].equalsIgnoreCase("disable")) {
-                    tabs.add("key_drop");
-                    tabs.add("drop_boost");
-                } else if (args[1].equalsIgnoreCase("set")) {
-                    tabs.add("drop_boost_amount");
-                    tabs.add("drop_boost_chance_fixed");
-                    tabs.add("drop_boost_chance_multiplier");
-                }
+            } else if (args[1].equalsIgnoreCase("enable") || args[1].equalsIgnoreCase("disable")) {
+                tabs.add("key_drop");
+                tabs.add("drop_boost");
+            } else if (args[1].equalsIgnoreCase("set")) {
+                tabs.add("drop_boost_amount");
+                tabs.add("drop_boost_chance_fixed");
+                tabs.add("drop_boost_chance_multiplier");
             }
         }
 
@@ -76,16 +66,7 @@ public class GCK_commands extends AbstractCommand {
 
             if (label.equalsIgnoreCase("gck")) {    // 베이스 명령어
                 if (args.length < 1) {
-                    player.sendMessage("");
-                    player.sendMessage(ChatColor.GRAY + "=====================================================");
-                    player.sendMessage("");
-                    player.sendMessage(ChatColor.GOLD + " - 플러그인 이름" + ChatColor.WHITE + " : " + gck.getPdfFile().getName());
-                    player.sendMessage(ChatColor.GOLD + " - 플러그인 버전" + ChatColor.WHITE + " : " + gck.getPdfFile().getVersion());
-                    player.sendMessage(ChatColor.GOLD + " - 플러그인 만든 사람" + ChatColor.WHITE + " : " + gck.getPdfFile().getAuthors());
-                    player.sendMessage(ChatColor.GOLD + " - 설명" + ChatColor.WHITE + " : " + gck.getPdfFile().getDescription());
-                    player.sendMessage("");
-                    player.sendMessage(ChatColor.GRAY + "=====================================================");
-                    player.sendMessage("");
+                    player.sendMessage(ChatColor.RED + "명령어에 인수가 부족합니다! 입력하신 명령어를 다시 확인해 주세요!");
                 } else {
                     if (args[0].equalsIgnoreCase("info")) { // 플러그인 정보
                         player.sendMessage("");
@@ -111,9 +92,8 @@ public class GCK_commands extends AbstractCommand {
                             player.sendMessage(ChatColor.GRAY + "-----------------------------------------------------");
                             player.sendMessage("");
                             player.sendMessage(ChatColor.GREEN + "/gck info");
-                            player.sendMessage(ChatColor.GREEN + "/gck help [ info / reload / chance / enable / disable / set ]");
+                            player.sendMessage(ChatColor.GREEN + "/gck help [ keys / reload / enable / disable / set ]");
                             player.sendMessage(ChatColor.RED + "/gck reload");
-                            player.sendMessage(ChatColor.GREEN + "/gck chance [ excavation / farming / fishing / mining ]");
                             player.sendMessage(ChatColor.RED + "/gck enable < key_drop / drop_boost >");
                             player.sendMessage(ChatColor.RED + "/gck disable < key_drop / drop_boost >");
                             player.sendMessage(ChatColor.RED + "/gck set < drop_boost_amount / drop_boost_chance_fixed / drop_boost_chance_multiplier > < # >");
@@ -121,14 +101,14 @@ public class GCK_commands extends AbstractCommand {
                             player.sendMessage(ChatColor.GRAY + "=====================================================");
                             player.sendMessage("");
                         } else {
-                            if (args[1].equalsIgnoreCase("reload")) {
+                            if (args[1].equalsIgnoreCase("keys")) {
+                                player.sendMessage(ChatColor.GREEN + "사용 방법" + ChatColor.WHITE + " :");
+                                player.sendMessage(ChatColor.WHITE + "/gck reload");
+                                player.sendMessage(ChatColor.GREEN + "이 명령어를 사용하기 위해서는 OP가 필요하지 않습니다.");
+                            } else if (args[1].equalsIgnoreCase("reload")) {
                                 player.sendMessage(ChatColor.RED + "사용 방법" + ChatColor.WHITE + " :");
                                 player.sendMessage(ChatColor.WHITE + "/gck reload");
                                 player.sendMessage(ChatColor.RED + "이 명령어를 사용하기 위해서는 OP가 필요합니다.");
-                            } else if (args[1].equalsIgnoreCase("chance")) {
-                                player.sendMessage(ChatColor.GREEN + "사용 방법" + ChatColor.WHITE + " :");
-                                player.sendMessage(ChatColor.WHITE + "/gck chance [ excavation / farming / fishing / mining ]");
-                                player.sendMessage(ChatColor.GREEN + "맨 뒤 요소를 입력하지 않고 명령어를 사용하면 최대 확률 단위가 출력됩니다.");
                             } else if (args[1].equalsIgnoreCase("enable")) {
                                 player.sendMessage(ChatColor.RED + "사용 방법" + ChatColor.WHITE + " :");
                                 player.sendMessage(ChatColor.WHITE + "/gck enable < key_drop / drop_boost >");
@@ -173,179 +153,153 @@ public class GCK_commands extends AbstractCommand {
                         } else {
                             player.sendMessage(ChatColor.RED + "현재 열쇠 드랍이 비활성화되어있습니다! 블럭 당 열쇠 드랍 확률은 볼 수 있지만 실제로는 적용되지 않습니다.");
                         }
-                    } else if (args[0].equalsIgnoreCase("chance")) {    // 현재 설정된 열쇠 드랍 확률을 보여줌
-                        int max_chance = gck.getConfig().getInt("config.max_chance");
-
-                        if (args.length < 2) {
-                            if (gck.getConfig().getBoolean("config.enabled")) {
-                                player.sendMessage(ChatColor.GREEN + "최대 확률 단위 (max_chance 분의 base_chance + multiplier * level)" + ChatColor.WHITE + ":");
-                                player.sendMessage(ChatColor.WHITE + "" + max_chance + "분의 base_chance + multiplier * level");
-                            } else {
-                                player.sendMessage(ChatColor.RED + "현재 열쇠 드랍이 비활성화되어있습니다! 블럭 당 열쇠 드랍 확률은 볼 수 있지만 실제로는 적용되지 않습니다.");
-                            }
-                        } else {
-                            if (args[1].equalsIgnoreCase("excavation")) {
-                                List<String> excavation_list = gck.getActsConfig().getStringList("excavation");
-
-                                if (gck.getActsConfig().getBoolean("excavation.enabled")) {
-                                    int total_excavation_num = excavation_list.size();
-
-                                    player.sendMessage(ChatColor.GREEN + "블럭 당 열쇠 드랍 확률" + ChatColor.WHITE + ":");
-                                    for (int i = 0; i <= total_excavation_num; i++) {
-                                        if (gck.getActsConfig().getBoolean("excavation." + excavation_list.get(i) + ".enabled")) {
-                                            player.sendMessage(ChatColor.AQUA + excavation_list.get(i) + ":");
-                                            player.sendMessage(ChatColor.WHITE + "기본 확률: " + gck.getActsConfig().getInt("excavation." + excavation_list.get(i) + ".base_chance"));
-
-                                            if (gck.getActsConfig().getBoolean("excavation." + excavation_list.get(i) + ".multiplier_enabled")) {
-                                                player.sendMessage(ChatColor.YELLOW + "레벨 당 배수" + ChatColor.WHITE + ": " + gck.getActsConfig().getInt("excavation." + excavation_list.get(i) + ".multiplier"));
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    player.sendMessage(ChatColor.RED + "삽질 항목에 대해 현재 열쇠 드랍이 비활성화 되어있습니다!");
-                                }
-                            } else if (args[1].equalsIgnoreCase("farming")) {   // 농사 항목
-                                List<String> farming_list = gck.getActsConfig().getStringList("farming");
-
-                                if (gck.getActsConfig().getBoolean("farming.enabled")) {
-                                    int total_farming_num = farming_list.size();
-
-                                    player.sendMessage(ChatColor.GREEN + "블럭 당 열쇠 드랍 확률" + ChatColor.WHITE + ":");
-                                    for (int i = 0; i <= total_farming_num; i++) {
-                                        if (gck.getActsConfig().getBoolean("farming." + farming_list.get(i) + ".enabled")) {
-                                            player.sendMessage(ChatColor.AQUA + farming_list.get(i) + ":");
-                                            player.sendMessage(ChatColor.WHITE + "기본 확률: " + gck.getActsConfig().getInt("farming." + farming_list.get(i) + ".base_chance"));
-
-                                            if (gck.getActsConfig().getBoolean("farming." + farming_list.get(i) + ".multiplier_enabled")) {
-                                                player.sendMessage(ChatColor.YELLOW + "레벨 당 배수" + ChatColor.WHITE + ": " + gck.getActsConfig().getInt("farming." + farming_list.get(i) + ".multiplier"));
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    player.sendMessage(ChatColor.RED + "농사 항목에 대해 현제 열쇠 드랍이 비활성화 되어있습니다!");
-                                }
-                            } else if (args[1].equalsIgnoreCase("fishing")) {   // 낚시 항목
-                                if (gck.getActsConfig().getBoolean("fishing.enabled")) {
-                                    player.sendMessage(ChatColor.GREEN + "낚시 성공 횟수 당 열쇠 드랍 확률" + ChatColor.WHITE + ":");
-                                    player.sendMessage(ChatColor.WHITE + "기본 확률: " + gck.getActsConfig().getInt("fishing.fishing.base_chance"));
-                                    if (gck.getActsConfig().getBoolean("fishing.fishing.multiplier_enabled")) {
-                                        player.sendMessage(ChatColor.YELLOW + "레벨 당 배수" + ChatColor.WHITE + ": " + gck.getActsConfig().getInt("fishing.fishing.multiplier"));
-                                    }
-                                }
-                            } else if (args[1].equalsIgnoreCase("mining")) {    // 광질 항목
-                                List<String> mining_list = gck.getActsConfig().getStringList("mining");
-
-                                if (gck.getActsConfig().getBoolean("mining.enabled")) {
-                                    int total_mining_num = mining_list.size();
-
-                                    player.sendMessage(ChatColor.GREEN + "블럭 당 열쇠 드랍 확률" + ChatColor.WHITE + ":");
-                                    for (int i = 0; i <= total_mining_num; i++) {
-                                        if (gck.getActsConfig().getBoolean("mining." + mining_list.get(i) + ".enabled")) {
-                                            player.sendMessage(ChatColor.AQUA + mining_list.get(i) + ":");
-                                            player.sendMessage(ChatColor.WHITE + "기본 확률: " + gck.getActsConfig().getInt("mining." + mining_list.get(i) + ".base_chance"));
-
-                                            if (gck.getActsConfig().getBoolean("mining." + mining_list.get(i) + ".multiplier_enabled")) {
-                                                player.sendMessage(ChatColor.YELLOW + "레벨 당 배수" + ChatColor.WHITE + ": " + gck.getActsConfig().getInt("mining." + mining_list.get(i) + ".multiplier"));
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    player.sendMessage(ChatColor.RED + "광질 항목에 대해 현재 열쇠 드랍이 비활성화 되어있습니다!");
-                                }
-                            } else {
-                                player.sendMessage(ChatColor.RED + "알 수 없는 항목입니다. 명령어를 확인 후 다시 시도해주세요.");
-                            }
-                        }
                     } else if (args[0].equalsIgnoreCase("enable")) {  // 활성화 설정
-                        if (player.isOp()) {
-                            if (args[1].equalsIgnoreCase("key_drop")) {
-                                if (gck.getConfig().getBoolean("config.enabled")) {
-                                    player.sendMessage(ChatColor.RED + "이미 " + ChatColor.YELLOW + "열쇠 드랍" + ChatColor.RED + "설정이 활성화되어있습니다!");
-                                } else {
-                                    gck.getConfig().set("config.enabled", true);
-
-                                    gck.saveConfig();
-                                }
-                            } else if (args[1].equalsIgnoreCase("drop_boost")) {
-                                if (gck.getConfig().getBoolean("config.drop_boost.enabled")) {
-                                    player.sendMessage(ChatColor.RED + "이미 " + ChatColor.YELLOW + "드랍 부스트" + ChatColor.RED + "설정이 활성화되어있습니다!");
-                                } else {
-                                    gck.getConfig().set("config.drop_boost.enabled", true);
-
-                                    gck.saveConfig();
-                                }
-                            }
+                        if (args.length < 2) {
+                            player.sendMessage(ChatColor.RED + "명령어에 인수가 부족합니다! 입력하신 명령어를 다시 확인해 주세요!");
                         } else {
-                            player.sendMessage(ChatColor.RED + "이 명령어를 사용할 권한이 없습니다! 서버 관리자에게 문의해보세요.");
-                            conLog(username + "(UUID :" + uuid + ") tried to use /gck enable without OP.");
+                            if (player.isOp()) {
+                                if (args[1].equalsIgnoreCase("key_drop")) {
+                                    if (gck.getConfig().getBoolean("config.enabled")) {
+                                        player.sendMessage(ChatColor.YELLOW + "이미 " + ChatColor.YELLOW + "열쇠 드랍" + ChatColor.YELLOW + "설정이 " + ChatColor.GREEN + "활성화" + ChatColor.YELLOW + "되어있습니다!");
+                                    } else {
+                                        gck.getConfig().set("config.enabled", true);
+
+                                        gck.saveConfig();
+
+                                        player.sendMessage(ChatColor.AQUA + "이제 " + ChatColor.YELLOW + "열쇠 드랍" + ChatColor.AQUA + "설정이 " + ChatColor.GREEN + "활성화" + ChatColor.AQUA + "되었습니다!");
+                                        for (Player p : Bukkit.getOnlinePlayers()) {
+                                            p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.AQUA + username + ChatColor.WHITE + "님에 의해 " + ChatColor.YELLOW + "열쇠 드랍" + ChatColor.WHITE + " 설정이 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + "되었습니다!");
+                                            if (gck.getConfig().getBoolean("config.drop_boost.enable")) {
+                                                p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 열쇠 드랍 부스트가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                if (gck.getConfig().getInt("config.drop_boost.amount") < 1) {
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 열쇠 갯수 드랍 부스트는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                } else {
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 열쇠 갯수 드랍 부스트가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.GREEN + gck.getConfig().getInt("config.drop_boost.amount") + ChatColor.WHITE + "개의 열쇠 추가 드랍이 있습니다!");
+                                                }
+                                                if (gck.getConfig().getInt("config.drop_boost.chance_fixed") <= 0) {
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 열쇠 고정 드랍 확률 부스트는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                } else {
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 열쇠 고정 드랍 확률 부스트가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.GREEN + (gck.getConfig().getInt("config.drop_boost.chance_fixed") / gck.getConfig().getInt("config.max_chance") * 100) + ChatColor.WHITE + "% 만큼의 열쇠 고정 드랍 확률 부스트가 활성화 되어있습니다!");
+                                                }
+                                                if (gck.getConfig().getInt("config.drop_boost.chance_multiplier") < 0) {
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 열쇠 드랍 확률 배수 부스트는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                } else {
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 열쇠 드랍 확률 배수 부스트가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.GREEN + gck.getConfig().getInt("config.drop_boost.chance_fixed") + ChatColor.WHITE + "배 만큼의 열쇠 드랍 확률 배수 부스트가 활성화 되어있습니다!");
+                                                    p.sendMessage(ChatColor.RED + "[경고] 1 미만의 배수를 조심하세요!");
+                                                }
+                                            } else {
+                                                p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 열쇠 드랍 부스트는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
+                                            }
+                                        }
+                                        conLog("key_drop enabled by OP Player " + username + ". (UUID : " + uuid + ")");
+                                    }
+                                } else if (args[1].equalsIgnoreCase("drop_boost")) {
+                                    if (gck.getConfig().getBoolean("config.drop_boost.enabled")) {
+                                        player.sendMessage(ChatColor.YELLOW + "이미 " + ChatColor.YELLOW + "드랍 부스트" + ChatColor.YELLOW + "설정이 " + ChatColor.GREEN + "활성화" + ChatColor.YELLOW + "되어있습니다!");
+                                    } else {
+                                        gck.getConfig().set("config.drop_boost.enabled", true);
+
+                                        gck.saveConfig();
+
+                                        player.sendMessage(ChatColor.AQUA + "이제 " + ChatColor.YELLOW + "드랍 부스트" + ChatColor.AQUA + "설정이 " + ChatColor.GREEN + "활성화" + ChatColor.AQUA + "되었습니다!");
+                                        for (Player p : Bukkit.getOnlinePlayers()) {
+                                            p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.AQUA + username + ChatColor.WHITE + "님에 의해 " + ChatColor.YELLOW + "열쇠 드랍 부스트" + ChatColor.WHITE + " 설정이 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + "되었습니다!");
+                                        }
+                                        conLog("drop_chance enabled by OP Player " + username + ". (UUID : " + uuid + ")");
+                                    }
+                                }
+                            } else {
+                                player.sendMessage(ChatColor.RED + "이 명령어를 사용할 권한이 없습니다! 서버 관리자에게 문의해보세요.");
+                                conLog(username + "(UUID :" + uuid + ") tried to use /gck enable without OP.");
+                            }
                         }
                     } else if (args[0].equalsIgnoreCase("disable")) {  // 비활성화 설정
-                        if (player.isOp()) {
-                            if (args[1].equalsIgnoreCase("key_drop")) {
-                                if (!gck.getConfig().getBoolean("config.enabled")) {
-                                    player.sendMessage(ChatColor.RED + "이미 " + ChatColor.YELLOW + "열쇠 드랍" + ChatColor.RED + "설정이 비활성화되어있습니다!");
-                                } else {
-                                    gck.getConfig().set("config.enabled", false);
-
-                                    gck.saveConfig();
-                                }
-                            } else if (args[1].equalsIgnoreCase("drop_boost")) {
-                                if (!gck.getConfig().getBoolean("config.drop_boost.enabled")) {
-                                    player.sendMessage(ChatColor.RED + "이미 " + ChatColor.YELLOW + "드랍 부스트" + ChatColor.RED + "설정이 비활성화되어있습니다!");
-                                } else {
-                                    gck.getConfig().set("config.drop_boost.enabled", false);
-
-                                    gck.saveConfig();
-                                }
-                            }
+                        if (args.length < 2) {
+                            player.sendMessage(ChatColor.RED + "명령어에 인수가 부족합니다! 입력하신 명령어를 다시 확인해 주세요!");
                         } else {
-                            player.sendMessage(ChatColor.RED + "이 명령어를 사용할 권한이 없습니다! 서버 관리자에게 문의해보세요.");
-                            conLog(username + "(UUID :" + uuid + ") tried to use /gck disable without OP.");
-                        }
-                    } else if (args[0].equalsIgnoreCase("set")) {   // drop_boost 값 세부 수정
-                        if (player.isOp()) {
-                            if (args[1].equalsIgnoreCase("drop_boost_amount")) {
-                                try {
-                                    int value = Integer.parseInt(args[2]);
+                            if (player.isOp()) {
+                                if (args[1].equalsIgnoreCase("key_drop")) {
+                                    if (!gck.getConfig().getBoolean("config.enabled")) {
+                                        player.sendMessage(ChatColor.YELLOW + "이미 " + ChatColor.YELLOW + "열쇠 드랍" + ChatColor.YELLOW + "설정이 " + ChatColor.RED + "비활성화" + ChatColor.YELLOW + "되어있습니다!");
+                                    } else {
+                                        gck.getConfig().set("config.enabled", false);
 
-                                    gck.getConfig().set("config.drop_boost.amount", value);
+                                        gck.saveConfig();
 
-                                    gck.saveConfig();
-                                } catch (NumberFormatException e) {
-                                    player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. 정수만 입력해 주세요.");
-                                    conLog("NOT-INTEGER-TYPE value was entered by " + username + ". (Fc:L" + getLineNumber() + ")");
-                                    throw new RuntimeException(e);
-                                }
-                            } else if (args[1].equalsIgnoreCase("drop_boost_chance_fixed")) {
-                                try {
-                                    int value = Integer.parseInt(args[2]);
+                                        player.sendMessage(ChatColor.AQUA + "이제 " + ChatColor.YELLOW + "열쇠 드랍" + ChatColor.AQUA + "설정이 " + ChatColor.RED + "비활성화" + ChatColor.AQUA + "되었습니다!");
+                                        for (Player p : Bukkit.getOnlinePlayers()) {
+                                            p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.AQUA + username + ChatColor.WHITE + "님에 의해 열쇠 드랍 설정이 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + "되었습니다!");
+                                        }
+                                        conLog("key_drop disabled by OP Player " + username + ". (UUID : " + uuid + ")");
+                                    }
+                                } else if (args[1].equalsIgnoreCase("drop_boost")) {
+                                    if (!gck.getConfig().getBoolean("config.drop_boost.enabled")) {
+                                        player.sendMessage(ChatColor.YELLOW + "이미 " + ChatColor.YELLOW + "드랍 부스트" + ChatColor.YELLOW + "설정이 " + ChatColor.RED + "비활성화" + ChatColor.YELLOW + "되어있습니다!");
+                                    } else {
+                                        gck.getConfig().set("config.drop_boost.enabled", false);
 
-                                    gck.getConfig().set("config.drop_boost.chance_fixed", value);
+                                        gck.saveConfig();
 
-                                    gck.saveConfig();
-                                } catch (NumberFormatException e) {
-                                    player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. 정수만 입력해 주세요.");
-                                    conLog("NOT-INTEGER-TYPE value was entered by " + username + ". (Fc:L" + getLineNumber() + ")");
-                                    throw new RuntimeException(e);
-                                }
-                            } else if (args[1].equalsIgnoreCase("drop_boost_chance_multiplier")) {
-                                try {
-                                    float value = Integer.parseInt(args[2]);
-
-                                    gck.getConfig().set("config.drop_boost.chance_multiplier", value);
-
-                                    gck.saveConfig();
-                                } catch (NumberFormatException e) {
-                                    player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. 정수만 입력해 주세요.");
-                                    conLog("NOT-INTEGER-TYPE value was entered by " + username + ". (Fc:L" + getLineNumber() + ")");
-                                    throw new RuntimeException(e);
+                                        player.sendMessage(ChatColor.AQUA + "이제 " + ChatColor.YELLOW + "드랍 부스트" + ChatColor.AQUA + "설정이 " + ChatColor.RED + "비활성화" + ChatColor.AQUA + "되었습니다!");
+                                        for (Player p : Bukkit.getOnlinePlayers()) {
+                                            p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.AQUA + username + ChatColor.WHITE + "님에 의해 " + ChatColor.YELLOW + "열쇠 드랍 부스트" + ChatColor.WHITE + " 설정이 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + "되었습니다!");
+                                        }
+                                        conLog("drop_chance disabled by OP Player " + username + ". (UUID : " + uuid + ")");
+                                    }
                                 }
                             } else {
-                                    player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. /gck help를 통해 입력 가능한 명령어를 확인해주세요.");
+                                player.sendMessage(ChatColor.RED + "이 명령어를 사용할 권한이 없습니다! 서버 관리자에게 문의해보세요.");
+                                conLog(username + " (UUID :" + uuid + ") tried to use /gck disable without OP.");
                             }
+                        }
+                    } else if (args[0].equalsIgnoreCase("set")) {   // drop_boost 값 세부 수정
+                        if (args.length < 2) {
+                            player.sendMessage(ChatColor.RED + "명령어에 인수가 부족합니다! 입력하신 명령어를 다시 확인해 주세요!");
                         } else {
-                            player.sendMessage(ChatColor.RED + "이 명령어를 사용할 권한이 없습니다! 서버 관리자에게 문의해보세요.");
-                            conLog(username + "(UUID : " + uuid + ") tried to use /gck set without OP.");
+                            if (player.isOp()) {
+                                if (args[1].equalsIgnoreCase("drop_boost_amount")) {
+                                    try {
+                                        int value = Integer.parseInt(args[2]);
+
+                                        gck.getConfig().set("config.drop_boost.amount", value);
+
+                                        gck.saveConfig();
+                                    } catch (NumberFormatException e) {
+                                        player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. 정수만 입력해 주세요.");
+                                        conLog("NOT-INTEGER-TYPE value was entered by " + username + ". (UUID :" + uuid + ") (Fc:L" + getLineNumber() + ")");
+                                    }
+                                } else if (args[1].equalsIgnoreCase("drop_boost_chance_fixed")) {
+                                    try {
+                                        int value = Integer.parseInt(args[2]);
+
+                                        gck.getConfig().set("config.drop_boost.chance_fixed", value);
+
+                                        gck.saveConfig();
+                                    } catch (NumberFormatException e) {
+                                        player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. 정수만 입력해 주세요.");
+                                        conLog("NOT-INTEGER-TYPE value was entered by " + username + ". (UUID :" + uuid + ") (Fc:L" + getLineNumber() + ")");
+                                    }
+                                } else if (args[1].equalsIgnoreCase("drop_boost_chance_multiplier")) {
+                                    try {
+                                        float value = Integer.parseInt(args[2]);
+
+                                        gck.getConfig().set("config.drop_boost.chance_multiplier", value);
+
+                                        gck.saveConfig();
+                                    } catch (NumberFormatException e) {
+                                        player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. 정수만 입력해 주세요.");
+                                        conLog("NOT-INTEGER-TYPE value was entered by " + username + ". (UUID :" + uuid + ") (Fc:L" + getLineNumber() + ")");
+                                    }
+                                } else {
+                                    player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. /gck help를 통해 입력 가능한 명령어를 확인해주세요.");
+                                }
+                            } else {
+                                player.sendMessage(ChatColor.RED + "이 명령어를 사용할 권한이 없습니다! 서버 관리자에게 문의해보세요.");
+                                conLog(username + "(UUID : " + uuid + ") tried to use /gck set without OP.");
+                            }
                         }
                     }
                 }

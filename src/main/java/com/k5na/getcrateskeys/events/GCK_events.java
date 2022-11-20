@@ -59,7 +59,7 @@ public class GCK_events implements Listener {
         boolean key_drop_boost_enabled = gck.getConfig().getBoolean("config.drop_boost.enabled");
         int key_drop_boost_amount = gck.getConfig().getInt("config.drop_boost.amount");
         int key_drop_chance_fixed = gck.getConfig().getInt("config.drop_boost.chance_fixed");
-        int key_drop_chance_multiplier = gck.getConfig().getInt("config.drop_boost.chance_multiplier");
+        double key_drop_chance_multiplier = gck.getConfig().getDouble("config.drop_boost.chance_multiplier");
 
         boolean ceiling_enabled = gck.getConfig().getBoolean("config.ceiling.enabled");
         int ceiling_excavation_max = gck.getConfig().getInt("config.ceiling.excavation_max");
@@ -120,11 +120,11 @@ public class GCK_events implements Listener {
                 }
 
                 if (key_drop_boost_enabled) {
-                    if (!(key_drop_chance_fixed == -1)) {
+                    if (!(key_drop_chance_fixed <= 0)) {
                         chance += key_drop_chance_fixed;
                     }
-                    if (!(key_drop_chance_multiplier == -1)) {
-                        chance = Math.round(chance * key_drop_chance_multiplier);
+                    if (!(key_drop_chance_multiplier < 0)) {
+                        chance = (int) Math.round(chance * key_drop_chance_multiplier);
                     }
                 }
 
@@ -132,11 +132,11 @@ public class GCK_events implements Listener {
                     chance = max_chance;
                 }
 
-                int random_chance = (int)(Math.random() * max_chance + 1);
+                int random_chance = (int) (Math.random() * max_chance + 1);
                 if (random_chance <= chance) {
                     int only_key = gck.getActsConfig().getInt(excavation_path + ".only_key");
 
-                    if (only_key == -1 || !gck.getKeysConfig().getBoolean("keys." + only_key + ".enabled")) {
+                    if (only_key < 1) {
                         int random = (int) (Math.random() * total_enabled_key_num + 1);
 
                         for (int i = 0; i <= total_enabled_key_num; i++) {
@@ -153,7 +153,7 @@ public class GCK_events implements Listener {
 
                     int max_drop = gck.getKeysConfig().getInt(("keys." + key_num + ".max_drop"));
                     int drop = (int) (Math.random() * max_drop + 1);
-                    if (key_drop_boost_enabled && key_drop_boost_amount != -1) {
+                    if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
                         drop += key_drop_boost_amount;
                     }
 
@@ -174,7 +174,7 @@ public class GCK_events implements Listener {
                             if (gck.getCeilConfig().getInt(ceiling_excavation_path) >= ceiling_excavation_max) {
                                 int only_key = gck.getActsConfig().getInt(excavation_path + ".only_key");
 
-                                if (only_key == -1 || !gck.getKeysConfig().getBoolean("keys." + only_key + ".enabled")) {
+                                if (only_key < 1) {
                                     int random = (int) (Math.random() * total_enabled_key_num + 1);
 
                                     for (int i = 0; i <= total_enabled_key_num; i++) {
@@ -191,7 +191,7 @@ public class GCK_events implements Listener {
 
                                 int max_drop = gck.getKeysConfig().getInt(("keys." + key_num + ".max_drop"));
                                 int drop = (int) (Math.random() * max_drop + 1);
-                                if (key_drop_boost_enabled && key_drop_boost_amount != -1) {
+                                if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
                                     drop += key_drop_boost_amount;
                                 }
 
@@ -221,11 +221,11 @@ public class GCK_events implements Listener {
                 }
 
                 if (key_drop_boost_enabled) {
-                    if (!(key_drop_chance_fixed == -1)) {
+                    if (!(key_drop_chance_fixed <= 0)) {
                         chance += key_drop_chance_fixed;
                     }
-                    if (!(key_drop_chance_multiplier == -1)) {
-                        chance = Math.round(chance * key_drop_chance_multiplier);
+                    if (!(key_drop_chance_multiplier < 0)) {
+                        chance = (int) Math.round(chance * key_drop_chance_multiplier);
                     }
                 }
 
@@ -233,11 +233,11 @@ public class GCK_events implements Listener {
                     chance = max_chance;
                 }
 
-                int random_chance = (int)(Math.random() * max_chance + 1);
+                int random_chance = (int) (Math.random() * max_chance + 1);
                 if (random_chance <= chance) {
                     int only_key = gck.getActsConfig().getInt(farming_path + ".only_key");
 
-                    if (only_key == -1 || !gck.getKeysConfig().getBoolean("keys." + only_key + ".enabled")) {
+                    if (only_key < 1) {
                         int random = (int) (Math.random() * total_enabled_key_num + 1);
 
                         for (int i = 0; i <= total_enabled_key_num; i++) {
@@ -254,7 +254,7 @@ public class GCK_events implements Listener {
 
                     int max_drop = gck.getKeysConfig().getInt(("keys." + key_num + ".max_drop"));
                     int drop = (int) (Math.random() * max_drop + 1);
-                    if (key_drop_boost_enabled && key_drop_boost_amount != -1) {
+                    if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
                         drop += key_drop_boost_amount;
                     }
 
@@ -275,7 +275,7 @@ public class GCK_events implements Listener {
                             if (gck.getCeilConfig().getInt(ceiling_farming_path) >= ceiling_farming_max) {
                                 int only_key = gck.getActsConfig().getInt(farming_path + ".only_key");
 
-                                if (only_key == -1 || !gck.getKeysConfig().getBoolean("keys." + only_key + ".enabled")) {
+                                if (only_key < 1) {
                                     int random = (int) (Math.random() * total_enabled_key_num + 1);
 
                                     for (int i = 0; i <= total_enabled_key_num; i++) {
@@ -292,7 +292,7 @@ public class GCK_events implements Listener {
 
                                 int max_drop = gck.getKeysConfig().getInt(("keys." + key_num + ".max_drop"));
                                 int drop = (int) (Math.random() * max_drop + 1);
-                                if (key_drop_boost_enabled && key_drop_boost_amount != -1) {
+                                if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
                                     drop += key_drop_boost_amount;
                                 }
 
@@ -322,11 +322,11 @@ public class GCK_events implements Listener {
                 }
 
                 if (key_drop_boost_enabled) {
-                    if (!(key_drop_chance_fixed == -1)) {
+                    if (!(key_drop_chance_fixed <= 0)) {
                         chance += key_drop_chance_fixed;
                     }
-                    if (!(key_drop_chance_multiplier == -1)) {
-                        chance = Math.round(chance * key_drop_chance_multiplier);
+                    if (!(key_drop_chance_multiplier < 0)) {
+                        chance = (int) Math.round(chance * key_drop_chance_multiplier);
                     }
                 }
 
@@ -334,11 +334,11 @@ public class GCK_events implements Listener {
                     chance = max_chance;
                 }
 
-                int random_chance = (int)(Math.random() * max_chance + 1);
+                int random_chance = (int) (Math.random() * max_chance + 1);
                 if (random_chance <= chance) {
                     int only_key = gck.getActsConfig().getInt(mining_path + ".only_key");
 
-                    if (only_key == -1 || !gck.getKeysConfig().getBoolean("keys." + only_key + ".enabled")) {
+                    if (only_key < 1) {
                         int random = (int) (Math.random() * total_enabled_key_num + 1);
 
                         for (int i = 0; i <= total_enabled_key_num; i++) {
@@ -355,7 +355,7 @@ public class GCK_events implements Listener {
 
                     int max_drop = gck.getKeysConfig().getInt(("keys." + key_num + ".max_drop"));
                     int drop = (int) (Math.random() * max_drop + 1);
-                    if (key_drop_boost_enabled && key_drop_boost_amount != -1) {
+                    if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
                         drop += key_drop_boost_amount;
                     }
 
@@ -376,7 +376,7 @@ public class GCK_events implements Listener {
                             if (gck.getCeilConfig().getInt(ceiling_mining_path) >= ceiling_mining_max) {
                                 int only_key = gck.getActsConfig().getInt(mining_path + ".only_key");
 
-                                if (only_key == -1 || !gck.getKeysConfig().getBoolean("keys." + only_key + ".enabled")) {
+                                if (only_key < 1) {
                                     int random = (int) (Math.random() * total_enabled_key_num + 1);
 
                                     for (int i = 0; i <= total_enabled_key_num; i++) {
@@ -393,7 +393,7 @@ public class GCK_events implements Listener {
 
                                 int max_drop = gck.getKeysConfig().getInt(("keys." + key_num + ".max_drop"));
                                 int drop = (int) (Math.random() * max_drop + 1);
-                                if (key_drop_boost_enabled && key_drop_boost_amount != -1) {
+                                if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
                                     drop += key_drop_boost_amount;
                                 }
 
@@ -427,7 +427,7 @@ public class GCK_events implements Listener {
         boolean key_drop_boost_enabled = gck.getConfig().getBoolean("config.drop_boost.enabled");
         int key_drop_boost_amount = gck.getConfig().getInt("config.drop_boost.amount");
         int key_drop_chance_fixed = gck.getConfig().getInt("config.drop_boost.chance_fixed");
-        int key_drop_chance_multiplier = gck.getConfig().getInt("config.drop_boost.chance_multiplier");
+        double key_drop_chance_multiplier = gck.getConfig().getDouble("config.drop_boost.chance_multiplier");
 
         boolean ceiling_enabled = gck.getConfig().getBoolean("config.ceiling.enabled");
         int ceiling_fishing_max = gck.getConfig().getInt("config.ceiling.fishing_max");
@@ -470,11 +470,11 @@ public class GCK_events implements Listener {
                 }
 
                 if (key_drop_boost_enabled) {
-                    if (!(key_drop_chance_fixed == -1)) {
+                    if (!(key_drop_chance_fixed <= 0)) {
                         chance += key_drop_chance_fixed;
                     }
-                    if (!(key_drop_chance_multiplier == -1)) {
-                        chance = Math.round(chance * key_drop_chance_multiplier);
+                    if (!(key_drop_chance_multiplier < 0)) {
+                        chance = (int) Math.round(chance * key_drop_chance_multiplier);
                     }
                 }
 
@@ -486,7 +486,7 @@ public class GCK_events implements Listener {
                 if (random_chance <= chance) {
                     int only_key = gck.getActsConfig().getInt(fishing_path + ".only_key");
 
-                    if (only_key == -1 || !gck.getKeysConfig().getBoolean("keys." + only_key + ".enabled")) {
+                    if (only_key < 1) {
                         int random = (int) (Math.random() * total_enabled_key_num + 1);
 
                         for (int i = 0; i <= total_enabled_key_num; i++) {
@@ -503,7 +503,7 @@ public class GCK_events implements Listener {
 
                     int max_drop = gck.getKeysConfig().getInt(("keys." + key_num + ".max_drop"));
                     int drop = (int) (Math.random() * max_drop + 1);
-                    if (key_drop_boost_enabled && key_drop_boost_amount != -1) {
+                    if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
                         drop += key_drop_boost_amount;
                     }
 
@@ -524,7 +524,7 @@ public class GCK_events implements Listener {
                             if (gck.getCeilConfig().getInt(ceiling_fishing_path) >= ceiling_fishing_max) {
                                 int only_key = gck.getActsConfig().getInt(fishing_path + ".only_key");
 
-                                if (only_key == -1 || !gck.getKeysConfig().getBoolean("keys." + only_key + ".enabled")) {
+                                if (only_key < 1) {
                                     int random = (int) (Math.random() * total_enabled_key_num + 1);
 
                                     for (int i = 0; i <= total_enabled_key_num; i++) {
