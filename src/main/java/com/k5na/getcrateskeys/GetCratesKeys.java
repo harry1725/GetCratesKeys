@@ -48,6 +48,8 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         return Thread.currentThread().getStackTrace()[2].getLineNumber();
     }
 
+    boolean wasSuccessful;
+
     public File keysConfigFile;
     public File actsConfigFile;
     public File ceilConfigFile;
@@ -60,8 +62,10 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         keysConfigFile = new File(getDataFolder(), "keys.yml");
 
         if (!keysConfigFile.exists()) {
-            keysConfigFile.getParentFile().mkdirs();
-            saveResource("keys.yml", false);
+            wasSuccessful = keysConfigFile.getParentFile().mkdirs();
+            if (wasSuccessful) {
+                saveResource("keys.yml", false);
+            }
         }
 
         keysConfig = new YamlConfiguration();
@@ -77,8 +81,10 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         actsConfigFile = new File(getDataFolder(), "actions.yml");
 
         if (!actsConfigFile.exists()) {
-            actsConfigFile.getParentFile().mkdirs();
-            saveResource("actions.yml", false);
+            wasSuccessful = actsConfigFile.getParentFile().mkdirs();
+            if (wasSuccessful) {
+                saveResource("actions.yml", false);
+            }
         }
 
         actsConfig = new YamlConfiguration();
@@ -94,8 +100,10 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         ceilConfigFile = new File(getDataFolder(), "ceiling.yml");
 
         if (!ceilConfigFile.exists()) {
-            ceilConfigFile.getParentFile().mkdirs();
-            saveResource("ceiling.yml", false);
+            wasSuccessful = ceilConfigFile.getParentFile().mkdirs();
+            if (wasSuccessful) {
+                saveResource("ceiling.yml", false);
+            }
         }
 
         ceilConfig = new YamlConfiguration();
