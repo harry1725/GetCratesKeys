@@ -3,10 +3,14 @@ package com.k5na.getcrateskeys;
 import com.k5na.getcrateskeys.commands.GCK_commands;
 import com.k5na.getcrateskeys.events.GCK_events;
 import com.k5na.getcrateskeys.expansions.GCK_expansions;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -192,6 +196,23 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         Objects.requireNonNull(getCommand(cmd_gck.getLabel())).setExecutor(cmd_gck);
         Objects.requireNonNull(getCommand(cmd_gck.getLabel())).setTabCompleter(cmd_gck);
         console(ChatColor.WHITE + "Commands " + ChatColor.YELLOW + "/gck" + ChatColor.WHITE + " has been added!");
+
+        NamespacedKey key = new NamespacedKey(this, NamespacedKey.MINECRAFT);
+
+        ShapelessRecipe glowstone = new ShapelessRecipe(key, new ItemStack(Material.GLOWSTONE_DUST, 4))
+                .addIngredient(Material.GLOWSTONE);
+        ShapelessRecipe quartz = new ShapelessRecipe(key, new ItemStack(Material.QUARTZ, 4))
+                .addIngredient(Material.QUARTZ_BLOCK);
+        ShapelessRecipe honeycomb = new ShapelessRecipe(key, new ItemStack(Material.HONEYCOMB, 4))
+                .addIngredient(Material.HONEYCOMB_BLOCK);
+        ShapelessRecipe amethyst = new ShapelessRecipe(key, new ItemStack(Material.AMETHYST_SHARD, 4))
+                .addIngredient(Material.AMETHYST_BLOCK);
+
+        Bukkit.addRecipe(glowstone);
+        Bukkit.addRecipe(quartz);
+        Bukkit.addRecipe(honeycomb);
+        Bukkit.addRecipe(amethyst);
+        console(ChatColor.YELLOW + "Custom Recipes" + ChatColor.WHITE + " have been added!");
 
         GetCratesKeys.console(ChatColor.YELLOW + getFullName() + ChatColor.WHITE + " is now enabled!");
 
