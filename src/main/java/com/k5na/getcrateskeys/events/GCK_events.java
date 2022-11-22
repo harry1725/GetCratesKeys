@@ -145,7 +145,7 @@ public class GCK_events implements Listener {
                     if (only_key < 1) {
                         String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                        for (int i = 0; i <= total_enabled_key_num; i++) {
+                        for (int i = 1; i <= total_enabled_key_num; i++) {
                             if (enabled_keys[i].equalsIgnoreCase(random)) {
                                 key_num = i;
                                 break;
@@ -185,7 +185,7 @@ public class GCK_events implements Listener {
                                 if (only_key < 1) {
                                     String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                                    for (int i = 0; i <= total_enabled_key_num; i++) {
+                                    for (int i = 1; i <= total_enabled_key_num; i++) {
                                         if (enabled_keys[i].equalsIgnoreCase(random)) {
                                             key_num = i;
                                             break;
@@ -250,7 +250,7 @@ public class GCK_events implements Listener {
                     if (only_key < 1) {
                         String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                        for (int i = 0; i <= total_enabled_key_num; i++) {
+                        for (int i = 1; i <= total_enabled_key_num; i++) {
                             if (enabled_keys[i].equalsIgnoreCase(random)) {
                                 key_num = i;
                                 break;
@@ -290,7 +290,7 @@ public class GCK_events implements Listener {
                                 if (only_key < 1) {
                                     String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                                    for (int i = 0; i <= total_enabled_key_num; i++) {
+                                    for (int i = 1; i <= total_enabled_key_num; i++) {
                                         if (enabled_keys[i].equalsIgnoreCase(random)) {
                                             key_num = i;
                                             break;
@@ -355,7 +355,7 @@ public class GCK_events implements Listener {
                     if (only_key < 1) {
                         String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                        for (int i = 0; i <= total_enabled_key_num; i++) {
+                        for (int i = 1; i <= total_enabled_key_num; i++) {
                             if (enabled_keys[i].equalsIgnoreCase(random)) {
                                 key_num = i;
                                 break;
@@ -395,7 +395,7 @@ public class GCK_events implements Listener {
                                 if (only_key < 1) {
                                     String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                                    for (int i = 0; i <= total_enabled_key_num; i++) {
+                                    for (int i = 1; i <= total_enabled_key_num; i++) {
                                         if (enabled_keys[i].equalsIgnoreCase(random)) {
                                             key_num = i;
                                             break;
@@ -506,7 +506,7 @@ public class GCK_events implements Listener {
                     if (only_key < 1) {
                         String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                        for (int i = 0; i <= total_enabled_key_num; i++) {
+                        for (int i = 1; i <= total_enabled_key_num; i++) {
                             if (enabled_keys[i].equalsIgnoreCase(random)) {
                                 key_num = i;
                                 break;
@@ -546,7 +546,7 @@ public class GCK_events implements Listener {
                                 if (only_key < 1) {
                                     String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                                    for (int i = 0; i <= total_enabled_key_num; i++) {
+                                    for (int i = 1; i <= total_enabled_key_num; i++) {
                                         if (enabled_keys[i].equalsIgnoreCase(random)) {
                                             key_num = i;
                                             break;
