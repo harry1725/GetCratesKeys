@@ -143,13 +143,15 @@ public class GCK_commands extends AbstractCommand {
                             conLog(username + "(UUID :" + uuid + ") tried to use /gck reload without OP.");
                         }
                     } else if (args[0].equalsIgnoreCase("keys")) {  // 등록된 열쇠를 보여줌
-                        int total_key_num = gck.getKeysConfig().getIntegerList("keys").size();
+                        int total_key_num = gck.getKeysConfig().getStringList("keys").size();
 
                         if (gck.getConfig().getBoolean("config.enabled")) {
-                            player.sendMessage(ChatColor.GREEN + "현재 활성화되어 있는 모든 열쇠 목록" + ChatColor.WHITE + ":");
+                            player.sendMessage(ChatColor.GREEN + "현재 등록되어 있는 모든 열쇠 목록" + ChatColor.WHITE + ":");
                             for (int i = 0; i <= total_key_num; i++) {
-                                if (gck.getKeysConfig().getBoolean("keys." + i + ".enabled")) {
-                                    player.sendMessage(ChatColor.WHITE + gck.getKeysConfig().getString("keys." + i + ".display_name"));
+                                if (gck.getKeysConfig().getBoolean("keys.\"" + i + "\".enabled")) {
+                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys.\"" + i + "\".display_name"));
+                                } else {
+                                    player.sendMessage(ChatColor.RED + gck.getKeysConfig().getString("keys.\"" + i + "\".display_name"));
                                 }
                             }
                         } else {
@@ -209,7 +211,7 @@ public class GCK_commands extends AbstractCommand {
                                         player.sendMessage(ChatColor.AQUA + "이제 " + ChatColor.YELLOW + "드랍 부스트" + ChatColor.AQUA + " 설정이 " + ChatColor.GREEN + "활성화" + ChatColor.AQUA + " 되었습니다!");
                                         for (Player p : Bukkit.getOnlinePlayers()) {
                                             p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.AQUA + username + ChatColor.WHITE + " 님에 의해 " + ChatColor.YELLOW + "열쇠 드랍 부스트" + ChatColor.WHITE + " 설정이 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 되었습니다!");
-                                            if (gck.getConfig().getBoolean("config.enable")) {
+                                            if (gck.getConfig().getBoolean("config.enabled")) {
                                                 p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 드랍" + ChatColor.WHITE +"이 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
                                                 if (gck.getConfig().getInt("config.drop_boost.amount") < 1) {
                                                     p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 갯수 드랍 부스트" + ChatColor.WHITE +"는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
@@ -318,7 +320,7 @@ public class GCK_commands extends AbstractCommand {
 
                                             gck.saveConfig();
 
-                                            player.sendMessage(ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 고정 확률 부스트" + ChatColor.WHITE + "는 " + ChatColor.GREEN + gck.getConfig().getInt("config.drop_boost.chance_fixed") + ChatColor.WHITE + " 입니다. 입력한 값이 맞는지 확인해 주세요.");
+                                            player.sendMessage(ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 고정 확률 부스트" + ChatColor.WHITE + "는 " + ChatColor.GREEN + gck.getConfig().getInt("config.drop_boost.chance_fixed") + ChatColor.WHITE + " 입니다. 총 추가 확률은 " + ChatColor.GREEN + (gck.getConfig().getInt("config.drop_boost.chance_fixed") / gck.getConfig().getInt("config.max_chance") * 100) + ChatColor.GREEN + "%" + ChatColor.WHITE + " 입니다. 입력한 값이 맞는지 확인해 주세요.");
                                         } catch (NumberFormatException e) {
                                             player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. 정수만 입력해 주세요.");
                                             conLog("NOT-INTEGER-TYPE value was entered by " + username + ". (UUID :" + uuid + ") (Fc:L" + getLineNumber() + ")");
@@ -337,7 +339,7 @@ public class GCK_commands extends AbstractCommand {
 
                                             player.sendMessage(ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 드랍 확률 배수 부스트" + ChatColor.WHITE + "는 " + ChatColor.GREEN + gck.getConfig().getInt("config.drop_boost.chance_multiplier") + ChatColor.WHITE + " 입니다. 입력한 값이 맞는지 확인해 주세요.");
                                         } catch (NumberFormatException e) {
-                                            player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. 정수만 입력해 주세요.");
+                                            player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. 실수만 입력해 주세요.");
                                             conLog("NOT-INTEGER-TYPE value was entered by " + username + ". (UUID :" + uuid + ") (Fc:L" + getLineNumber() + ")");
                                         }
                                     }
@@ -349,6 +351,16 @@ public class GCK_commands extends AbstractCommand {
                                 conLog(username + "(UUID : " + uuid + ") tried to use /gck set without OP.");
                             }
                         }
+                    } else if (args[0].equalsIgnoreCase("ceiling")) {
+                        if (gck.getConfig().getBoolean("config.ceiling.enabled")) {
+                            player.sendMessage(ChatColor.GREEN + "현재 서버에서 천장 시스템이 활성화 되어있습니다.");
+                        } else {
+                            player.sendMessage(ChatColor.RED + "현재 서버에서 천장 시스템이 비활성화 되어있습니다.");
+                        }
+                        player.sendMessage(ChatColor.GREEN + "발굴" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".excavation") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.excavation_max") + ChatColor.WHITE + " 회");
+                        player.sendMessage(ChatColor.GOLD + "농사" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".farming") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.farming_max") + ChatColor.WHITE + " 회");
+                        player.sendMessage(ChatColor.AQUA + "낚시" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".fishing") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.fishing_max") + ChatColor.WHITE + " 회");
+                        player.sendMessage(ChatColor.GRAY + "광질" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".mining") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.mining_max") + ChatColor.WHITE + " 회");
                     } else {
                         player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. /gck help를 통해 입력 가능한 명령어를 확인해주세요.");
                     }

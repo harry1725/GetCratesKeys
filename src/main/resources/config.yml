@@ -39,12 +39,14 @@ config:
 
   drop_boost:
     enabled: false
+
     amount: -1
     chance_fixed: -1
     chance_multiplier: -1.0
 
   ceiling:
     enabled: true
+
     excavation_max: 100000
     farming_max: 100000
     fishing_max: 100000

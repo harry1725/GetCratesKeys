@@ -5,7 +5,7 @@
 # ======================= # 열 쇠 # =======================
 # 열쇠 추가 방법:
 # keys:
-#   번호(정수 순서대로):
+#   "번호(정수 순서대로)":
 #     enabled: < true / false >
 #     - 해당 열쇠 드랍 여부. true는 활성화, false는 비활성화
 #
@@ -19,13 +19,13 @@
 #     - 열쇠 최대 드랍 갯수. 1 미만은 활성화 상태여도 드랍되지 않지만 드랍 갯수 부스트 활성화 시에는 드랍됨.
 # ========================================================
 keys:
-  1:
+  "1":
     enabled: true
     display_name: "판도라의 상자"
     crate_name: "k5na_PandoraCrate"
     max_drop: 1
 
-  2:
+  "2":
     enabled: true
     display_name: "겨울 상자"
     crate_name: "k5na_WinterCrate"

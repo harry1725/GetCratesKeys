@@ -67,15 +67,15 @@ public class GCK_events implements Listener {
         int ceiling_farming_max = gck.getConfig().getInt("config.ceiling.farming_max");
         int ceiling_mining_max = gck.getConfig().getInt("config.ceiling.mining_max");
 
-        int total_key_num = gck.getKeysConfig().getIntegerList("keys").size();
-        int[] enabled_keys = new int[total_key_num];
+        int total_key_num = gck.getKeysConfig().getStringList("keys").size();
+        String[] enabled_keys = new String[total_key_num];
         int total_enabled_key_num = 0;
 
         for (int i = 1; i <= total_key_num; i++) {
-            if (gck.getKeysConfig().getBoolean("keys." + i + ".enabled")) {
+            if (gck.getKeysConfig().getBoolean("keys.\"" + i + "\".enabled")) {
                 for (int j = 0; j <= i - 1; j++) {
-                    if (enabled_keys[j] == 0) {
-                        enabled_keys[j] = i;
+                    if (enabled_keys[j] == null) {
+                        enabled_keys[j] = String.valueOf(i);
                         total_enabled_key_num++;
                         break;
                     }
@@ -138,10 +138,10 @@ public class GCK_events implements Listener {
                     int only_key = gck.getActsConfig().getInt(excavation_path + ".only_key");
 
                     if (only_key < 1) {
-                        int random = (int) (Math.random() * total_enabled_key_num + 1);
+                        String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
                         for (int i = 0; i <= total_enabled_key_num; i++) {
-                            if (enabled_keys[i] == random) {
+                            if (enabled_keys[i].equalsIgnoreCase(random)) {
                                 key_num = i;
                                 break;
                             }
@@ -152,7 +152,7 @@ public class GCK_events implements Listener {
 
                     String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
 
-                    int max_drop = gck.getKeysConfig().getInt(("keys." + key_num + ".max_drop"));
+                    int max_drop = gck.getKeysConfig().getInt("keys.\"" + key_num + "\".max_drop");
                     int drop = (int) (Math.random() * max_drop + 1);
                     if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
                         drop += key_drop_boost_amount;
@@ -161,7 +161,7 @@ public class GCK_events implements Listener {
                     for (int i = 1; i <= drop; i++) {
                         GetCratesKeys.console(command);
 
-                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys." + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys.\"" + key_num + "\".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                     }
 
                     if (ceiling_enabled) {
@@ -178,10 +178,10 @@ public class GCK_events implements Listener {
                                 int only_key = gck.getActsConfig().getInt(excavation_path + ".only_key");
 
                                 if (only_key < 1) {
-                                    int random = (int) (Math.random() * total_enabled_key_num + 1);
+                                    String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
                                     for (int i = 0; i <= total_enabled_key_num; i++) {
-                                        if (enabled_keys[i] == random) {
+                                        if (enabled_keys[i].equalsIgnoreCase(random)) {
                                             key_num = i;
                                             break;
                                         }
@@ -192,7 +192,7 @@ public class GCK_events implements Listener {
 
                                 String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
 
-                                int max_drop = gck.getKeysConfig().getInt(("keys." + key_num + ".max_drop"));
+                                int max_drop = gck.getKeysConfig().getInt("keys.\"" + key_num + "\".max_drop");
                                 int drop = (int) (Math.random() * max_drop + 1);
                                 if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
                                     drop += key_drop_boost_amount;
@@ -201,7 +201,7 @@ public class GCK_events implements Listener {
                                 for (int i = 1; i <= drop; i++) {
                                     GetCratesKeys.console(command);
 
-                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys." + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys.\"" + key_num + "\".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                                 }
 
                                 gck.getCeilConfig().set(ceiling_excavation_path, gck.getCeilConfig().getInt(ceiling_excavation_path) - ceiling_excavation_max);
@@ -243,10 +243,10 @@ public class GCK_events implements Listener {
                     int only_key = gck.getActsConfig().getInt(farming_path + ".only_key");
 
                     if (only_key < 1) {
-                        int random = (int) (Math.random() * total_enabled_key_num + 1);
+                        String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
                         for (int i = 0; i <= total_enabled_key_num; i++) {
-                            if (enabled_keys[i] == random) {
+                            if (enabled_keys[i].equalsIgnoreCase(random)) {
                                 key_num = i;
                                 break;
                             }
@@ -257,7 +257,7 @@ public class GCK_events implements Listener {
 
                     String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
 
-                    int max_drop = gck.getKeysConfig().getInt(("keys." + key_num + ".max_drop"));
+                    int max_drop = gck.getKeysConfig().getInt("keys.\"" + key_num + "\".max_drop");
                     int drop = (int) (Math.random() * max_drop + 1);
                     if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
                         drop += key_drop_boost_amount;
@@ -266,7 +266,7 @@ public class GCK_events implements Listener {
                     for (int i = 1; i <= drop; i++) {
                         GetCratesKeys.console(command);
 
-                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys." + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys.\"" + key_num + "\".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                     }
 
                     if (ceiling_enabled) {
@@ -283,10 +283,10 @@ public class GCK_events implements Listener {
                                 int only_key = gck.getActsConfig().getInt(farming_path + ".only_key");
 
                                 if (only_key < 1) {
-                                    int random = (int) (Math.random() * total_enabled_key_num + 1);
+                                    String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
                                     for (int i = 0; i <= total_enabled_key_num; i++) {
-                                        if (enabled_keys[i] == random) {
+                                        if (enabled_keys[i].equalsIgnoreCase(random)) {
                                             key_num = i;
                                             break;
                                         }
@@ -297,7 +297,7 @@ public class GCK_events implements Listener {
 
                                 String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
 
-                                int max_drop = gck.getKeysConfig().getInt(("keys." + key_num + ".max_drop"));
+                                int max_drop = gck.getKeysConfig().getInt("keys.\"" + key_num + "\".max_drop");
                                 int drop = (int) (Math.random() * max_drop + 1);
                                 if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
                                     drop += key_drop_boost_amount;
@@ -306,7 +306,7 @@ public class GCK_events implements Listener {
                                 for (int i = 1; i <= drop; i++) {
                                     GetCratesKeys.console(command);
 
-                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys." + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys.\"" + key_num + "\".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                                 }
 
                                 gck.getCeilConfig().set(ceiling_farming_path, gck.getCeilConfig().getInt(ceiling_farming_path) - ceiling_farming_max);
@@ -348,10 +348,10 @@ public class GCK_events implements Listener {
                     int only_key = gck.getActsConfig().getInt(mining_path + ".only_key");
 
                     if (only_key < 1) {
-                        int random = (int) (Math.random() * total_enabled_key_num + 1);
+                        String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
                         for (int i = 0; i <= total_enabled_key_num; i++) {
-                            if (enabled_keys[i] == random) {
+                            if (enabled_keys[i].equalsIgnoreCase(random)) {
                                 key_num = i;
                                 break;
                             }
@@ -362,7 +362,7 @@ public class GCK_events implements Listener {
 
                     String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
 
-                    int max_drop = gck.getKeysConfig().getInt(("keys." + key_num + ".max_drop"));
+                    int max_drop = gck.getKeysConfig().getInt("keys.\"" + key_num + "\".max_drop");
                     int drop = (int) (Math.random() * max_drop + 1);
                     if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
                         drop += key_drop_boost_amount;
@@ -371,7 +371,7 @@ public class GCK_events implements Listener {
                     for (int i = 1; i <= drop; i++) {
                         GetCratesKeys.console(command);
 
-                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys." + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys.\"" + key_num + "\".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                     }
 
                     if (ceiling_enabled) {
@@ -388,10 +388,10 @@ public class GCK_events implements Listener {
                                 int only_key = gck.getActsConfig().getInt(mining_path + ".only_key");
 
                                 if (only_key < 1) {
-                                    int random = (int) (Math.random() * total_enabled_key_num + 1);
+                                    String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
                                     for (int i = 0; i <= total_enabled_key_num; i++) {
-                                        if (enabled_keys[i] == random) {
+                                        if (enabled_keys[i].equalsIgnoreCase(random)) {
                                             key_num = i;
                                             break;
                                         }
@@ -402,7 +402,7 @@ public class GCK_events implements Listener {
 
                                 String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
 
-                                int max_drop = gck.getKeysConfig().getInt(("keys." + key_num + ".max_drop"));
+                                int max_drop = gck.getKeysConfig().getInt("keys.\"" + key_num + "\".max_drop");
                                 int drop = (int) (Math.random() * max_drop + 1);
                                 if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
                                     drop += key_drop_boost_amount;
@@ -411,7 +411,7 @@ public class GCK_events implements Listener {
                                 for (int i = 1; i <= drop; i++) {
                                     GetCratesKeys.console(command);
 
-                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys." + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys.\"" + key_num + "\".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                                 }
 
                                 gck.getCeilConfig().set(ceiling_mining_path, gck.getCeilConfig().getInt(ceiling_mining_path) - ceiling_mining_max);
@@ -427,7 +427,6 @@ public class GCK_events implements Listener {
             }
         }
     }
-
     @EventHandler
     public void onFishingSuccess(PlayerFishEvent event) {
         Player player = event.getPlayer();
@@ -445,15 +444,15 @@ public class GCK_events implements Listener {
         boolean ceiling_enabled = gck.getConfig().getBoolean("config.ceiling.enabled");
         int ceiling_fishing_max = gck.getConfig().getInt("config.ceiling.fishing_max");
 
-        int total_key_num = gck.getKeysConfig().getIntegerList("keys").size();
-        int[] enabled_keys = new int[total_key_num];
+        int total_key_num = gck.getKeysConfig().getStringList("keys").size();
+        String[] enabled_keys = new String[total_key_num];
         int total_enabled_key_num = 0;
 
         for (int i = 1; i <= total_key_num; i++) {
-            if (gck.getKeysConfig().getBoolean("keys." + i + ".enabled")) {
+            if (gck.getKeysConfig().getBoolean("keys.\"" + i + "\".enabled")) {
                 for (int j = 0; j <= i - 1; j++) {
-                    if (enabled_keys[j] == 0) {
-                        enabled_keys[j] = i;
+                    if (enabled_keys[j] == null) {
+                        enabled_keys[j] = String.valueOf(i);
                         total_enabled_key_num++;
                         break;
                     }
@@ -500,10 +499,10 @@ public class GCK_events implements Listener {
                     int only_key = gck.getActsConfig().getInt(fishing_path + ".only_key");
 
                     if (only_key < 1) {
-                        int random = (int) (Math.random() * total_enabled_key_num + 1);
+                        String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
                         for (int i = 0; i <= total_enabled_key_num; i++) {
-                            if (enabled_keys[i] == random) {
+                            if (enabled_keys[i].equalsIgnoreCase(random)) {
                                 key_num = i;
                                 break;
                             }
@@ -514,7 +513,7 @@ public class GCK_events implements Listener {
 
                     String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
 
-                    int max_drop = gck.getKeysConfig().getInt(("keys." + key_num + ".max_drop"));
+                    int max_drop = gck.getKeysConfig().getInt("keys.\"" + key_num + "\".max_drop");
                     int drop = (int) (Math.random() * max_drop + 1);
                     if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
                         drop += key_drop_boost_amount;
@@ -523,7 +522,7 @@ public class GCK_events implements Listener {
                     for (int i = 1; i <= drop; i++) {
                         GetCratesKeys.console(command);
 
-                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys." + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys.\"" + key_num + "\".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                     }
 
                     if (ceiling_enabled) {
@@ -540,10 +539,10 @@ public class GCK_events implements Listener {
                                 int only_key = gck.getActsConfig().getInt(fishing_path + ".only_key");
 
                                 if (only_key < 1) {
-                                    int random = (int) (Math.random() * total_enabled_key_num + 1);
+                                    String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
                                     for (int i = 0; i <= total_enabled_key_num; i++) {
-                                        if (enabled_keys[i] == random) {
+                                        if (enabled_keys[i].equalsIgnoreCase(random)) {
                                             key_num = i;
                                             break;
                                         }
@@ -554,13 +553,13 @@ public class GCK_events implements Listener {
 
                                 String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
 
-                                int max_drop = gck.getKeysConfig().getInt(("keys." + key_num + ".max_drop"));
+                                int max_drop = gck.getKeysConfig().getInt("keys.\"" + key_num + "\".max_drop");
                                 int drop = (int) (Math.random() * max_drop + 1);
 
                                 for (int i = 1; i <= drop; i++) {
                                     GetCratesKeys.console(command);
 
-                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys." + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys.\"" + key_num + "\".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                                 }
 
                                 gck.getCeilConfig().set(ceiling_fishing_path, gck.getCeilConfig().getInt(ceiling_fishing_path) - ceiling_fishing_max);
