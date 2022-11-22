@@ -67,7 +67,7 @@ public class GCK_events implements Listener {
         int ceiling_farming_max = gck.getConfig().getInt("config.ceiling.farming_max");
         int ceiling_mining_max = gck.getConfig().getInt("config.ceiling.mining_max");
 
-        int total_key_num = gck.getKeysConfig().getStringList("keys").size();
+        int total_key_num = gck.getKeysConfig().getStringList("keys").toArray().length;
         String[] enabled_keys = new String[total_key_num];
         int total_enabled_key_num = 0;
 
@@ -444,7 +444,7 @@ public class GCK_events implements Listener {
         boolean ceiling_enabled = gck.getConfig().getBoolean("config.ceiling.enabled");
         int ceiling_fishing_max = gck.getConfig().getInt("config.ceiling.fishing_max");
 
-        int total_key_num = gck.getKeysConfig().getStringList("keys").size();
+        int total_key_num = gck.getKeysConfig().getStringList("keys").toArray().length;
         String[] enabled_keys = new String[total_key_num];
         int total_enabled_key_num = 0;
 
