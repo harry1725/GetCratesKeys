@@ -165,42 +165,91 @@ excavation:
 farming:
   enabled: true
 
-  BEETROOT_SEEDS:                     # 사탕무 씨앗 (심었을 때에도 이름이 씨앗)
+  BAMBOO:                             # 대나무 - Bamboo extends Sapling
+    enabled: false
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  BEETROOTS:                          # 사탕무
     enabled: true
     base_chance: 1000
     multiplier_enabled: true
     multiplier: 1
     only_key: -1
 
-  CARROT:                             # 당근
+  CACTUS:                             # 선인장
+    enabled: false
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  CARROTS:                            # 당근
     enabled: true
     base_chance: 100
     multiplier_enabled: true
     multiplier: 1
     only_key: -1
 
-  GLOW_BERRIES:                       # 발광 열매
+  CAVE_VINES:                         # 발광 열매 뿌리 - CaveVines extends CaveVinesPlant, Can Be Interacted
     enabled: true
     base_chance: 100
     multiplier_enabled: true
     multiplier: 1
     only_key: -1
 
-  MELON:                              # 수박 블럭
+  CAVE_VINES_PLANT:                   # 발광 열매 줄기 - CaveVinesPlant, Can Be Interacted
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  CHORUS_FLOWER:                       # 후렴화
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  CHORUS_PLANT:                       # 후렴과 줄기 - MultipleFacing
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  KELP:                               # 켈프
+    enabled: false
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  MELON:                              # 수박 블럭 - NOT Ageable
     enabled: true
     base_chance: 1000
     multiplier_enabled: true
     multiplier: 1
     only_key: -1
 
-  POTATO:                             # 감자
+  NETHER_WART:                        # 지옥 사마귀 (네더와트)
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  POTATOES:                           # 감자
     enabled: true
     base_chance: 100
     multiplier_enabled: true
     multiplier: 1
     only_key: -1
 
-  PUMPKIN:                            # 호박
+  PUMPKIN:                            # 호박 - NOT Ageable
     enabled: true
     base_chance: 1000
     multiplier_enabled: true
@@ -214,14 +263,14 @@ farming:
     multiplier: 1
     only_key: -1
 
-  SWEET_BERRIES:                      # 달콤한 열매
+  SWEET_BERRY_BUSH:                   # 달콤한 열매 - Can Be Interacted
     enabled: true
     base_chance: 100
     multiplier_enabled: true
     multiplier: 1
     only_key: -1
 
-  WHEAT_SEEDS:                        # 밀 씨앗 (심었을 때에도 이름이 씨앗)
+  WHEAT:                              # 밀
     enabled: true
     base_chance: 1000
     multiplier_enabled: true
@@ -264,7 +313,7 @@ fishing:
 
 # ======================= # 광 질 # =======================
 # 블럭 추가 방법:
-# minng:
+# mining:
 #   enabled: < true / false >
 #   - 해당 블럭을 "캤을 때" 열쇠 드랍 가능 여부. true는 활성화, false는 비활성화
 #
