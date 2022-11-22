@@ -5,7 +5,8 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class GCK_expansions extends PlaceholderExpansion {
     private final GetCratesKeys gck;
@@ -36,17 +37,13 @@ public class GCK_expansions extends PlaceholderExpansion {
 
     @Override
     public String onRequest(OfflinePlayer player, @NotNull String params) {
-        List<String> key_nums = gck.getKeysConfig().getStringList("keys");
-        int key_num;
+        String username = player.getName();
+        Set<String> key_nums = Objects.requireNonNull(gck.getKeysConfig().getConfigurationSection("keys")).getKeys(false);
 
-        try {
-            key_num = Integer.parseInt(params);
-        } catch (NumberFormatException e) {
-            return null;
-        }
+        String key_num = "_" + params;
 
-        if (key_nums.contains(params)) {
-            return "scrates givekey " + gck.getKeysConfig().getString("keys._" + key_num + ".crate_name") + " " + player.getName() + " 1 -v";
+        if (key_nums.contains(key_num)) {
+            return "scrates givekey " + gck.getKeysConfig().getString("keys." + key_num + ".crate_name") + " " + username + " 1 -v";
         }
 
         return null;

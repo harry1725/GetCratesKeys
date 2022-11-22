@@ -8,12 +8,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
-import static com.k5na.getcrateskeys.GetCratesKeys.conLog;
-import static com.k5na.getcrateskeys.GetCratesKeys.getLineNumber;
+import static com.k5na.getcrateskeys.GetCratesKeys.*;
 
 public class GCK_commands extends AbstractCommand {
     public GCK_commands(GetCratesKeys plugin, String commandLabel) {
@@ -143,11 +140,11 @@ public class GCK_commands extends AbstractCommand {
                             conLog(username + "(UUID :" + uuid + ") tried to use /gck reload without OP.");
                         }
                     } else if (args[0].equalsIgnoreCase("keys")) {  // 등록된 열쇠를 보여줌
-                        int total_key_num = gck.getKeysConfig().getStringList("keys").toArray().length;
+                        int total_key_num = Objects.requireNonNull(gck.getKeysConfig().getConfigurationSection("keys")).getKeys(false).size();
 
                         if (gck.getConfig().getBoolean("config.enabled")) {
                             player.sendMessage(ChatColor.GREEN + "현재 등록되어 있는 모든 열쇠 목록" + ChatColor.WHITE + ":");
-                            for (int i = 0; i <= total_key_num; i++) {
+                            for (int i = 1; i <= total_key_num; i++) {
                                 if (gck.getKeysConfig().getBoolean("keys._" + i + ".enabled")) {
                                     player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + i + ".display_name"));
                                 } else {
@@ -174,28 +171,28 @@ public class GCK_commands extends AbstractCommand {
                                         for (Player p : Bukkit.getOnlinePlayers()) {
                                             p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.AQUA + username + ChatColor.WHITE + " 님에 의해 " + ChatColor.YELLOW + "열쇠 드랍" + ChatColor.WHITE + " 설정이 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 되었습니다!");
                                             if (gck.getConfig().getBoolean("config.drop_boost.enable")) {
-                                                p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 드랍 부스트" + ChatColor.WHITE +"가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 드랍 부스트" + ChatColor.WHITE + "가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
                                                 if (gck.getConfig().getInt("config.drop_boost.amount") < 1) {
-                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 갯수 드랍 부스트" + ChatColor.WHITE +"는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 갯수 드랍 부스트" + ChatColor.WHITE + "는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
                                                 } else {
-                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 갯수 드랍 부스트" + ChatColor.WHITE +"가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 갯수 드랍 부스트" + ChatColor.WHITE + "가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
                                                     p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.GREEN + gck.getConfig().getInt("config.drop_boost.amount") + ChatColor.WHITE + " 개의 " + ChatColor.YELLOW + "열쇠 추가 드랍" + ChatColor.WHITE + "이 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 되어있습니다!");
                                                 }
                                                 if (gck.getConfig().getInt("config.drop_boost.chance_fixed") <= 0) {
-                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 고정 드랍 확률 부스트" + ChatColor.WHITE +"는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 고정 드랍 확률 부스트" + ChatColor.WHITE + "는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
                                                 } else {
-                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW +"열쇠 고정 드랍 확률 부스트" + ChatColor.WHITE +"가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 고정 드랍 확률 부스트" + ChatColor.WHITE + "가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
                                                     p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.GREEN + (gck.getConfig().getInt("config.drop_boost.chance_fixed") / gck.getConfig().getInt("config.max_chance") * 100) + ChatColor.WHITE + "% 만큼의 " + ChatColor.YELLOW + "열쇠 고정 드랍 확률 부스트" + ChatColor.WHITE + "가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 되어있습니다!");
                                                 }
                                                 if (gck.getConfig().getInt("config.drop_boost.chance_multiplier") < 0) {
-                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW +"열쇠 드랍 확률 배수 부스트" + ChatColor.WHITE +"는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 드랍 확률 배수 부스트" + ChatColor.WHITE + "는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
                                                 } else {
-                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.WHITE +"열쇠 드랍 확률 배수 부스트" + ChatColor.WHITE +"가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
-                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.GREEN + gck.getConfig().getInt("config.drop_boost.chance_fixed") + ChatColor.WHITE + "배 만큼의 " + ChatColor.YELLOW +"열쇠 드랍 확률 배수 부스트" + ChatColor.WHITE +"가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 되어있습니다!");
-                                                    p.sendMessage(ChatColor.RED + "[경고] 1 미만의 배수" + ChatColor.WHITE + "를 " + ChatColor.RED + "조심" + ChatColor.WHITE +"하세요!");
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.WHITE + "열쇠 드랍 확률 배수 부스트" + ChatColor.WHITE + "가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.GREEN + gck.getConfig().getInt("config.drop_boost.chance_fixed") + ChatColor.WHITE + "배 만큼의 " + ChatColor.YELLOW + "열쇠 드랍 확률 배수 부스트" + ChatColor.WHITE + "가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 되어있습니다!");
+                                                    p.sendMessage(ChatColor.RED + "[경고] 1 미만의 배수" + ChatColor.WHITE + "를 " + ChatColor.RED + "조심" + ChatColor.WHITE + "하세요!");
                                                 }
                                             } else {
-                                                p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.WHITE +"열쇠 드랍 부스트" + ChatColor.WHITE +"는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.WHITE + "열쇠 드랍 부스트" + ChatColor.WHITE + "는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
                                             }
                                         }
                                         conLog("key_drop enabled by OP Player " + username + ". (UUID : " + uuid + ")");
@@ -212,28 +209,28 @@ public class GCK_commands extends AbstractCommand {
                                         for (Player p : Bukkit.getOnlinePlayers()) {
                                             p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.AQUA + username + ChatColor.WHITE + " 님에 의해 " + ChatColor.YELLOW + "열쇠 드랍 부스트" + ChatColor.WHITE + " 설정이 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 되었습니다!");
                                             if (gck.getConfig().getBoolean("config.enabled")) {
-                                                p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 드랍" + ChatColor.WHITE +"이 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 드랍" + ChatColor.WHITE + "이 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
                                                 if (gck.getConfig().getInt("config.drop_boost.amount") < 1) {
-                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 갯수 드랍 부스트" + ChatColor.WHITE +"는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 갯수 드랍 부스트" + ChatColor.WHITE + "는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
                                                 } else {
-                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 갯수 드랍 부스트" + ChatColor.WHITE +"가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 갯수 드랍 부스트" + ChatColor.WHITE + "가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
                                                     p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.GREEN + gck.getConfig().getInt("config.drop_boost.amount") + ChatColor.WHITE + " 개의 " + ChatColor.YELLOW + "열쇠 추가 드랍" + ChatColor.WHITE + "이 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 되어있습니다!");
                                                 }
                                                 if (gck.getConfig().getInt("config.drop_boost.chance_fixed") <= 0) {
-                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 고정 드랍 확률 부스트" + ChatColor.WHITE +"는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 고정 드랍 확률 부스트" + ChatColor.WHITE + "는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
                                                 } else {
-                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW +"열쇠 고정 드랍 확률 부스트" + ChatColor.WHITE +"가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 고정 드랍 확률 부스트" + ChatColor.WHITE + "가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
                                                     p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.GREEN + (gck.getConfig().getInt("config.drop_boost.chance_fixed") / gck.getConfig().getInt("config.max_chance") * 100) + ChatColor.WHITE + "% 만큼의 " + ChatColor.YELLOW + "열쇠 고정 드랍 확률 부스트" + ChatColor.WHITE + "가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 되어있습니다!");
                                                 }
                                                 if (gck.getConfig().getInt("config.drop_boost.chance_multiplier") < 0) {
-                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW +"열쇠 드랍 확률 배수 부스트" + ChatColor.WHITE +"는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 드랍 확률 배수 부스트" + ChatColor.WHITE + "는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
                                                 } else {
-                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.WHITE +"열쇠 드랍 확률 배수 부스트" + ChatColor.WHITE +"가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
-                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.GREEN + gck.getConfig().getInt("config.drop_boost.chance_fixed") + ChatColor.WHITE + "배 만큼의 " + ChatColor.YELLOW +"열쇠 드랍 확률 배수 부스트" + ChatColor.WHITE +"가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 되어있습니다!");
-                                                    p.sendMessage(ChatColor.RED + "[경고] 1 미만의 배수" + ChatColor.WHITE + "를 " + ChatColor.RED + "조심" + ChatColor.WHITE +"하세요!");
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.WHITE + "열쇠 드랍 확률 배수 부스트" + ChatColor.WHITE + "가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                    p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.GREEN + gck.getConfig().getInt("config.drop_boost.chance_fixed") + ChatColor.WHITE + "배 만큼의 " + ChatColor.YELLOW + "열쇠 드랍 확률 배수 부스트" + ChatColor.WHITE + "가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 되어있습니다!");
+                                                    p.sendMessage(ChatColor.RED + "[경고] 1 미만의 배수" + ChatColor.WHITE + "를 " + ChatColor.RED + "조심" + ChatColor.WHITE + "하세요!");
                                                 }
                                             } else {
-                                                p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.WHITE +"열쇠 드랍" + ChatColor.WHITE +"은 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
+                                                p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.WHITE + "열쇠 드랍" + ChatColor.WHITE + "은 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
                                             }
                                         }
                                         conLog("drop_chance enabled by OP Player " + username + ". (UUID : " + uuid + ")");

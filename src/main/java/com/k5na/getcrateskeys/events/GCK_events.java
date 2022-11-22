@@ -2,7 +2,9 @@ package com.k5na.getcrateskeys.events;
 
 import com.k5na.getcrateskeys.GetCratesKeys;
 import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,7 +12,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 import static org.bukkit.event.player.PlayerFishEvent.State.CAUGHT_FISH;
@@ -21,6 +24,8 @@ public class GCK_events implements Listener {
     public GCK_events(GetCratesKeys plugin) {
         gck = plugin;
     }
+
+    ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
@@ -67,7 +72,7 @@ public class GCK_events implements Listener {
         int ceiling_farming_max = gck.getConfig().getInt("config.ceiling.farming_max");
         int ceiling_mining_max = gck.getConfig().getInt("config.ceiling.mining_max");
 
-        int total_key_num = gck.getKeysConfig().getStringList("keys").size();
+        int total_key_num = Objects.requireNonNull(gck.getKeysConfig().getConfigurationSection("keys")).getKeys(false).size();
         String[] enabled_keys = new String[total_key_num];
         int total_enabled_key_num = 0;
 
@@ -83,11 +88,11 @@ public class GCK_events implements Listener {
             }
         }
 
-        List<String> excavation_block_list = gck.getActsConfig().getStringList("excavation");
+        Set<String> excavation_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("excavation")).getKeys(false);
         boolean excavation_enabled = gck.getActsConfig().getBoolean("excavation.enabled");
-        List<String> farming_block_list = gck.getActsConfig().getStringList("farming");
+        Set<String> farming_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("farming")).getKeys(false);
         boolean farming_enabled = gck.getActsConfig().getBoolean("farming.enabled");
-        List<String> mining_block_list = gck.getActsConfig().getStringList("mining");
+        Set<String> mining_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("mining")).getKeys(false);
         boolean mining_enabled = gck.getActsConfig().getBoolean("mining.enabled");
 
         String ceiling_excavation_path = "ceiling." + uuid + ".excavation";
@@ -159,7 +164,7 @@ public class GCK_events implements Listener {
                     }
 
                     for (int i = 1; i <= drop; i++) {
-                        GetCratesKeys.console(command);
+                        Bukkit.dispatchCommand(console, command);
 
                         player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                     }
@@ -199,7 +204,7 @@ public class GCK_events implements Listener {
                                 }
 
                                 for (int i = 1; i <= drop; i++) {
-                                    GetCratesKeys.console(command);
+                                    Bukkit.dispatchCommand(console, command);
 
                                     player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                                 }
@@ -264,7 +269,7 @@ public class GCK_events implements Listener {
                     }
 
                     for (int i = 1; i <= drop; i++) {
-                        GetCratesKeys.console(command);
+                        Bukkit.dispatchCommand(console, command);
 
                         player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                     }
@@ -304,7 +309,7 @@ public class GCK_events implements Listener {
                                 }
 
                                 for (int i = 1; i <= drop; i++) {
-                                    GetCratesKeys.console(command);
+                                    Bukkit.dispatchCommand(console, command);
 
                                     player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                                 }
@@ -369,7 +374,7 @@ public class GCK_events implements Listener {
                     }
 
                     for (int i = 1; i <= drop; i++) {
-                        GetCratesKeys.console(command);
+                        Bukkit.dispatchCommand(console, command);
 
                         player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                     }
@@ -409,7 +414,7 @@ public class GCK_events implements Listener {
                                 }
 
                                 for (int i = 1; i <= drop; i++) {
-                                    GetCratesKeys.console(command);
+                                    Bukkit.dispatchCommand(console, command);
 
                                     player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                                 }
@@ -444,7 +449,7 @@ public class GCK_events implements Listener {
         boolean ceiling_enabled = gck.getConfig().getBoolean("config.ceiling.enabled");
         int ceiling_fishing_max = gck.getConfig().getInt("config.ceiling.fishing_max");
 
-        int total_key_num = gck.getKeysConfig().getStringList("keys").size();
+        int total_key_num = Objects.requireNonNull(gck.getKeysConfig().getConfigurationSection("keys")).getKeys(false).size();
         String[] enabled_keys = new String[total_key_num];
         int total_enabled_key_num = 0;
 
@@ -520,7 +525,7 @@ public class GCK_events implements Listener {
                     }
 
                     for (int i = 1; i <= drop; i++) {
-                        GetCratesKeys.console(command);
+                        Bukkit.dispatchCommand(console, command);
 
                         player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                     }
@@ -557,7 +562,7 @@ public class GCK_events implements Listener {
                                 int drop = (int) (Math.random() * max_drop + 1);
 
                                 for (int i = 1; i <= drop; i++) {
-                                    GetCratesKeys.console(command);
+                                    Bukkit.dispatchCommand(console, command);
 
                                     player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
                                 }
