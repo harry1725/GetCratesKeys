@@ -37,9 +37,16 @@ public class GCK_expansions extends PlaceholderExpansion {
     @Override
     public String onRequest(OfflinePlayer player, @NotNull String params) {
         List<String> key_nums = gck.getKeysConfig().getStringList("keys");
+        int key_num;
 
-        if (key_nums.contains("\"" + params + "\"")) {
-            return "scrates givekey " + gck.getKeysConfig().getString("keys.\"" + params + "\".crate_name") + " " + player.getName() + " 1 -v";
+        try {
+            key_num = Integer.parseInt(params);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+
+        if (key_nums.contains(params)) {
+            return "scrates givekey " + gck.getKeysConfig().getString("keys._" + key_num + ".crate_name") + " " + player.getName() + " 1 -v";
         }
 
         return null;

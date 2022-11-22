@@ -148,10 +148,10 @@ public class GCK_commands extends AbstractCommand {
                         if (gck.getConfig().getBoolean("config.enabled")) {
                             player.sendMessage(ChatColor.GREEN + "현재 등록되어 있는 모든 열쇠 목록" + ChatColor.WHITE + ":");
                             for (int i = 0; i <= total_key_num; i++) {
-                                if (gck.getKeysConfig().getBoolean("keys.\"" + i + "\".enabled")) {
-                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys.\"" + i + "\".display_name"));
+                                if (gck.getKeysConfig().getBoolean("keys._" + i + ".enabled")) {
+                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + i + ".display_name"));
                                 } else {
-                                    player.sendMessage(ChatColor.RED + gck.getKeysConfig().getString("keys.\"" + i + "\".display_name"));
+                                    player.sendMessage(ChatColor.RED + gck.getKeysConfig().getString("keys._" + i + ".display_name"));
                                 }
                             }
                         } else {
