@@ -174,7 +174,7 @@ public class GCK_events implements Listener {
                     for (int i = 1; i <= drop; i++) {
                         Bukkit.dispatchCommand(console, command);
 
-                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                        player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.RESET + ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
                     }
 
                     if (ceiling_enabled) {
@@ -214,7 +214,7 @@ public class GCK_events implements Listener {
                                 for (int i = 1; i <= drop; i++) {
                                     Bukkit.dispatchCommand(console, command);
 
-                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                                    player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.RESET + ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
                                 }
 
                                 gck.getCeilConfig().set(ceiling_excavation_path, gck.getCeilConfig().getInt(ceiling_excavation_path) - ceiling_excavation_max);
@@ -284,7 +284,7 @@ public class GCK_events implements Listener {
                             for (int i = 1; i <= drop; i++) {
                                 Bukkit.dispatchCommand(console, command);
 
-                                player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                                player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.RESET + ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
                             }
 
                             if (ceiling_enabled) {
@@ -324,7 +324,7 @@ public class GCK_events implements Listener {
                                         for (int i = 1; i <= drop; i++) {
                                             Bukkit.dispatchCommand(console, command);
 
-                                            player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                                            player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.RESET + ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
                                         }
 
                                         gck.getCeilConfig().set(ceiling_farming_path, gck.getCeilConfig().getInt(ceiling_farming_path) - ceiling_farming_max);
@@ -390,7 +390,7 @@ public class GCK_events implements Listener {
                         for (int i = 1; i <= drop; i++) {
                             Bukkit.dispatchCommand(console, command);
 
-                            player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                            player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.RESET + ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
                         }
 
                         if (ceiling_enabled) {
@@ -430,7 +430,7 @@ public class GCK_events implements Listener {
                                     for (int i = 1; i <= drop; i++) {
                                         Bukkit.dispatchCommand(console, command);
 
-                                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                                        player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.RESET + ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
                                     }
 
                                     gck.getCeilConfig().set(ceiling_farming_path, gck.getCeilConfig().getInt(ceiling_farming_path) - ceiling_farming_max);
@@ -499,7 +499,7 @@ public class GCK_events implements Listener {
                         for (int i = 1; i <= drop; i++) {
                             Bukkit.dispatchCommand(console, command);
 
-                            player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                            player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.RESET + ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
                         }
 
                         if (ceiling_enabled) {
@@ -539,7 +539,7 @@ public class GCK_events implements Listener {
                                     for (int i = 1; i <= drop; i++) {
                                         Bukkit.dispatchCommand(console, command);
 
-                                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                                        player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.RESET + ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
                                     }
 
                                     gck.getCeilConfig().set(ceiling_mining_path, gck.getCeilConfig().getInt(ceiling_mining_path) - ceiling_mining_max);
@@ -667,7 +667,7 @@ public class GCK_events implements Listener {
                                 for (int i = 1; i <= drop; i++) {
                                     Bukkit.dispatchCommand(console, command);
 
-                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                                    player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.RESET + ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
                                 }
 
                                 if (ceiling_enabled) {
@@ -707,7 +707,7 @@ public class GCK_events implements Listener {
                                             for (int i = 1; i <= drop; i++) {
                                                 Bukkit.dispatchCommand(console, command);
 
-                                                player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                                                player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.RESET + ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
                                             }
 
                                             gck.getCeilConfig().set(ceiling_farming_path, gck.getCeilConfig().getInt(ceiling_farming_path) - ceiling_farming_max);
@@ -776,7 +776,7 @@ public class GCK_events implements Listener {
                                 for (int i = 1; i <= drop; i++) {
                                     Bukkit.dispatchCommand(console, command);
 
-                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                                    player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.RESET + ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
                                 }
 
                                 if (ceiling_enabled) {
@@ -816,7 +816,7 @@ public class GCK_events implements Listener {
                                             for (int i = 1; i <= drop; i++) {
                                                 Bukkit.dispatchCommand(console, command);
 
-                                                player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                                                player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.RESET + ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
                                             }
 
                                             gck.getCeilConfig().set(ceiling_farming_path, gck.getCeilConfig().getInt(ceiling_farming_path) - ceiling_farming_max);
@@ -931,7 +931,7 @@ public class GCK_events implements Listener {
                     for (int i = 1; i <= drop; i++) {
                         Bukkit.dispatchCommand(console, command);
 
-                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                        player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.RESET + ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
                     }
 
                     if (ceiling_enabled) {
@@ -968,7 +968,7 @@ public class GCK_events implements Listener {
                                 for (int i = 1; i <= drop; i++) {
                                     Bukkit.dispatchCommand(console, command);
 
-                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                                    player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.RESET + ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
                                 }
 
                                 gck.getCeilConfig().set(ceiling_fishing_path, gck.getCeilConfig().getInt(ceiling_fishing_path) - ceiling_fishing_max);
