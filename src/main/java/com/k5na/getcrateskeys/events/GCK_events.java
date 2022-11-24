@@ -4,6 +4,8 @@ import com.k5na.getcrateskeys.GetCratesKeys;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
+import org.bukkit.block.TileState;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.CaveVinesPlant;
@@ -13,10 +15,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Objects;
 import java.util.Set;
@@ -61,11 +65,23 @@ public class GCK_events implements Listener {
     }
 
     @EventHandler
+    public void onBlockPlaced(BlockPlaceEvent event) {
+        TileState block_tile_state = (TileState) event.getBlockPlaced().getState();
+
+        block_tile_state.getPersistentDataContainer().set(new NamespacedKey(gck, "Key"), PersistentDataType.STRING, "placed");
+
+        block_tile_state.update();
+    }
+
+    @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
+        TileState block_tile_state = (TileState) event.getBlock().getState();
         BlockData block_data = event.getBlock().getBlockData();
         String block_name = block_data.getMaterial().name();
+
+        String placed = block_tile_state.getPersistentDataContainer().get(new NamespacedKey(gck, "Key"), PersistentDataType.STRING);
 
         boolean keys_drop_enabled = gck.getConfig().getBoolean("config.enabled");
         int max_chance = gck.getConfig().getInt("config.max_chance");
@@ -123,110 +139,112 @@ public class GCK_events implements Listener {
             int key_num = 0;
 
             if (excavation_enabled && excavation_block_list.contains(block_name) && gck.getActsConfig().getBoolean("excavation." + block_name + ".enabled")) {
-                String excavation_path = "excavation." + block_name;
-                int chance = gck.getActsConfig().getInt(excavation_path + ".base_chance");
-                int level = Integer.parseInt(PlaceholderAPI.setPlaceholders(player, "%aureliumskills_excavation%"));
+                if (placed == null) {
+                    String excavation_path = "excavation." + block_name;
+                    int chance = gck.getActsConfig().getInt(excavation_path + ".base_chance");
+                    int level = Integer.parseInt(PlaceholderAPI.setPlaceholders(player, "%aureliumskills_excavation%"));
 
-                if (gck.getActsConfig().getBoolean(excavation_path + ".multiplier_enabled")) {
-                    int multiplier = gck.getActsConfig().getInt(excavation_path + ".multiplier");
+                    if (gck.getActsConfig().getBoolean(excavation_path + ".multiplier_enabled")) {
+                        int multiplier = gck.getActsConfig().getInt(excavation_path + ".multiplier");
 
-                    chance += multiplier * level;
-                }
-
-                if (key_drop_boost_enabled) {
-                    if (!(key_drop_chance_fixed <= 0)) {
-                        chance += key_drop_chance_fixed;
+                        chance += multiplier * level;
                     }
-                    if (!(key_drop_chance_multiplier < 0)) {
-                        chance = (int) Math.round(chance * key_drop_chance_multiplier);
+
+                    if (key_drop_boost_enabled) {
+                        if (!(key_drop_chance_fixed <= 0)) {
+                            chance += key_drop_chance_fixed;
+                        }
+                        if (!(key_drop_chance_multiplier < 0)) {
+                            chance = (int) Math.round(chance * key_drop_chance_multiplier);
+                        }
                     }
-                }
 
-                if (chance > max_chance) {
-                    chance = max_chance;
-                }
+                    if (chance > max_chance) {
+                        chance = max_chance;
+                    }
 
-                int random_chance = (int) (Math.random() * max_chance + 1);
-                if (random_chance <= chance) {
-                    int only_key = gck.getActsConfig().getInt(excavation_path + ".only_key");
+                    int random_chance = (int) (Math.random() * max_chance + 1);
+                    if (random_chance <= chance) {
+                        int only_key = gck.getActsConfig().getInt(excavation_path + ".only_key");
 
-                    if (only_key < 1) {
-                        String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
+                        if (only_key < 1) {
+                            String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                        for (int i = 1; i <= total_enabled_key_num; i++) {
-                            if (enabled_keys[i].equalsIgnoreCase(random)) {
-                                key_num = i;
-                                break;
+                            for (int i = 1; i <= total_enabled_key_num; i++) {
+                                if (enabled_keys[i].equalsIgnoreCase(random)) {
+                                    key_num = i;
+                                    break;
+                                }
                             }
+                        } else {
+                            key_num = only_key;
+                        }
+
+                        String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+
+                        int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
+                        int drop = (int) (Math.random() * max_drop + 1);
+                        if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
+                            drop += key_drop_boost_amount;
+                        }
+
+                        for (int i = 1; i <= drop; i++) {
+                            Bukkit.dispatchCommand(console, command);
+
+                            player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.GREEN + ChatColor.BOLD + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
+                        }
+
+                        if (ceiling_enabled) {
+                            gck.getCeilConfig().set(ceiling_excavation_path, 0);
                         }
                     } else {
-                        key_num = only_key;
-                    }
+                        if (ceiling_enabled) {
+                            if (!gck.getCeilConfig().isSet(ceiling_excavation_path)) {
+                                gck.getCeilConfig().set(ceiling_excavation_path, 1);
+                            } else {
+                                gck.getCeilConfig().set(ceiling_excavation_path, gck.getCeilConfig().getInt(ceiling_excavation_path) + 1);
 
-                    String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+                                if (gck.getCeilConfig().getInt(ceiling_excavation_path) >= ceiling_excavation_max) {
+                                    int only_key = gck.getActsConfig().getInt(excavation_path + ".only_key");
 
-                    int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
-                    int drop = (int) (Math.random() * max_drop + 1);
-                    if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
-                        drop += key_drop_boost_amount;
-                    }
+                                    if (only_key < 1) {
+                                        String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                    for (int i = 1; i <= drop; i++) {
-                        Bukkit.dispatchCommand(console, command);
-
-                        player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.GREEN + ChatColor.BOLD + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
-                    }
-
-                    if (ceiling_enabled) {
-                        gck.getCeilConfig().set(ceiling_excavation_path, 0);
-                    }
-                } else {
-                    if (ceiling_enabled) {
-                        if (!gck.getCeilConfig().isSet(ceiling_excavation_path)) {
-                            gck.getCeilConfig().set(ceiling_excavation_path, 1);
-                        } else {
-                            gck.getCeilConfig().set(ceiling_excavation_path, gck.getCeilConfig().getInt(ceiling_excavation_path) + 1);
-
-                            if (gck.getCeilConfig().getInt(ceiling_excavation_path) >= ceiling_excavation_max) {
-                                int only_key = gck.getActsConfig().getInt(excavation_path + ".only_key");
-
-                                if (only_key < 1) {
-                                    String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
-
-                                    for (int i = 1; i <= total_enabled_key_num; i++) {
-                                        if (enabled_keys[i].equalsIgnoreCase(random)) {
-                                            key_num = i;
-                                            break;
+                                        for (int i = 1; i <= total_enabled_key_num; i++) {
+                                            if (enabled_keys[i].equalsIgnoreCase(random)) {
+                                                key_num = i;
+                                                break;
+                                            }
                                         }
+                                    } else {
+                                        key_num = only_key;
                                     }
-                                } else {
-                                    key_num = only_key;
-                                }
 
-                                String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+                                    String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
 
-                                int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
-                                int drop = (int) (Math.random() * max_drop + 1);
-                                if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
-                                    drop += key_drop_boost_amount;
-                                }
+                                    int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
+                                    int drop = (int) (Math.random() * max_drop + 1);
+                                    if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
+                                        drop += key_drop_boost_amount;
+                                    }
 
-                                for (int i = 1; i <= drop; i++) {
-                                    Bukkit.dispatchCommand(console, command);
+                                    for (int i = 1; i <= drop; i++) {
+                                        Bukkit.dispatchCommand(console, command);
 
-                                    player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.GREEN + ChatColor.BOLD + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
-                                }
+                                        player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.GREEN + ChatColor.BOLD + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
+                                    }
 
-                                gck.getCeilConfig().set(ceiling_excavation_path, gck.getCeilConfig().getInt(ceiling_excavation_path) - ceiling_excavation_max);
-                                if (gck.getCeilConfig().getInt(ceiling_excavation_path) < 0) {
-                                    gck.getCeilConfig().set(ceiling_excavation_path, 0);
+                                    gck.getCeilConfig().set(ceiling_excavation_path, gck.getCeilConfig().getInt(ceiling_excavation_path) - ceiling_excavation_max);
+                                    if (gck.getCeilConfig().getInt(ceiling_excavation_path) < 0) {
+                                        gck.getCeilConfig().set(ceiling_excavation_path, 0);
+                                    }
                                 }
                             }
                         }
                     }
-                }
 
-                gck.saveCeilConfig();
+                    gck.saveCeilConfig();
+                }
             } else if (farming_enabled && farming_block_list.contains(block_name) && gck.getActsConfig().getBoolean("farming." + block_name + ".enabled")) {
                 if (block_data instanceof Ageable) {
                     int current_age = ((Ageable) block_data).getAge();
@@ -445,113 +463,115 @@ public class GCK_events implements Listener {
                     gck.saveCeilConfig();
                 }
             } else if (mining_enabled && mining_block_list.contains(block_name) && gck.getActsConfig().getBoolean("mining." + block_name + ".enabled")) {
-                ItemStack mainHand = player.getInventory().getItemInMainHand();
+                if (placed == null) {
+                    ItemStack mainHand = player.getInventory().getItemInMainHand();
 
-                if (!mainHand.containsEnchantment(SILK_TOUCH)) {
-                    String mining_path = "mining." + block_name;
-                    int chance = gck.getActsConfig().getInt(mining_path + ".base_chance");
-                    int level = Integer.parseInt(PlaceholderAPI.setPlaceholders(player, "%aureliumskills_mining%"));
+                    if (!mainHand.containsEnchantment(SILK_TOUCH)) {
+                        String mining_path = "mining." + block_name;
+                        int chance = gck.getActsConfig().getInt(mining_path + ".base_chance");
+                        int level = Integer.parseInt(PlaceholderAPI.setPlaceholders(player, "%aureliumskills_mining%"));
 
-                    if (gck.getActsConfig().getBoolean(mining_path + ".multiplier_enabled")) {
-                        int multiplier = gck.getActsConfig().getInt(mining_path + ".multiplier");
+                        if (gck.getActsConfig().getBoolean(mining_path + ".multiplier_enabled")) {
+                            int multiplier = gck.getActsConfig().getInt(mining_path + ".multiplier");
 
-                        chance += multiplier * level;
-                    }
-
-                    if (key_drop_boost_enabled) {
-                        if (!(key_drop_chance_fixed <= 0)) {
-                            chance += key_drop_chance_fixed;
+                            chance += multiplier * level;
                         }
-                        if (!(key_drop_chance_multiplier < 0)) {
-                            chance = (int) Math.round(chance * key_drop_chance_multiplier);
+
+                        if (key_drop_boost_enabled) {
+                            if (!(key_drop_chance_fixed <= 0)) {
+                                chance += key_drop_chance_fixed;
+                            }
+                            if (!(key_drop_chance_multiplier < 0)) {
+                                chance = (int) Math.round(chance * key_drop_chance_multiplier);
+                            }
                         }
-                    }
 
-                    if (chance > max_chance) {
-                        chance = max_chance;
-                    }
+                        if (chance > max_chance) {
+                            chance = max_chance;
+                        }
 
-                    int random_chance = (int) (Math.random() * max_chance + 1);
-                    if (random_chance <= chance) {
-                        int only_key = gck.getActsConfig().getInt(mining_path + ".only_key");
+                        int random_chance = (int) (Math.random() * max_chance + 1);
+                        if (random_chance <= chance) {
+                            int only_key = gck.getActsConfig().getInt(mining_path + ".only_key");
 
-                        if (only_key < 1) {
-                            String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
+                            if (only_key < 1) {
+                                String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                            for (int i = 1; i <= total_enabled_key_num; i++) {
-                                if (enabled_keys[i].equalsIgnoreCase(random)) {
-                                    key_num = i;
-                                    break;
+                                for (int i = 1; i <= total_enabled_key_num; i++) {
+                                    if (enabled_keys[i].equalsIgnoreCase(random)) {
+                                        key_num = i;
+                                        break;
+                                    }
                                 }
+                            } else {
+                                key_num = only_key;
+                            }
+
+                            String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+
+                            int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
+                            int drop = (int) (Math.random() * max_drop + 1);
+                            if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
+                                drop += key_drop_boost_amount;
+                            }
+
+                            for (int i = 1; i <= drop; i++) {
+                                Bukkit.dispatchCommand(console, command);
+
+                                player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.GREEN + ChatColor.BOLD + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
+                            }
+
+                            if (ceiling_enabled) {
+                                gck.getCeilConfig().set(ceiling_mining_path, 0);
                             }
                         } else {
-                            key_num = only_key;
-                        }
+                            if (ceiling_enabled) {
+                                if (!gck.getCeilConfig().isSet(ceiling_mining_path)) {
+                                    gck.getCeilConfig().set(ceiling_mining_path, 1);
+                                } else {
+                                    gck.getCeilConfig().set(ceiling_mining_path, gck.getCeilConfig().getInt(ceiling_mining_path) + 1);
 
-                        String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+                                    if (gck.getCeilConfig().getInt(ceiling_mining_path) >= ceiling_mining_max) {
+                                        int only_key = gck.getActsConfig().getInt(mining_path + ".only_key");
 
-                        int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
-                        int drop = (int) (Math.random() * max_drop + 1);
-                        if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
-                            drop += key_drop_boost_amount;
-                        }
+                                        if (only_key < 1) {
+                                            String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                        for (int i = 1; i <= drop; i++) {
-                            Bukkit.dispatchCommand(console, command);
-
-                            player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.GREEN + ChatColor.BOLD + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
-                        }
-
-                        if (ceiling_enabled) {
-                            gck.getCeilConfig().set(ceiling_mining_path, 0);
-                        }
-                    } else {
-                        if (ceiling_enabled) {
-                            if (!gck.getCeilConfig().isSet(ceiling_mining_path)) {
-                                gck.getCeilConfig().set(ceiling_mining_path, 1);
-                            } else {
-                                gck.getCeilConfig().set(ceiling_mining_path, gck.getCeilConfig().getInt(ceiling_mining_path) + 1);
-
-                                if (gck.getCeilConfig().getInt(ceiling_mining_path) >= ceiling_mining_max) {
-                                    int only_key = gck.getActsConfig().getInt(mining_path + ".only_key");
-
-                                    if (only_key < 1) {
-                                        String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
-
-                                        for (int i = 1; i <= total_enabled_key_num; i++) {
-                                            if (enabled_keys[i].equalsIgnoreCase(random)) {
-                                                key_num = i;
-                                                break;
+                                            for (int i = 1; i <= total_enabled_key_num; i++) {
+                                                if (enabled_keys[i].equalsIgnoreCase(random)) {
+                                                    key_num = i;
+                                                    break;
+                                                }
                                             }
+                                        } else {
+                                            key_num = only_key;
                                         }
-                                    } else {
-                                        key_num = only_key;
-                                    }
 
-                                    String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+                                        String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
 
-                                    int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
-                                    int drop = (int) (Math.random() * max_drop + 1);
-                                    if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
-                                        drop += key_drop_boost_amount;
-                                    }
+                                        int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
+                                        int drop = (int) (Math.random() * max_drop + 1);
+                                        if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
+                                            drop += key_drop_boost_amount;
+                                        }
 
-                                    for (int i = 1; i <= drop; i++) {
-                                        Bukkit.dispatchCommand(console, command);
+                                        for (int i = 1; i <= drop; i++) {
+                                            Bukkit.dispatchCommand(console, command);
 
-                                        player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.GREEN + ChatColor.BOLD + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
-                                    }
+                                            player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.GREEN + ChatColor.BOLD + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
+                                        }
 
-                                    gck.getCeilConfig().set(ceiling_mining_path, gck.getCeilConfig().getInt(ceiling_mining_path) - ceiling_mining_max);
-                                    if (gck.getCeilConfig().getInt(ceiling_mining_path) < 0) {
-                                        gck.getCeilConfig().set(ceiling_mining_path, 0);
+                                        gck.getCeilConfig().set(ceiling_mining_path, gck.getCeilConfig().getInt(ceiling_mining_path) - ceiling_mining_max);
+                                        if (gck.getCeilConfig().getInt(ceiling_mining_path) < 0) {
+                                            gck.getCeilConfig().set(ceiling_mining_path, 0);
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
 
-                    gck.saveCeilConfig();
+                        gck.saveCeilConfig();
+                    }
                 }
             }
         }
