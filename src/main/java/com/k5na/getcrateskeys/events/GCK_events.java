@@ -16,11 +16,13 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
+import static org.bukkit.enchantments.Enchantment.SILK_TOUCH;
 import static org.bukkit.event.player.PlayerFishEvent.State.CAUGHT_FISH;
 
 public class GCK_events implements Listener {
@@ -82,8 +84,8 @@ public class GCK_events implements Listener {
         String[] enabled_keys = new String[total_key_num];
         int total_enabled_key_num = 0;
 
-        for (int i = 1; i <= total_key_num; i++) {
-            if (gck.getKeysConfig().getBoolean("keys._" + i + ".enabled")) {
+        for (int i = 0; i <= total_key_num; i++) {
+            if (gck.getKeysConfig().getBoolean("keys._" + (i + 1) + ".enabled")) {
                 for (int j = 0; j <= i - 1; j++) {
                     if (enabled_keys[j] == null) {
                         enabled_keys[j] = String.valueOf(i);
@@ -151,7 +153,7 @@ public class GCK_events implements Listener {
                     if (only_key < 1) {
                         String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                        for (int i = 1; i <= total_enabled_key_num; i++) {
+                        for (int i = 0; i <= total_enabled_key_num; i++) {
                             if (enabled_keys[i].equalsIgnoreCase(random)) {
                                 key_num = i;
                                 break;
@@ -169,7 +171,7 @@ public class GCK_events implements Listener {
                         drop += key_drop_boost_amount;
                     }
 
-                    for (int i = 1; i <= drop; i++) {
+                    for (int i = 0; i <= drop; i++) {
                         Bukkit.dispatchCommand(console, command);
 
                         player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
@@ -191,7 +193,7 @@ public class GCK_events implements Listener {
                                 if (only_key < 1) {
                                     String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                                    for (int i = 1; i <= total_enabled_key_num; i++) {
+                                    for (int i = 0; i <= total_enabled_key_num; i++) {
                                         if (enabled_keys[i].equalsIgnoreCase(random)) {
                                             key_num = i;
                                             break;
@@ -209,7 +211,7 @@ public class GCK_events implements Listener {
                                     drop += key_drop_boost_amount;
                                 }
 
-                                for (int i = 1; i <= drop; i++) {
+                                for (int i = 0; i <= drop; i++) {
                                     Bukkit.dispatchCommand(console, command);
 
                                     player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
@@ -261,7 +263,7 @@ public class GCK_events implements Listener {
                             if (only_key < 1) {
                                 String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                                for (int i = 1; i <= total_enabled_key_num; i++) {
+                                for (int i = 0; i <= total_enabled_key_num; i++) {
                                     if (enabled_keys[i].equalsIgnoreCase(random)) {
                                         key_num = i;
                                         break;
@@ -279,7 +281,7 @@ public class GCK_events implements Listener {
                                 drop += key_drop_boost_amount;
                             }
 
-                            for (int i = 1; i <= drop; i++) {
+                            for (int i = 0; i <= drop; i++) {
                                 Bukkit.dispatchCommand(console, command);
 
                                 player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
@@ -301,7 +303,7 @@ public class GCK_events implements Listener {
                                         if (only_key < 1) {
                                             String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                                            for (int i = 1; i <= total_enabled_key_num; i++) {
+                                            for (int i = 0; i <= total_enabled_key_num; i++) {
                                                 if (enabled_keys[i].equalsIgnoreCase(random)) {
                                                     key_num = i;
                                                     break;
@@ -319,7 +321,7 @@ public class GCK_events implements Listener {
                                             drop += key_drop_boost_amount;
                                         }
 
-                                        for (int i = 1; i <= drop; i++) {
+                                        for (int i = 0; i <= drop; i++) {
                                             Bukkit.dispatchCommand(console, command);
 
                                             player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
@@ -367,7 +369,7 @@ public class GCK_events implements Listener {
                         if (only_key < 1) {
                             String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                            for (int i = 1; i <= total_enabled_key_num; i++) {
+                            for (int i = 0; i <= total_enabled_key_num; i++) {
                                 if (enabled_keys[i].equalsIgnoreCase(random)) {
                                     key_num = i;
                                     break;
@@ -385,7 +387,7 @@ public class GCK_events implements Listener {
                             drop += key_drop_boost_amount;
                         }
 
-                        for (int i = 1; i <= drop; i++) {
+                        for (int i = 0; i <= drop; i++) {
                             Bukkit.dispatchCommand(console, command);
 
                             player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
@@ -407,7 +409,7 @@ public class GCK_events implements Listener {
                                     if (only_key < 1) {
                                         String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                                        for (int i = 1; i <= total_enabled_key_num; i++) {
+                                        for (int i = 0; i <= total_enabled_key_num; i++) {
                                             if (enabled_keys[i].equalsIgnoreCase(random)) {
                                                 key_num = i;
                                                 break;
@@ -425,7 +427,7 @@ public class GCK_events implements Listener {
                                         drop += key_drop_boost_amount;
                                     }
 
-                                    for (int i = 1; i <= drop; i++) {
+                                    for (int i = 0; i <= drop; i++) {
                                         Bukkit.dispatchCommand(console, command);
 
                                         player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
@@ -443,110 +445,114 @@ public class GCK_events implements Listener {
                     gck.saveCeilConfig();
                 }
             } else if (mining_enabled && mining_block_list.contains(block_name) && gck.getActsConfig().getBoolean("mining." + block_name + ".enabled")) {
-                String mining_path = "mining." + block_name;
-                int chance = gck.getActsConfig().getInt(mining_path + ".base_chance");
-                int level = Integer.parseInt(PlaceholderAPI.setPlaceholders(player, "%aureliumskills_mining%"));
+                ItemStack mainHand = player.getInventory().getItemInMainHand();
 
-                if (gck.getActsConfig().getBoolean(mining_path + ".multiplier_enabled")) {
-                    int multiplier = gck.getActsConfig().getInt(mining_path + ".multiplier");
+                if (!mainHand.containsEnchantment(SILK_TOUCH)) {
+                    String mining_path = "mining." + block_name;
+                    int chance = gck.getActsConfig().getInt(mining_path + ".base_chance");
+                    int level = Integer.parseInt(PlaceholderAPI.setPlaceholders(player, "%aureliumskills_mining%"));
 
-                    chance += multiplier * level;
-                }
+                    if (gck.getActsConfig().getBoolean(mining_path + ".multiplier_enabled")) {
+                        int multiplier = gck.getActsConfig().getInt(mining_path + ".multiplier");
 
-                if (key_drop_boost_enabled) {
-                    if (!(key_drop_chance_fixed <= 0)) {
-                        chance += key_drop_chance_fixed;
+                        chance += multiplier * level;
                     }
-                    if (!(key_drop_chance_multiplier < 0)) {
-                        chance = (int) Math.round(chance * key_drop_chance_multiplier);
+
+                    if (key_drop_boost_enabled) {
+                        if (!(key_drop_chance_fixed <= 0)) {
+                            chance += key_drop_chance_fixed;
+                        }
+                        if (!(key_drop_chance_multiplier < 0)) {
+                            chance = (int) Math.round(chance * key_drop_chance_multiplier);
+                        }
                     }
-                }
 
-                if (chance > max_chance) {
-                    chance = max_chance;
-                }
+                    if (chance > max_chance) {
+                        chance = max_chance;
+                    }
 
-                int random_chance = (int) (Math.random() * max_chance + 1);
-                if (random_chance <= chance) {
-                    int only_key = gck.getActsConfig().getInt(mining_path + ".only_key");
+                    int random_chance = (int) (Math.random() * max_chance + 1);
+                    if (random_chance <= chance) {
+                        int only_key = gck.getActsConfig().getInt(mining_path + ".only_key");
 
-                    if (only_key < 1) {
-                        String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
+                        if (only_key < 1) {
+                            String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                        for (int i = 1; i <= total_enabled_key_num; i++) {
-                            if (enabled_keys[i].equalsIgnoreCase(random)) {
-                                key_num = i;
-                                break;
+                            for (int i = 0; i <= total_enabled_key_num; i++) {
+                                if (enabled_keys[i].equalsIgnoreCase(random)) {
+                                    key_num = i;
+                                    break;
+                                }
                             }
+                        } else {
+                            key_num = only_key;
+                        }
+
+                        String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+
+                        int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
+                        int drop = (int) (Math.random() * max_drop + 1);
+                        if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
+                            drop += key_drop_boost_amount;
+                        }
+
+                        for (int i = 0; i <= drop; i++) {
+                            Bukkit.dispatchCommand(console, command);
+
+                            player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                        }
+
+                        if (ceiling_enabled) {
+                            gck.getCeilConfig().set(ceiling_mining_path, 0);
                         }
                     } else {
-                        key_num = only_key;
-                    }
+                        if (ceiling_enabled) {
+                            if (!gck.getCeilConfig().isSet(ceiling_mining_path)) {
+                                gck.getCeilConfig().set(ceiling_mining_path, 1);
+                            } else {
+                                gck.getCeilConfig().set(ceiling_mining_path, gck.getCeilConfig().getInt(ceiling_mining_path) + 1);
 
-                    String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+                                if (gck.getCeilConfig().getInt(ceiling_mining_path) >= ceiling_mining_max) {
+                                    int only_key = gck.getActsConfig().getInt(mining_path + ".only_key");
 
-                    int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
-                    int drop = (int) (Math.random() * max_drop + 1);
-                    if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
-                        drop += key_drop_boost_amount;
-                    }
+                                    if (only_key < 1) {
+                                        String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                    for (int i = 1; i <= drop; i++) {
-                        Bukkit.dispatchCommand(console, command);
-
-                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
-                    }
-
-                    if (ceiling_enabled) {
-                        gck.getCeilConfig().set(ceiling_mining_path, 0);
-                    }
-                } else {
-                    if (ceiling_enabled) {
-                        if (!gck.getCeilConfig().isSet(ceiling_mining_path)) {
-                            gck.getCeilConfig().set(ceiling_mining_path, 1);
-                        } else {
-                            gck.getCeilConfig().set(ceiling_mining_path, gck.getCeilConfig().getInt(ceiling_mining_path) + 1);
-
-                            if (gck.getCeilConfig().getInt(ceiling_mining_path) >= ceiling_mining_max) {
-                                int only_key = gck.getActsConfig().getInt(mining_path + ".only_key");
-
-                                if (only_key < 1) {
-                                    String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
-
-                                    for (int i = 1; i <= total_enabled_key_num; i++) {
-                                        if (enabled_keys[i].equalsIgnoreCase(random)) {
-                                            key_num = i;
-                                            break;
+                                        for (int i = 0; i <= total_enabled_key_num; i++) {
+                                            if (enabled_keys[i].equalsIgnoreCase(random)) {
+                                                key_num = i;
+                                                break;
+                                            }
                                         }
+                                    } else {
+                                        key_num = only_key;
                                     }
-                                } else {
-                                    key_num = only_key;
-                                }
 
-                                String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+                                    String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
 
-                                int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
-                                int drop = (int) (Math.random() * max_drop + 1);
-                                if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
-                                    drop += key_drop_boost_amount;
-                                }
+                                    int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
+                                    int drop = (int) (Math.random() * max_drop + 1);
+                                    if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
+                                        drop += key_drop_boost_amount;
+                                    }
 
-                                for (int i = 1; i <= drop; i++) {
-                                    Bukkit.dispatchCommand(console, command);
+                                    for (int i = 0; i <= drop; i++) {
+                                        Bukkit.dispatchCommand(console, command);
 
-                                    player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
-                                }
+                                        player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
+                                    }
 
-                                gck.getCeilConfig().set(ceiling_mining_path, gck.getCeilConfig().getInt(ceiling_mining_path) - ceiling_mining_max);
-                                if (gck.getCeilConfig().getInt(ceiling_mining_path) < 0) {
-                                    gck.getCeilConfig().set(ceiling_mining_path, 0);
+                                    gck.getCeilConfig().set(ceiling_mining_path, gck.getCeilConfig().getInt(ceiling_mining_path) - ceiling_mining_max);
+                                    if (gck.getCeilConfig().getInt(ceiling_mining_path) < 0) {
+                                        gck.getCeilConfig().set(ceiling_mining_path, 0);
+                                    }
                                 }
                             }
                         }
                     }
-                }
 
-                gck.saveCeilConfig();
+                    gck.saveCeilConfig();
+                }
             }
         }
     }
@@ -578,8 +584,8 @@ public class GCK_events implements Listener {
             String[] enabled_keys = new String[total_key_num];
             int total_enabled_key_num = 0;
 
-            for (int i = 1; i <= total_key_num; i++) {
-                if (gck.getKeysConfig().getBoolean("keys._" + i + ".enabled")) {
+            for (int i = 0; i <= total_key_num; i++) {
+                if (gck.getKeysConfig().getBoolean("keys._" + (i + 1) + ".enabled")) {
                     for (int j = 0; j <= i - 1; j++) {
                         if (enabled_keys[j] == null) {
                             enabled_keys[j] = String.valueOf(i);
@@ -640,7 +646,7 @@ public class GCK_events implements Listener {
                                 if (only_key < 1) {
                                     String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                                    for (int i = 1; i <= total_enabled_key_num; i++) {
+                                    for (int i = 0; i <= total_enabled_key_num; i++) {
                                         if (enabled_keys[i].equalsIgnoreCase(random)) {
                                             key_num = i;
                                             break;
@@ -658,7 +664,7 @@ public class GCK_events implements Listener {
                                     drop += key_drop_boost_amount;
                                 }
 
-                                for (int i = 1; i <= drop; i++) {
+                                for (int i = 0; i <= drop; i++) {
                                     Bukkit.dispatchCommand(console, command);
 
                                     player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
@@ -680,7 +686,7 @@ public class GCK_events implements Listener {
                                             if (only_key < 1) {
                                                 String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                                                for (int i = 1; i <= total_enabled_key_num; i++) {
+                                                for (int i = 0; i <= total_enabled_key_num; i++) {
                                                     if (enabled_keys[i].equalsIgnoreCase(random)) {
                                                         key_num = i;
                                                         break;
@@ -698,7 +704,7 @@ public class GCK_events implements Listener {
                                                 drop += key_drop_boost_amount;
                                             }
 
-                                            for (int i = 1; i <= drop; i++) {
+                                            for (int i = 0; i <= drop; i++) {
                                                 Bukkit.dispatchCommand(console, command);
 
                                                 player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
@@ -749,7 +755,7 @@ public class GCK_events implements Listener {
                                 if (only_key < 1) {
                                     String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                                    for (int i = 1; i <= total_enabled_key_num; i++) {
+                                    for (int i = 0; i <= total_enabled_key_num; i++) {
                                         if (enabled_keys[i].equalsIgnoreCase(random)) {
                                             key_num = i;
                                             break;
@@ -767,7 +773,7 @@ public class GCK_events implements Listener {
                                     drop += key_drop_boost_amount;
                                 }
 
-                                for (int i = 1; i <= drop; i++) {
+                                for (int i = 0; i <= drop; i++) {
                                     Bukkit.dispatchCommand(console, command);
 
                                     player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
@@ -789,7 +795,7 @@ public class GCK_events implements Listener {
                                             if (only_key < 1) {
                                                 String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                                                for (int i = 1; i <= total_enabled_key_num; i++) {
+                                                for (int i = 0; i <= total_enabled_key_num; i++) {
                                                     if (enabled_keys[i].equalsIgnoreCase(random)) {
                                                         key_num = i;
                                                         break;
@@ -807,7 +813,7 @@ public class GCK_events implements Listener {
                                                 drop += key_drop_boost_amount;
                                             }
 
-                                            for (int i = 1; i <= drop; i++) {
+                                            for (int i = 0; i <= drop; i++) {
                                                 Bukkit.dispatchCommand(console, command);
 
                                                 player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
@@ -851,9 +857,9 @@ public class GCK_events implements Listener {
         String[] enabled_keys = new String[total_key_num];
         int total_enabled_key_num = 0;
 
-        for (int i = 1; i <= total_key_num; i++) {
-            if (gck.getKeysConfig().getBoolean("keys._" + i + ".enabled")) {
-                for (int j = 0; j <= i - 1; j++) {
+        for (int i = 0; i <= total_key_num; i++) {
+            if (gck.getKeysConfig().getBoolean("keys._" + (i + 1) + ".enabled")) {
+                for (int j = 0; j <= i; j++) {
                     if (enabled_keys[j] == null) {
                         enabled_keys[j] = String.valueOf(i);
                         total_enabled_key_num++;
@@ -904,7 +910,7 @@ public class GCK_events implements Listener {
                     if (only_key < 1) {
                         String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                        for (int i = 1; i <= total_enabled_key_num; i++) {
+                        for (int i = 0; i <= total_enabled_key_num; i++) {
                             if (enabled_keys[i].equalsIgnoreCase(random)) {
                                 key_num = i;
                                 break;
@@ -922,7 +928,7 @@ public class GCK_events implements Listener {
                         drop += key_drop_boost_amount;
                     }
 
-                    for (int i = 1; i <= drop; i++) {
+                    for (int i = 0; i <= drop; i++) {
                         Bukkit.dispatchCommand(console, command);
 
                         player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
@@ -944,7 +950,7 @@ public class GCK_events implements Listener {
                                 if (only_key < 1) {
                                     String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
 
-                                    for (int i = 1; i <= total_enabled_key_num; i++) {
+                                    for (int i = 0; i <= total_enabled_key_num; i++) {
                                         if (enabled_keys[i].equalsIgnoreCase(random)) {
                                             key_num = i;
                                             break;
@@ -959,7 +965,7 @@ public class GCK_events implements Listener {
                                 int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
                                 int drop = (int) (Math.random() * max_drop + 1);
 
-                                for (int i = 1; i <= drop; i++) {
+                                for (int i = 0; i <= drop; i++) {
                                     Bukkit.dispatchCommand(console, command);
 
                                     player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.AQUA + " 열쇠가 지급되었습니다! 지금 바로 확인해 보세요!");
