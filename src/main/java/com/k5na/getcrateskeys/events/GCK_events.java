@@ -5,6 +5,7 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.TileState;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
@@ -66,22 +67,28 @@ public class GCK_events implements Listener {
 
     @EventHandler
     public void onBlockPlaced(BlockPlaceEvent event) {
-        TileState block_tile_state = (TileState) event.getBlockPlaced().getState();
+        BlockState block_state = event.getBlock().getState();
 
-        block_tile_state.getPersistentDataContainer().set(new NamespacedKey(gck, "Key"), PersistentDataType.STRING, "placed");
+        if (block_state instanceof TileState) {
+            ((TileState) block_state).getPersistentDataContainer().set(new NamespacedKey(gck, "Key"), PersistentDataType.STRING, "placed");
 
-        block_tile_state.update();
+            block_state.update();
+        }
     }
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
-        TileState block_tile_state = (TileState) event.getBlock().getState();
+        BlockState block_state = event.getBlock().getState();
         BlockData block_data = event.getBlock().getBlockData();
         String block_name = block_data.getMaterial().name();
 
-        String placed = block_tile_state.getPersistentDataContainer().get(new NamespacedKey(gck, "Key"), PersistentDataType.STRING);
+        String placed = null;
+
+        if (block_state instanceof TileState) {
+            placed = ((TileState) block_state).getPersistentDataContainer().get(new NamespacedKey(gck, "Key"), PersistentDataType.STRING);
+        }
 
         boolean keys_drop_enabled = gck.getConfig().getBoolean("config.enabled");
         int max_chance = gck.getConfig().getInt("config.max_chance");
