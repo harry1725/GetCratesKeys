@@ -179,6 +179,7 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
+        saveConfig();
         saveKeysConfig();
         saveActsConfig();
         saveCeilConfig();
