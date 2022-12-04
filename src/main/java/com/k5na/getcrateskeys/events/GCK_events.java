@@ -1101,9 +1101,6 @@ public class GCK_events implements Listener {
 
     @EventHandler
     public void onPlayerQuitEvent(PlayerQuitEvent event) {
-        gck.saveConfig();
-        gck.saveActsConfig();
         gck.saveCeilConfig();
-        gck.saveKeysConfig();
     }
 }

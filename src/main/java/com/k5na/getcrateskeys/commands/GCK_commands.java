@@ -23,35 +23,49 @@ public class GCK_commands extends AbstractCommand {
 
         if (alias.length() == 0) {
             tabs.add("gck");
-        }
 
-        if (args[0].equalsIgnoreCase("gck")) {
-            tabs.add("info");
-            tabs.add("help");
-            tabs.add("reload");
-            tabs.add("chance");
-            tabs.add("enable");
-            tabs.add("disable");
-            tabs.add("set");
-
-            if (args[1].equalsIgnoreCase("help")) {
+            return tabs;
+        } else if (alias.length() == 1) {
+            if (args[0].equalsIgnoreCase("gck")) {
                 tabs.add("info");
+                tabs.add("help");
                 tabs.add("reload");
                 tabs.add("chance");
                 tabs.add("enable");
                 tabs.add("disable");
                 tabs.add("set");
-            } else if (args[1].equalsIgnoreCase("enable") || args[1].equalsIgnoreCase("disable")) {
-                tabs.add("key_drop");
-                tabs.add("drop_boost");
-            } else if (args[1].equalsIgnoreCase("set")) {
-                tabs.add("drop_boost_amount");
-                tabs.add("drop_boost_chance_fixed");
-                tabs.add("drop_boost_chance_multiplier");
+                tabs.add("ceiling");
+
+                return tabs;
+            }
+        } else if (alias.length() == 2) {
+            if (args[0].equalsIgnoreCase("gck")) {
+                if (args[1].equalsIgnoreCase("help")) {
+                    tabs.add("info");
+                    tabs.add("reload");
+                    tabs.add("chance");
+                    tabs.add("enable");
+                    tabs.add("disable");
+                    tabs.add("set");
+                    tabs.add("ceiling");
+
+                    return tabs;
+                } else if (args[1].equalsIgnoreCase("enable") || args[1].equalsIgnoreCase("disable")) {
+                    tabs.add("key_drop");
+                    tabs.add("drop_boost");
+
+                    return tabs;
+                } else if (args[1].equalsIgnoreCase("set")) {
+                    tabs.add("drop_boost_amount");
+                    tabs.add("drop_boost_chance_fixed");
+                    tabs.add("drop_boost_chance_multiplier");
+
+                    return tabs;
+                }
             }
         }
 
-        return tabs;
+        return null;
     }
 
     @Override
@@ -94,6 +108,7 @@ public class GCK_commands extends AbstractCommand {
                             player.sendMessage(ChatColor.RED + "/gck enable < key_drop / drop_boost >");
                             player.sendMessage(ChatColor.RED + "/gck disable < key_drop / drop_boost >");
                             player.sendMessage(ChatColor.RED + "/gck set < drop_boost_amount / drop_boost_chance_fixed / drop_boost_chance_multiplier > < # >");
+                            player.sendMessage(ChatColor.GREEN + "/gck ceiling");
                             player.sendMessage("");
                             player.sendMessage(ChatColor.GRAY + "=====================================================");
                             player.sendMessage("");
@@ -118,6 +133,10 @@ public class GCK_commands extends AbstractCommand {
                                 player.sendMessage(ChatColor.RED + "사용 방법" + ChatColor.WHITE + " :");
                                 player.sendMessage(ChatColor.WHITE + "/gck set < drop_boost_amount / drop_boost_chance_fixed / drop_boost_chance_multiplier > < # >");
                                 player.sendMessage(ChatColor.RED + "이 명령어를 사용하기 위해서는 OP가 필요합니다.");
+                            } else if(args[1].equalsIgnoreCase("ceiling")) {
+                                player.sendMessage(ChatColor.GREEN + "사용 방법" + ChatColor.WHITE + " :");
+                                player.sendMessage(ChatColor.WHITE + "/gck ceiling");
+                                player.sendMessage(ChatColor.GREEN + "이 명령어를 사용하기 위해서는 IO가 필요하지 않습니다.");
                             } else {
                                 player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. /gck help를 통해 입력 가능한 명령어를 확인해주세요.");
                             }
@@ -355,8 +374,9 @@ public class GCK_commands extends AbstractCommand {
                             player.sendMessage(ChatColor.RED + "현재 서버에서 천장 시스템이 비활성화 되어있습니다.");
                         }
                         player.sendMessage(ChatColor.GOLD + "농사" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".farming") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.farming_max") + ChatColor.WHITE + " 회");
-                        player.sendMessage(ChatColor.GREEN + "삽질" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".excavation") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.excavation_max") + ChatColor.WHITE + " 회");
+                        player.sendMessage(ChatColor.DARK_AQUA + "삽질" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".excavation") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.excavation_max") + ChatColor.WHITE + " 회");
                         player.sendMessage(ChatColor.GRAY + "광질" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".mining") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.mining_max") + ChatColor.WHITE + " 회");
+                        player.sendMessage(ChatColor.DARK_GREEN + "벌목" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".foraging") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.foraging_max") + ChatColor.WHITE + " 회");
                         player.sendMessage(ChatColor.AQUA + "낚시" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".fishing") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.fishing_max") + ChatColor.WHITE + " 회");
                     } else {
                         player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. /gck help를 통해 입력 가능한 명령어를 확인해주세요.");
