@@ -51,11 +51,13 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
     public FileConfiguration actsConfig;
     public FileConfiguration ceilConfig;
 
+    boolean wasSuccessful;
+
     public void createKeysConfig() {
         keysConfigFile = new File(getDataFolder(), "keys.yml");
 
         if (!keysConfigFile.exists()) {
-            keysConfigFile.getParentFile().mkdirs();
+            wasSuccessful = keysConfigFile.getParentFile().mkdirs();
             saveResource("keys.yml", true);
         }
 
@@ -66,7 +68,7 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         actsConfigFile = new File(getDataFolder(), "actions.yml");
 
         if (!actsConfigFile.exists()) {
-            actsConfigFile.getParentFile().mkdirs();
+            wasSuccessful = actsConfigFile.getParentFile().mkdirs();
             saveResource("actions.yml", true);
         }
 
@@ -77,7 +79,7 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         ceilConfigFile = new File(getDataFolder(), "ceiling.yml");
 
         if (!ceilConfigFile.exists()) {
-            ceilConfigFile.getParentFile().mkdirs();
+            wasSuccessful = ceilConfigFile.getParentFile().mkdirs();
             saveResource("ceiling.yml", true);
         }
 

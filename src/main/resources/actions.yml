@@ -311,6 +311,110 @@ fishing:
     only_key: -1
 
 
+# ======================= # 벌 목 # =======================
+# 블럭 추가 방법:
+# foraging:
+#   enabled: < true / false >
+#   - 해당 블럭을 "캤을 때" 열쇠 드랍 가능 여부. true는 활성화, false는 비활성화
+#
+#   대문자 블럭 이름:
+#     enabled: < true / false >
+#     - 해당 블럭을 캤을 때 열쇠 드랍 여부. true는 활성화, false는 비활성화
+#
+#     base_chance: < # >
+#     - 아우렐리움 레벨이 0일 때의 최소 확률. max_chance 분의 # * 100 = 확률 (%)
+#
+#     multiplier_enabled: < true / false >
+#     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수 적용 여부. true는 활성화, false는 비활성화
+#
+#     multiplier: < # >
+#     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수.
+#
+#     only_key: < # >
+#     - #번 열쇠만 드랍 설정. 1 미만은 비활성화
+# ========================================================
+foraging:
+  enabled: true
+
+  ACACIA_LOG:
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  BIRCH_LOG:
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  BROWN_MUSHROOM_BLOCK:
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  CRIMSON_STEM:
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  DARK_OAK_LOG:
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  JUNGLE_LOG:
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  MANGROVE_LOG:
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  OAK_LOG:
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  RED_MUSHROOM_BLOCK:
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  SPRUCE_LOG:
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  WARPED_STEM:
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+
+
 # ======================= # 광 질 # =======================
 # 블럭 추가 방법:
 # mining:
@@ -336,13 +440,6 @@ fishing:
 mining:
   enabled: true
 
-  ANCIENT_DEBRIS:                     # 고대 잔해
-    enabled: true
-    base_chance: 10000
-    multiplier_enabled: true
-    multiplier: 100
-    only_key: -1
-
   COAL_ORE:                           # 석탄 원석
     enabled: true
     base_chance: 10000
@@ -350,14 +447,14 @@ mining:
     multiplier: 100
     only_key: -1
 
-  COPPER_ORE:                         # 구리 원석
+  DEEPSLATE_COAL_ORE:                 # 심층암 석탄 원석
     enabled: true
     base_chance: 100
     multiplier_enabled: true
     multiplier: 1
     only_key: -1
 
-  DEEPSLATE_COAL_ORE:                 # 심층암 석탄 원석
+  COPPER_ORE:                         # 구리 원석
     enabled: true
     base_chance: 100
     multiplier_enabled: true
@@ -371,21 +468,7 @@ mining:
     multiplier: 1
     only_key: -1
 
-  DEEPSLATE_DIAMOND_ORE:              # 심층암 다이아몬드 원석
-    enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
-    multiplier: 1
-    only_key: -1
-
-  DEEPSLATE_EMERALD_ORE:              # 심층암 에메랄드 원석
-    enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
-    multiplier: 1
-    only_key: -1
-
-  DEEPSLATE_GOLD_ORE:                 # 심층암 금 원석
+  IRON_ORE:                           # 철 원석
     enabled: true
     base_chance: 100
     multiplier_enabled: true
@@ -399,7 +482,35 @@ mining:
     multiplier: 1
     only_key: -1
 
+  LAPIS_ORE:                          # 청금석 원석
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
   DEEPSLATE_LAPIS_ORE:                # 심층암 청금석 원석
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  GOLD_ORE:                           # 금 원석
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  DEEPSLATE_GOLD_ORE:                 # 심층암 금 원석
+    enabled: true
+    base_chance: 100
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  REDSTONE_ORE:                       # 레드스톤 원석
     enabled: true
     base_chance: 100
     multiplier_enabled: true
@@ -420,6 +531,13 @@ mining:
     multiplier: 1
     only_key: -1
 
+  DEEPSLATE_DIAMOND_ORE:              # 심층암 다이아몬드 원석
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
   EMERALD_ORE:                        # 에메랄드 원석
     enabled: true
     base_chance: 1000
@@ -427,35 +545,7 @@ mining:
     multiplier: 1
     only_key: -1
 
-  GILDED_BLACKSTONE:                  # 금이 박힌 흑암
-    enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
-    multiplier: 1
-    only_key: -1
-
-  GOLD_ORE:                           # 금 원석
-    enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
-    multiplier: 1
-    only_key: -1
-
-  IRON_ORE:                           # 철 원석
-    enabled: true
-    base_chance: 100
-    multiplier_enabled: true
-    multiplier: 1
-    only_key: -1
-
-  LAPIS_ORE:                          # 청금석 원석
-    enabled: true
-    base_chance: 100
-    multiplier_enabled: true
-    multiplier: 1
-    only_key: -1
-
-  NETHER_GOLD_ORE:                    # 지옥 금 원석
+  DEEPSLATE_EMERALD_ORE:              # 심층암 에메랄드 원석
     enabled: true
     base_chance: 1000
     multiplier_enabled: true
@@ -469,10 +559,24 @@ mining:
     multiplier: 1
     only_key: -1
 
-  REDSTONE_ORE:                       # 레드스톤 원석
+  NETHER_GOLD_ORE:                    # 지옥 금 원석
     enabled: true
-    base_chance: 100
+    base_chance: 1000
     multiplier_enabled: true
     multiplier: 1
+    only_key: -1
+
+  GILDED_BLACKSTONE:                  # 금이 박힌 흑암
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: true
+    multiplier: 1
+    only_key: -1
+
+  ANCIENT_DEBRIS:                     # 고대 잔해
+    enabled: true
+    base_chance: 10000
+    multiplier_enabled: true
+    multiplier: 100
     only_key: -1
 

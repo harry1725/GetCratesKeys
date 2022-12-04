@@ -50,4 +50,5 @@ config:
     excavation_max: 100000
     farming_max: 100000
     fishing_max: 100000
+    foraging_max: 100000
     mining_max: 100000
