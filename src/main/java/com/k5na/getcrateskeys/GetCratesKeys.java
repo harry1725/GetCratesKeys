@@ -149,7 +149,6 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         GCK_commands cmd_gck = new GCK_commands(this, "gck");
-
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new GCK_expansions(this).register();
             console(ChatColor.GOLD + "GCK_expansions" + ChatColor.WHITE + " have been added!");
@@ -171,7 +170,6 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         createCeilConfig();
 
         Objects.requireNonNull(getCommand(cmd_gck.getLabel())).setExecutor(cmd_gck);
-        Objects.requireNonNull(getCommand(cmd_gck.getLabel())).setTabCompleter(cmd_gck);
         console(ChatColor.WHITE + "Commands " + ChatColor.YELLOW + "/gck" + ChatColor.WHITE + " has been added!");
 
         GetCratesKeys.console(ChatColor.YELLOW + getFullName() + ChatColor.WHITE + " is now enabled!");
