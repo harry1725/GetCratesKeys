@@ -52,7 +52,7 @@ public class enableCommand extends SubCommand {
                         player.sendMessage(ChatColor.AQUA + "이제 " + ChatColor.YELLOW + "열쇠 드랍" + ChatColor.AQUA + " 설정이 " + ChatColor.GREEN + "활성화" + ChatColor.AQUA + " 되었습니다!");
                         for (Player p : Bukkit.getOnlinePlayers()) {
                             p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.AQUA + username + ChatColor.WHITE + " 님에 의해 " + ChatColor.YELLOW + "열쇠 드랍" + ChatColor.WHITE + " 설정이 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 되었습니다!");
-                            if (gck.getConfig().getBoolean("config.drop_boost.enable")) {
+                            if (gck.getConfig().getBoolean("config.drop_boost.enabled")) {
                                 p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 드랍 부스트" + ChatColor.WHITE + "가 " + ChatColor.GREEN + "활성화" + ChatColor.WHITE + " 상태입니다.");
                                 if (gck.getConfig().getInt("config.drop_boost.amount") < 1) {
                                     p.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 갯수 드랍 부스트" + ChatColor.WHITE + "는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
