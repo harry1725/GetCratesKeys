@@ -118,6 +118,40 @@ public class GCK_events implements Listener {
 
         int key_num = 0;
         int random_chance = (int) (Math.random() * max_chance + 1);
+
+        if (extra_drop > 0) {
+            for (int i = 0; i <= extra_drop; i++) {
+                int only_key = gck.getActsConfig().getInt(skill_path + ".only_key");
+
+                if (only_key < 1) {
+                    String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
+
+                    for (int j = 1; j <= total_enabled_key_num; j++) {
+                        if (enabled_keys[j].equalsIgnoreCase(random)) {
+                            key_num = j;
+                            break;
+                        }
+                    }
+                } else {
+                    key_num = only_key;
+                }
+
+                String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+
+                int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
+                int drop = (int) (Math.random() * max_drop + 1);
+                if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
+                    drop += key_drop_boost_amount;
+                }
+
+                for (int j = 1; j <= drop; j++) {
+                    Bukkit.dispatchCommand(console, command);
+
+                    player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.GREEN + ChatColor.BOLD + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
+                }
+            }
+        }
+
         if (random_chance <= chance) {
             int only_key = gck.getActsConfig().getInt(skill_path + ".only_key");
 
@@ -139,7 +173,6 @@ public class GCK_events implements Listener {
             int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
             int drop = (int) (Math.random() * max_drop + 1);
 
-            drop += extra_drop;
             if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
                 drop += key_drop_boost_amount;
             }
