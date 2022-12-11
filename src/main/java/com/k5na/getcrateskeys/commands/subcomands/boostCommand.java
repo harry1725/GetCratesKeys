@@ -51,10 +51,10 @@ public class boostCommand extends SubCommand {
                     }
                 }
             } else {
-                player.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.WHITE + "열쇠 드랍 부스트" + ChatColor.WHITE + "는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
+                player.sendMessage(ChatColor.WHITE + "현재 " + ChatColor.WHITE + "열쇠 드랍 부스트" + ChatColor.WHITE + "는 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
             }
         } else {
-            player.sendMessage(ChatColor.YELLOW + "[알림] " + ChatColor.WHITE + "현재 " + ChatColor.WHITE + "열쇠 드랍" + ChatColor.WHITE + "은 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
+            player.sendMessage(ChatColor.WHITE + "현재 " + ChatColor.WHITE + "열쇠 드랍" + ChatColor.WHITE + "은 " + ChatColor.RED + "비활성화" + ChatColor.WHITE + " 상태입니다.");
         }
     }
 

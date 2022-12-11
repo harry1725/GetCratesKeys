@@ -80,6 +80,7 @@ public class GCK_commands implements TabExecutor {
                         gck.reloadKeysConfig();
                         gck.reloadActsConfig();
                         gck.reloadCeilConfig();
+                        gck.reloadPlcdConfig();
 
                         sender.sendMessage(ChatColor.AQUA + "Config has been reloaded. If it doesn't apply, please restart the server to make it sure working.");
                     }

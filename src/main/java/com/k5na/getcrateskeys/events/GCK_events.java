@@ -4,9 +4,7 @@ import com.k5na.getcrateskeys.GetCratesKeys;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.NamespacedKey;
 import org.bukkit.block.BlockState;
-import org.bukkit.block.TileState;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.CaveVinesPlant;
@@ -22,8 +20,8 @@ import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataType;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -39,6 +37,32 @@ public class GCK_events implements Listener {
     }
 
     ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
+
+    public ArrayList<String> placedBlockBlackList() {
+        ArrayList<String> block_list = new ArrayList<>();
+
+        Set<String> excavation_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("excavation")).getKeys(false);
+        Set<String> foraging_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("foraging")).getKeys(false);
+        Set<String> mining_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("mining")).getKeys(false);
+
+        block_list.addAll(excavation_block_list);
+        block_list.addAll(foraging_block_list);
+        block_list.add("BAMBOO");
+        block_list.add("CACTUS");
+        block_list.add("KELP");
+        block_list.add("KELP_PLANT");
+        block_list.add("MELON");
+        block_list.add("PUMPKIN");
+        block_list.add("SUGAR_CANE");
+        block_list.add("SWEET_BERRY_BUSH");
+        block_list.addAll(mining_block_list);
+
+        return block_list;
+    }
+
+    public boolean isNatural(BlockState block_state) {
+        return !gck.getPlcdConfig().getBoolean("placed." + block_state.getLocation());
+    }
 
     public void keyDrop(String skill, Player player, String target) {
         UUID uuid = player.getUniqueId();
@@ -209,17 +233,12 @@ public class GCK_events implements Listener {
         String block_name = event.getBlock().getBlockData().getMaterial().name();
         BlockState block_state = event.getBlock().getState();
 
-        Set<String> excavation_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("excavation")).getKeys(false);
-        Set<String> farming_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("farming")).getKeys(false);
-        Set<String> foraging_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("foraging")).getKeys(false);
-        Set<String> mining_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("mining")).getKeys(false);
+        ArrayList<String> block_list = placedBlockBlackList();
 
-        if (excavation_block_list.contains(block_name) || farming_block_list.contains(block_name) || foraging_block_list.contains(block_name) || mining_block_list.contains(block_name)) {
-            if (block_state instanceof TileState) {
-                ((TileState) block_state).getPersistentDataContainer().set(new NamespacedKey(gck, "Key"), PersistentDataType.STRING, "placed");
+        if (block_list.contains(block_name)) {
+            gck.getPlcdConfig().set("placed." + block_state.getLocation(), true);
 
-                block_state.update();
-            }
+            gck.savePlcdConfig();
         }
     }
 
@@ -231,11 +250,7 @@ public class GCK_events implements Listener {
         BlockData block_data = event.getBlock().getBlockData();
         String block_name = block_data.getMaterial().name();
 
-        String placed = null;
-
-        if (block_state instanceof TileState) {
-            placed = ((TileState) block_state).getPersistentDataContainer().get(new NamespacedKey(gck, "Key"), PersistentDataType.STRING);
-        }
+        ArrayList<String> block_list = placedBlockBlackList();
 
         boolean keys_drop_enabled = gck.getConfig().getBoolean("config.enabled");
 
@@ -270,11 +285,13 @@ public class GCK_events implements Listener {
 
         if (keys_drop_enabled) {
             if (excavation_enabled && excavation_block_list.contains(block_name) && gck.getActsConfig().getBoolean("excavation." + block_name + ".enabled")) {
-                if (placed == null) {
+                if (isNatural(block_state)) {
                     keyDrop("excavation", player, block_name);
+                } else {
+                    gck.getPlcdConfig().set("placed." + block_state.getLocation(), false);
                 }
             } else if (farming_enabled && farming_block_list.contains(block_name) && gck.getActsConfig().getBoolean("farming." + block_name + ".enabled")) {
-                if (block_data instanceof Ageable) {
+                if (block_data instanceof Ageable && !block_list.contains(block_name)) {
                     int current_age = ((Ageable) block_data).getAge();
                     int max_age = ((Ageable) block_data).getMaximumAge();
 
@@ -282,21 +299,27 @@ public class GCK_events implements Listener {
                         keyDrop("farming", player, block_name);
                     }
                 } else {
-                    keyDrop("farming", player, block_name);
+                    if (isNatural(block_state)) {
+                        keyDrop("farming", player, block_name);
+                    } else {
+                        gck.getPlcdConfig().set("placed." + block_state.getLocation(), false);
+                    }
                 }
             } else if (foraging_enabled && foraging_block_list.contains(block_name) && gck.getActsConfig().getBoolean("foraging." + block_name + ".enabled")) {
-                if (placed == null) {
+                if (isNatural(block_state)) {
                     keyDrop("foraging", player, block_name);
+                } else {
+                    gck.getPlcdConfig().set("placed." + block_state.getLocation(), false);
                 }
             } else if (mining_enabled && mining_block_list.contains(block_name) && gck.getActsConfig().getBoolean("mining." + block_name + ".enabled")) {
-                if (placed == null) {
+                if (isNatural(block_state)) {
                     ItemStack mainHand = player.getInventory().getItemInMainHand();
 
-                    if (!mainHand.containsEnchantment(SILK_TOUCH)) {
+                    if (gck.getActsConfig().getBoolean("mining.silk_touch_drop") || (!gck.getActsConfig().getBoolean("mining.silk_touch_drop") && !mainHand.containsEnchantment(SILK_TOUCH))) {
                         keyDrop("mining", player, block_name);
                     }
-
-                    gck.saveCeilConfig();
+                } else {
+                    gck.getPlcdConfig().set("placed." + block_state.getLocation(), false);
                 }
             }
         }
@@ -375,5 +398,6 @@ public class GCK_events implements Listener {
     @EventHandler
     public void onPlayerQuitEvent(PlayerQuitEvent event) {
         gck.saveCeilConfig();
+        gck.savePlcdConfig();
     }
 }

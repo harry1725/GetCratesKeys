@@ -46,10 +46,12 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
     public File keysConfigFile;
     public File actsConfigFile;
     public File ceilConfigFile;
+    public File plcdConfigFile;
 
     public FileConfiguration keysConfig;
     public FileConfiguration actsConfig;
     public FileConfiguration ceilConfig;
+    public FileConfiguration plcdConfig;
 
     boolean wasSuccessful;
 
@@ -86,6 +88,17 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         ceilConfig = YamlConfiguration.loadConfiguration(ceilConfigFile);
     }
 
+    public void createPlcdConfig() {
+        plcdConfigFile = new File(getDataFolder(), "placed.yml");
+
+        if (!plcdConfigFile.exists()) {
+            wasSuccessful = ceilConfigFile.getParentFile().mkdirs();
+            saveResource("placed.yml", true);
+        }
+
+        plcdConfig = YamlConfiguration.loadConfiguration(plcdConfigFile);
+    }
+
     public FileConfiguration getKeysConfig() {
         return this.keysConfig;
     }
@@ -96,6 +109,9 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
 
     public FileConfiguration getCeilConfig() {
         return this.ceilConfig;
+    }
+    public FileConfiguration getPlcdConfig() {
+        return this.plcdConfig;
     }
 
     public void reloadKeysConfig() {
@@ -122,10 +138,18 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         ceilConfig = YamlConfiguration.loadConfiguration(ceilConfigFile);
     }
 
+    public void reloadPlcdConfig() {
+        if (plcdConfigFile == null) {
+            plcdConfigFile = new File(getDataFolder(), "placed.yml");
+        }
+
+        ceilConfig = YamlConfiguration.loadConfiguration(plcdConfigFile);
+    }
+
     public void saveKeysConfig() {
         try {
             getKeysConfig().save(keysConfigFile);
-        } catch (IOException e){
+        } catch (IOException e) {
             conLog("An Error Occurred During Saving keys.yml Config File");
         }
     }
@@ -133,7 +157,7 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
     public void saveActsConfig() {
         try {
             getActsConfig().save(actsConfigFile);
-        } catch (IOException e){
+        } catch (IOException e) {
             conLog("An Error Occurred During Saving actions.yml Config File");
         }
     }
@@ -141,8 +165,16 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
     public void saveCeilConfig() {
         try {
             getCeilConfig().save(ceilConfigFile);
-        } catch (IOException e){
+        } catch (IOException e) {
             conLog("An Error Occurred During Saving ceiling.yml Config File");
+        }
+    }
+
+    public void savePlcdConfig() {
+        try {
+            getPlcdConfig().save(plcdConfigFile);
+        } catch (IOException e) {
+            conLog("An Error Occurred During Saving placed.yml Config File");
         }
     }
 
@@ -167,6 +199,7 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         createKeysConfig();
         createActsConfig();
         createCeilConfig();
+        createPlcdConfig();
 
         Objects.requireNonNull(getCommand("gck")).setExecutor(new GCK_commands(this));
         console(ChatColor.WHITE + "Commands " + ChatColor.YELLOW + "/gck" + ChatColor.WHITE + " has been added!");
@@ -182,6 +215,7 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         saveKeysConfig();
         saveActsConfig();
         saveCeilConfig();
+        savePlcdConfig();
 
         GetCratesKeys.console(ChatColor.YELLOW + getFullName() + ChatColor.WHITE + " is now disabled!");
         super.onDisable();

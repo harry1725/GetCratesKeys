@@ -45,6 +45,7 @@ public class reloadCommand extends SubCommand {
             gck.reloadKeysConfig();
             gck.reloadActsConfig();
             gck.reloadCeilConfig();
+            gck.reloadPlcdConfig();
 
             player.sendMessage(ChatColor.AQUA + "config가 리로드되었습니다. 미적용시 서버 재시작을 시도해보시기 바랍니다.");
             conLog("Config reloaded by " + username + " (UUID : " + uuid + ")");

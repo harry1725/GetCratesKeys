@@ -245,8 +245,24 @@ farming:
     multiplier: 1
     only_key: -1
 
-  # 켈프
+  # 코코아 콩
+  COCOA:
+    enabled: true
+    base_chance: 20
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  # 켈프 (켈프 줄기 제일 윗 부분)
   KELP:
+    enabled: false
+    base_chance: 5
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  # 켈프 (켈프 줄기 제일 윗 부분을 제외한 나머지 아랫 부분)
+  KELP_PLANT:
     enabled: false
     base_chance: 5
     multiplier_enabled: false
@@ -472,6 +488,9 @@ foraging:
 #   enabled: < true / false >
 #   - 해당 블럭을 "캤을 때" 열쇠 드랍 가능 여부. true는 활성화, false는 비활성화
 #
+#   silk_touch_drop: < true / false >
+#   - "섬세한 손길" 마법부여 된 곡괭이로 광물을 캤을 때 열쇠 드랍 가능 여부. true는 활성화, false는 비활성화
+#
 #   대문자 블럭 이름:
 #     enabled: < true / false >
 #     - 해당 블럭을 캤을 때 열쇠 드랍 여부. true는 활성화, false는 비활성화
@@ -490,6 +509,7 @@ foraging:
 # ========================================================
 mining:
   enabled: true
+  silk_touch_drop: false
 
   # 석탄 광석
   COAL_ORE:
