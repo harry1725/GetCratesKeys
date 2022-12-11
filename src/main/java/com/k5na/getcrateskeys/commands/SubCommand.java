@@ -6,8 +6,11 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public abstract class SubCommand {
+    public static GetCratesKeys gck;
 
-    protected GetCratesKeys gck;
+    public SubCommand(GetCratesKeys plugin) {
+        gck = plugin;
+    }
 
     public abstract String getName();
 

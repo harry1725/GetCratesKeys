@@ -11,22 +11,22 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class GCK_commands extends AbstractCommand implements TabExecutor {
-    protected GetCratesKeys gck;
+public class GCK_commands implements TabExecutor {
+    public static GetCratesKeys gck;
 
     private final ArrayList<SubCommand> subcommands = new ArrayList<>();
 
-    public GCK_commands(GetCratesKeys plugin, String commandLabel) {
-        super(plugin, commandLabel);
+    public GCK_commands(GetCratesKeys plugin) {
+        gck = plugin;
 
-        subcommands.add(new infoCommand());
-        subcommands.add(new helpCommand());
-        subcommands.add(new keysCommand());
-        subcommands.add(new reloadCommand());
-        subcommands.add(new enableCommand());
-        subcommands.add(new disableCommand());
-        subcommands.add(new setCommand());
-        subcommands.add(new ceilingCommand());
+        subcommands.add(new infoCommand(plugin));
+        subcommands.add(new helpCommand(plugin));
+        subcommands.add(new keysCommand(plugin));
+        subcommands.add(new reloadCommand(plugin));
+        subcommands.add(new enableCommand(plugin));
+        subcommands.add(new disableCommand(plugin));
+        subcommands.add(new setCommand(plugin));
+        subcommands.add(new ceilingCommand(plugin));
     }
 
     @Override
@@ -71,7 +71,7 @@ public class GCK_commands extends AbstractCommand implements TabExecutor {
                     if (args[0].equalsIgnoreCase("test")) {
                         sender.sendMessage(ChatColor.GREEN + "Console command is working properly.");
                     } else if (args[0].equalsIgnoreCase("reload")) {
-                        super.gck.reloadConfig();
+                        gck.reloadConfig();
                         gck.saveDefaultConfig();
                         gck.getConfig().options().copyDefaults(true);
                         gck.saveConfig();

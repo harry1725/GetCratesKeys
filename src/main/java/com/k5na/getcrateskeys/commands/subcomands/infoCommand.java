@@ -1,6 +1,7 @@
 package com.k5na.getcrateskeys.commands.subcomands;
 
 
+import com.k5na.getcrateskeys.GetCratesKeys;
 import com.k5na.getcrateskeys.commands.SubCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -8,6 +9,10 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class infoCommand extends SubCommand {
+    public infoCommand(GetCratesKeys plugin) {
+        super(plugin);
+    }
+
     @Override
     public String getName() {
         return "info";

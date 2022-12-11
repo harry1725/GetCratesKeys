@@ -1,5 +1,6 @@
 package com.k5na.getcrateskeys.commands.subcomands;
 
+import com.k5na.getcrateskeys.GetCratesKeys;
 import com.k5na.getcrateskeys.commands.SubCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -10,6 +11,10 @@ import java.util.UUID;
 import static com.k5na.getcrateskeys.GetCratesKeys.conLog;
 
 public class reloadCommand extends SubCommand {
+    public reloadCommand(GetCratesKeys plugin) {
+        super(plugin);
+    }
+
     @Override
     public String getName() {
         return "reload";
@@ -32,7 +37,7 @@ public class reloadCommand extends SubCommand {
 
         if (player.isOp()) {
 
-            super.gck.reloadConfig();
+            gck.reloadConfig();
             gck.saveDefaultConfig();
             gck.getConfig().options().copyDefaults(true);
             gck.saveConfig();

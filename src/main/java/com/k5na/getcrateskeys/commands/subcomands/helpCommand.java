@@ -1,5 +1,6 @@
 package com.k5na.getcrateskeys.commands.subcomands;
 
+import com.k5na.getcrateskeys.GetCratesKeys;
 import com.k5na.getcrateskeys.commands.SubCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -8,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class helpCommand extends SubCommand {
+    public helpCommand(GetCratesKeys plugin) {
+        super(plugin);
+    }
+
     @Override
     public String getName() {
         return "help";
@@ -25,7 +30,7 @@ public class helpCommand extends SubCommand {
 
     @Override
     public void perform(Player player, String[] args) {
-        if (args.length < 2) {
+        if (args.length == 1) {
             player.sendMessage("");
             player.sendMessage(ChatColor.GRAY + "=====================================================");
             player.sendMessage("");

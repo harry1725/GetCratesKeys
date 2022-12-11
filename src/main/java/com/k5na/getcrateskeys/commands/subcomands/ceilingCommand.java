@@ -1,5 +1,6 @@
 package com.k5na.getcrateskeys.commands.subcomands;
 
+import com.k5na.getcrateskeys.GetCratesKeys;
 import com.k5na.getcrateskeys.commands.SubCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -8,6 +9,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class ceilingCommand extends SubCommand {
+    public ceilingCommand(GetCratesKeys plugin) {
+        super(plugin);
+    }
+
     @Override
     public String getName() {
         return "ceiling";

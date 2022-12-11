@@ -1,5 +1,6 @@
 package com.k5na.getcrateskeys.commands.subcomands;
 
+import com.k5na.getcrateskeys.GetCratesKeys;
 import com.k5na.getcrateskeys.commands.SubCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -12,6 +13,10 @@ import static com.k5na.getcrateskeys.GetCratesKeys.conLog;
 import static com.k5na.getcrateskeys.GetCratesKeys.getLineNumber;
 
 public class setCommand extends SubCommand {
+    public setCommand(GetCratesKeys plugin) {
+        super(plugin);
+    }
+
     @Override
     public String getName() {
         return "set";
@@ -29,16 +34,16 @@ public class setCommand extends SubCommand {
 
     @Override
     public void perform(Player player, String[] args) {
-        if (args.length < 2) {
-            player.sendMessage(ChatColor.RED + "명령어에 인수가 부족합니다! 입력하신 명령어를 다시 확인해 주세요!");
+        if (args.length == 1) {
+            player.sendMessage(ChatColor.RED + "명령어에 인수가 부족합니다! 입력하신 명령어를 다시 확인해 주세요!1");
         } else {
             String username = player.getName();
             UUID uuid = player.getUniqueId();
 
             if (player.isOp()) {
                 if (args[1].equalsIgnoreCase("drop_boost_amount")) {
-                    if (args.length < 3) {
-                        player.sendMessage(ChatColor.RED + "명령어에 인수가 부족합니다! 입력하신 명령어를 다시 확인해 주세요!");
+                    if (args.length == 2) {
+                        player.sendMessage(ChatColor.RED + "명령어에 인수가 부족합니다! 입력하신 명령어를 다시 확인해 주세요!2");
                     } else {
                         try {
                             int value = Integer.parseInt(args[2]);
@@ -54,8 +59,8 @@ public class setCommand extends SubCommand {
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("drop_boost_chance_fixed")) {
-                    if (args.length < 3) {
-                        player.sendMessage(ChatColor.RED + "명령어에 인수가 부족합니다! 입력하신 명령어를 다시 확인해 주세요!");
+                    if (args.length == 2) {
+                        player.sendMessage(ChatColor.RED + "명령어에 인수가 부족합니다! 입력하신 명령어를 다시 확인해 주세요!2");
                     } else {
                         try {
                             int value = Integer.parseInt(args[2]);
@@ -71,8 +76,8 @@ public class setCommand extends SubCommand {
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("drop_boost_chance_multiplier")) {
-                    if (args.length < 3) {
-                        player.sendMessage(ChatColor.RED + "명령어에 인수가 부족합니다! 입력하신 명령어를 다시 확인해 주세요!");
+                    if (args.length == 2) {
+                        player.sendMessage(ChatColor.RED + "명령어에 인수가 부족합니다! 입력하신 명령어를 다시 확인해 주세요!2");
                     } else {
                         try {
                             double value = Double.parseDouble(args[2]);

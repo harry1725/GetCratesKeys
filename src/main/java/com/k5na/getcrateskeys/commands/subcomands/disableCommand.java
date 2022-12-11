@@ -1,5 +1,6 @@
 package com.k5na.getcrateskeys.commands.subcomands;
 
+import com.k5na.getcrateskeys.GetCratesKeys;
 import com.k5na.getcrateskeys.commands.SubCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,6 +13,10 @@ import java.util.UUID;
 import static com.k5na.getcrateskeys.GetCratesKeys.conLog;
 
 public class disableCommand extends SubCommand {
+    public disableCommand(GetCratesKeys plugin) {
+        super(plugin);
+    }
+
     @Override
     public String getName() {
         return "disable";
@@ -29,7 +34,7 @@ public class disableCommand extends SubCommand {
 
     @Override
     public void perform(Player player, String[] args) {
-        if (args.length < 2) {
+        if (args.length == 1) {
             player.sendMessage(ChatColor.RED + "명령어에 인수가 부족합니다! 입력하신 명령어를 다시 확인해 주세요!");
         } else {
             String username = player.getName();
