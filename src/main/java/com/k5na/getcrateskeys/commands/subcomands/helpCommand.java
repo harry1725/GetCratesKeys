@@ -75,7 +75,7 @@ public class helpCommand extends SubCommand {
             } else if(args[1].equalsIgnoreCase("ceiling")) {
                 player.sendMessage(ChatColor.GREEN + "사용 방법" + ChatColor.WHITE + " :");
                 player.sendMessage(ChatColor.WHITE + "/gck ceiling");
-                player.sendMessage(ChatColor.GREEN + "이 명령어를 사용하기 위해서는 IO가 필요하지 않습니다.");
+                player.sendMessage(ChatColor.GREEN + "이 명령어를 사용하기 위해서는 OP가 필요하지 않습니다.");
             } else {
                 player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. /gck help를 통해 입력 가능한 명령어를 확인해주세요.");
             }
