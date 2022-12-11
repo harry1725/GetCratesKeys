@@ -43,7 +43,7 @@ public class GCK_expansions extends PlaceholderExpansion {
         String key_num = "_" + params;
 
         if (key_nums.contains(key_num)) {
-            return "scrates givekey " + gck.getKeysConfig().getString("keys." + key_num + ".crate_name") + " " + username + " 1 -v";
+            return "scrates givekey " + gck.getKeysConfig().getString("keys." + key_num + ".crate_name") + " " + username + " 1";
         }
 
         return null;
