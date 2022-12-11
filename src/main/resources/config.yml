@@ -12,6 +12,9 @@
 #   - 최대 확률 단위 - 총 확률은 max_chance 분의 base_chance + Aureliumlevel * multiplier 확률.
 #   - 1이상의 10의 제곱 단위의 정수 추천. 기본 설정은 100000 (base_chance가 1이면 0.001 % 확률)
 #
+#   multiplier_enabled: < true / false >
+#   - 전체 아우렐리움 스킬 배수 적용 여부. true는 활성화, false는 비활성화
+#
 #   drop_boost:
 #     enabled: < true / false >
 #     - 전체 열쇠에 대하여 드랍 부스트 적용. true는 활성화, false는 비활성화
@@ -19,11 +22,8 @@
 #     amount: < # >
 #     - 전체 열쇠에 대하여 #개의 추가 갯수 드랍 부스트 적용. 1 미만은 비활성화
 #
-#     chance_fixed: < # >
-#     - 전체 열쇠에 대하여 # %의 추가 확률 드랍 부스트 적용. 0 이하는 비활성화
-#
-#     chance_multiplier: < # >
-#     - 전체 열쇠에 대하여 #배의 추가 확률 드랍 부스트 적용. 0 미만은 비활성화
+#     chance: < -100 ~ # >
+#     - 전체 열쇠에 대하여 # %의 추가 확률 드랍 부스트 적용. 0 은 비활성화
 #
 #   ceiling:
 #     enabled: < true / false >
@@ -37,18 +37,21 @@ config:
 
   max_chance: 100000                  # 1 / 100000 * 100 = 0.001 %
 
+  multiplier_enabled: false
+
   drop_boost:
     enabled: false
 
     amount: -1
-    chance_fixed: -1
-    chance_multiplier: -1.0
+    chance: 0
+
 
   ceiling:
     enabled: true
 
-    excavation_max: 100000
-    farming_max: 100000
-    fishing_max: 100000
-    foraging_max: 100000
-    mining_max: 100000
+    excavation_max: 5000
+    farming_max: 5000
+    fishing_max: 1000
+    foraging_max: 5000
+    mining_max: 1000
+

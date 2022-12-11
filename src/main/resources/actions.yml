@@ -27,115 +27,131 @@
 excavation:
   enabled: true
 
-  CLAY:                               # 점토 블럭
+  # 점토
+  CLAY:
+    enabled: true
+    base_chance: 5
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  # 거친 흙
+  COARSE_DIRT:
+    enabled: true
+    base_chance: 5
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  # 흙
+  DIRT:
+    enabled: true
+    base_chance: 5
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  # 잔디 블록
+  GRASS_BLOCK:
+    enabled: true
+    base_chance: 5
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  # 자갈
+  GRAVEL:
+    enabled: true
+    base_chance: 5
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  # 진흙
+  MUD:
+    enabled: true
+    base_chance: 5
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  # 균사체
+  MYCELIUM:
+    enabled: true
+    base_chance: 5
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  # 회백토
+  PODZOL:
+    enabled: true
+    base_chance: 5
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  # 가루눈
+  POWDER_SNOW:
     enabled: true
     base_chance: 100
-    multiplier_enabled: true
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  COARSE_DIRT:                        # 거친 흙
+  # 붉은 모래
+  RED_SAND:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 5
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  DIRT:                               # 흙
+  # 뿌리내린 흙
+  ROOTED_DIRT:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 5
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  GRASS_BLOCK:                        # 잔디 블럭
+  # 모래
+  SAND:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 5
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  GRAVEL:                             # 자갈
+  # 눈
+  SNOW:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 5
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  MUD:                                # 진흙
+  # 눈 블록
+  SNOW_BLOCK:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 5
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  MYCELIUM:                           # 균사체
+  # 영혼 모래
+  SOUL_SAND:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 5
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  PODZOL:                             # 회백토
+  # 영혼 흙
+  SOUL_SOIL:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
-    multiplier: 1
-    only_key: -1
-
-  POWDER_SNOW:                        # 가루눈
-    enabled: true
-    base_chance: 100
-    multiplier_enabled: true
-    multiplier: 1
-    only_key: -1
-
-  RED_SAND:                           # 붉은 모래
-    enabled: true
-    base_chance: 100
-    multiplier_enabled: true
-    multiplier: 1
-    only_key: -1
-
-  ROOTED_DIRT:                        # 뿌리가 박힌 흙
-    enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
-    multiplier: 1
-    only_key: -1
-
-  SAND:                               # 모래
-    enabled: true
-    base_chance: 100
-    multiplier_enabled: true
-    multiplier: 1
-    only_key: -1
-
-  SNOW:                               # 눈 (바닥에 1픽셀로 깔린 눈)
-    enabled: true
-    base_chance: 100
-    multiplier_enabled: true
-    multiplier: 1
-    only_key: -1
-
-  SNOW_BLOCK:                         # 눈 블럭
-    enabled: true
-    base_chance: 100
-    multiplier_enabled: true
-    multiplier: 1
-    only_key: -1
-
-  SOUL_SAND:                          # 영혼 모래
-    enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
-    multiplier: 1
-    only_key: -1
-
-  SOUL_SOIL:                          # 영혼 흙
-    enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
+    base_chance: 5
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
@@ -165,115 +181,131 @@ excavation:
 farming:
   enabled: true
 
-  BAMBOO:                             # 대나무 - Bamboo extends Sapling
+  # 대나무 - Bamboo extends Sapling
+  BAMBOO:
     enabled: false
-    base_chance: 1000
-    multiplier_enabled: true
+    base_chance: 5
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  BEETROOTS:                          # 사탕무
+  # 비트
+  BEETROOTS:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
+    base_chance: 20
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  CACTUS:                             # 선인장
+  # 선인장
+  CACTUS:
     enabled: false
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 20
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  CARROTS:                            # 당근
+  # 당근
+  CARROTS:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 20
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  CAVE_VINES:                         # 발광 열매 뿌리 - CaveVines extends CaveVinesPlant, Can Be Interacted
+  # 발광 열매 뿌리 - CaveVines extends CaveVinesPlant, Can Be Interacted
+  CAVE_VINES:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 20
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  CAVE_VINES_PLANT:                   # 발광 열매 줄기 - CaveVinesPlant, Can Be Interacted
+  # 발광 열매 줄기 - CaveVinesPlant, Can Be Interacted
+  CAVE_VINES_PLANT:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 20
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  CHORUS_FLOWER:                       # 후렴화
+  # 후렴화
+  CHORUS_FLOWER:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 20
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  CHORUS_PLANT:                       # 후렴과 줄기 - MultipleFacing
+  # 후렴과 줄기 - MultipleFacing
+  CHORUS_PLANT:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 20
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  KELP:                               # 켈프
+  # 켈프
+  KELP:
     enabled: false
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 5
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  MELON:                              # 수박 블럭 - NOT Ageable
+  # 수박 - NOT Ageable
+  MELON:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
+    base_chance: 60
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  NETHER_WART:                        # 지옥 사마귀 (네더와트)
+  # 네더 사마귀
+  NETHER_WART:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
+    base_chance: 20
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  POTATOES:                           # 감자
+  # 감자
+  POTATOES:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 20
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  PUMPKIN:                            # 호박 - NOT Ageable
+  # 호박 - NOT Ageable
+  PUMPKIN:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
+    base_chance: 60
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  SUGAR_CANE:                         # 사탕수수
+  # 사탕수수
+  SUGAR_CANE:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 20
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  SWEET_BERRY_BUSH:                   # 달콤한 열매 - Can Be Interacted
+  # 달콤한 열매 덤불 - Can Be Interacted
+  SWEET_BERRY_BUSH:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 20
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  WHEAT:                              # 밀
+  # 밀
+  WHEAT:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
+    base_chance: 20
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
@@ -303,10 +335,11 @@ farming:
 fishing:
   enabled: true
 
+  # 낚시
   fishing:
     enabled: true
     base_chance: 1000
-    multiplier_enabled: true
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
@@ -334,8 +367,9 @@ fishing:
 #     - #번 열쇠만 드랍 설정. 1 미만은 비활성화
 # ========================================================
 foraging:
-  enabled: true
+  enabled: false
 
+  # 아카시아나무 원목
   ACACIA_LOG:
     enabled: true
     base_chance: 1000
@@ -343,6 +377,7 @@ foraging:
     multiplier: 1
     only_key: -1
 
+  # 자작나무 원목
   BIRCH_LOG:
     enabled: true
     base_chance: 1000
@@ -350,6 +385,7 @@ foraging:
     multiplier: 1
     only_key: -1
 
+  # 갈색 버섯 블록
   BROWN_MUSHROOM_BLOCK:
     enabled: true
     base_chance: 1000
@@ -357,6 +393,7 @@ foraging:
     multiplier: 1
     only_key: -1
 
+  # 진홍빛 자루
   CRIMSON_STEM:
     enabled: true
     base_chance: 1000
@@ -364,6 +401,7 @@ foraging:
     multiplier: 1
     only_key: -1
 
+  # 짙은 참나무 원목
   DARK_OAK_LOG:
     enabled: true
     base_chance: 1000
@@ -371,6 +409,7 @@ foraging:
     multiplier: 1
     only_key: -1
 
+  # 정글나무 원목
   JUNGLE_LOG:
     enabled: true
     base_chance: 1000
@@ -378,6 +417,7 @@ foraging:
     multiplier: 1
     only_key: -1
 
+  # 맹그로브나무 원목
   MANGROVE_LOG:
     enabled: true
     base_chance: 1000
@@ -385,6 +425,7 @@ foraging:
     multiplier: 1
     only_key: -1
 
+  # 참나무 원목
   OAK_LOG:
     enabled: true
     base_chance: 1000
@@ -392,6 +433,7 @@ foraging:
     multiplier: 1
     only_key: -1
 
+  # 빨간색 버섯 블록
   RED_MUSHROOM_BLOCK:
     enabled: true
     base_chance: 1000
@@ -399,6 +441,15 @@ foraging:
     multiplier: 1
     only_key: -1
 
+  # 버섯 자루
+  MUSHROOM_STEM:
+    enabled: true
+    base_chance: 1000
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  # 가문비나무 원목
   SPRUCE_LOG:
     enabled: true
     base_chance: 1000
@@ -406,13 +457,13 @@ foraging:
     multiplier: 1
     only_key: -1
 
+  # 뒤틀린 자루
   WARPED_STEM:
     enabled: true
     base_chance: 1000
     multiplier_enabled: false
     multiplier: 1
     only_key: -1
-
 
 
 # ======================= # 광 질 # =======================
@@ -440,143 +491,187 @@ foraging:
 mining:
   enabled: true
 
-  COAL_ORE:                           # 석탄 원석
+  # 석탄 광석
+  COAL_ORE:
     enabled: true
-    base_chance: 10000
-    multiplier_enabled: true
+    base_chance: 323
+    multiplier_enabled: false
     multiplier: 100
     only_key: -1
 
-  DEEPSLATE_COAL_ORE:                 # 심층암 석탄 원석
+  # 심층암 석탄 광석
+  DEEPSLATE_COAL_ORE:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 4554
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  COPPER_ORE:                         # 구리 원석
+  # 구리 광석
+  COPPER_ORE:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 308
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  DEEPSLATE_COPPER_ORE:               # 심층암 구리 원석
+  # 심층암 구리 광석
+  DEEPSLATE_COPPER_ORE:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 374
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  IRON_ORE:                           # 철 원석
-    enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+  # 구리 원석 블록
+  RAW_COPPER_BLOCK:
+    enabled: false
+    base_chance: 308
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  DEEPSLATE_IRON_ORE:                 # 심층암 철 원석
+  # 철 광석
+  IRON_ORE:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 374
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  LAPIS_ORE:                          # 청금석 원석
+  # 심층암 철 광석
+  DEEPSLATE_IRON_ORE:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 374
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  DEEPSLATE_LAPIS_ORE:                # 심층암 청금석 원석
-    enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+  # 철 원석 블록
+  RAW_IRON_BLOCK:
+    enabled: false
+    base_chance: 374
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  GOLD_ORE:                           # 금 원석
+  # 청금석 광석
+  LAPIS_ORE:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
+    base_chance: 374
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  DEEPSLATE_GOLD_ORE:                 # 심층암 금 원석
+  # 심층암 청금석 광석
+  DEEPSLATE_LAPIS_ORE:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 465
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  REDSTONE_ORE:                       # 레드스톤 원석
+  # 금 광석
+  GOLD_ORE:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 465
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  DEEPSLATE_REDSTONE_ORE:             # 심층암 레드스톤 원석
+  # 심층암 금 광석
+  DEEPSLATE_GOLD_ORE:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: true
+    base_chance: 465
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  DIAMOND_ORE:                        # 다이아몬드 원석
-    enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
+  # 금 원석 블록
+  RAW_GOLD_BLOCK:
+    enabled: false
+    base_chance: 465
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  DEEPSLATE_DIAMOND_ORE:              # 심층암 다이아몬드 원석
+  # 레드스톤 광석
+  REDSTONE_ORE:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
+    base_chance: 323
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  EMERALD_ORE:                        # 에메랄드 원석
+  # 심층암 레드스톤 광석
+  DEEPSLATE_REDSTONE_ORE:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
+    base_chance: 374
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  DEEPSLATE_EMERALD_ORE:              # 심층암 에메랄드 원석
+  # 다이아몬드 광석
+  DIAMOND_ORE:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
+    base_chance: 7554
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  NETHER_QUARTZ_ORE:                  # 지옥 석영 원석
+  # 심층암 다이아몬드 광석
+  DEEPSLATE_DIAMOND_ORE:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
+    base_chance: 4554
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  NETHER_GOLD_ORE:                    # 지옥 금 원석
+  # 에메랄드 광석
+  EMERALD_ORE:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
+    base_chance: 2227
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  GILDED_BLACKSTONE:                  # 금이 박힌 흑암
+  # 심층암 에메랄드 광석
+  DEEPSLATE_EMERALD_ORE:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: true
+    base_chance: 4554
+    multiplier_enabled: false
     multiplier: 1
     only_key: -1
 
-  ANCIENT_DEBRIS:                     # 고대 잔해
+  # 네더 석영 광석
+  NETHER_QUARTZ_ORE:
     enabled: true
-    base_chance: 10000
-    multiplier_enabled: true
+    base_chance: 374
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  # 네더 금 광석
+  NETHER_GOLD_ORE:
+    enabled: true
+    base_chance: 374
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  # 황금이 박힌 흑암
+  GILDED_BLACKSTONE:
+    enabled: false
+    base_chance: 4554
+    multiplier_enabled: false
+    multiplier: 1
+    only_key: -1
+
+  # 고대 잔해
+  ANCIENT_DEBRIS:
+    enabled: false
+    base_chance: 4554
+    multiplier_enabled: false
     multiplier: 100
     only_key: -1
 

@@ -24,7 +24,7 @@ public class disableCommand extends SubCommand {
 
     @Override
     public String getDescription() {
-        return null;
+        return "Disable key-related settings.";
     }
 
     @Override

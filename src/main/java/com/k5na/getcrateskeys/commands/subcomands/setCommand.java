@@ -24,7 +24,7 @@ public class setCommand extends SubCommand {
 
     @Override
     public String getDescription() {
-        return null;
+        return "Set key-related parameters.";
     }
 
     @Override
@@ -52,43 +52,41 @@ public class setCommand extends SubCommand {
 
                             gck.saveConfig();
 
-                            player.sendMessage(ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 갯수 드랍 부스트" + ChatColor.WHITE + "는 " + ChatColor.GREEN + gck.getConfig().getInt("config.drop_boost.amount") + ChatColor.WHITE + " 입니다. 입력한 값이 맞는지 확인해 주세요.");
+                            if (value > 0) {
+                                player.sendMessage(ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 갯수 드랍 부스트" + ChatColor.WHITE + "는 " + ChatColor.GREEN + "+" + ChatColor.GREEN + gck.getConfig().getInt("config.drop_boost.amount") + ChatColor.GREEN + "개" + ChatColor.WHITE + " 입니다.");
+                            } else {
+                                player.sendMessage(ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 갯수 드랍 부스트" + ChatColor.WHITE + "는 " + ChatColor.GREEN + "+ 0개" + ChatColor.WHITE + " 입니다.");
+                            }
+                            player.sendMessage(ChatColor.YELLOW + "입력한 값과 일치하는지 확인해 주세요.");
                         } catch (NumberFormatException e) {
                             player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. 정수만 입력해 주세요.");
                             conLog("NOT-INTEGER-TYPE value was entered by " + username + ". (UUID :" + uuid + ") (Fc:L" + getLineNumber() + ")");
                         }
                     }
-                } else if (args[1].equalsIgnoreCase("drop_boost_chance_fixed")) {
+                } else if (args[1].equalsIgnoreCase("drop_boost_chance")) {
                     if (args.length == 2) {
                         player.sendMessage(ChatColor.RED + "명령어에 인수가 부족합니다! 입력하신 명령어를 다시 확인해 주세요!");
                     } else {
                         try {
                             int value = Integer.parseInt(args[2]);
 
-                            gck.getConfig().set("config.drop_boost.chance_fixed", value);
+                            if (value < -100) {
+                                player.sendMessage(ChatColor.RED + "너무 작은 숫자입니다! 최소 숫자는 -100 입니다.");
+                            } else {
+                                gck.getConfig().set("config.drop_boost.chance", value);
 
-                            gck.saveConfig();
+                                gck.saveConfig();
 
-                            player.sendMessage(ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 고정 확률 부스트" + ChatColor.WHITE + "는 " + ChatColor.GREEN + gck.getConfig().getInt("config.drop_boost.chance_fixed") + ChatColor.WHITE + " 입니다. 총 추가 확률은 " + ChatColor.GREEN + (gck.getConfig().getInt("config.drop_boost.chance_fixed") / gck.getConfig().getInt("config.max_chance") * 100) + ChatColor.GREEN + "%" + ChatColor.WHITE + " 입니다. 입력한 값이 맞는지 확인해 주세요.");
+
+                                if (value >= 0) {
+                                    player.sendMessage(ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 드랍 확률 부스트" + ChatColor.WHITE + "는 " + ChatColor.GREEN + "+" + ChatColor.GREEN + gck.getConfig().getInt("config.drop_boost.chance") + ChatColor.GREEN + "%" + ChatColor.WHITE + " 입니다.");
+                                } else {
+                                    player.sendMessage(ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 드랍 확률 부스트" + ChatColor.WHITE + "는 " + ChatColor.RED + gck.getConfig().getInt("config.drop_boost.chance") + ChatColor.RED + "%" + ChatColor.WHITE + " 입니다.");
+                                }
+                                player.sendMessage(ChatColor.YELLOW + "입력한 값과 일치하는지 확인해 주세요.");
+                            }
                         } catch (NumberFormatException e) {
                             player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. 정수만 입력해 주세요.");
-                            conLog("NOT-INTEGER-TYPE value was entered by " + username + ". (UUID :" + uuid + ") (Fc:L" + getLineNumber() + ")");
-                        }
-                    }
-                } else if (args[1].equalsIgnoreCase("drop_boost_chance_multiplier")) {
-                    if (args.length == 2) {
-                        player.sendMessage(ChatColor.RED + "명령어에 인수가 부족합니다! 입력하신 명령어를 다시 확인해 주세요!");
-                    } else {
-                        try {
-                            double value = Double.parseDouble(args[2]);
-
-                            gck.getConfig().set("config.drop_boost.chance_multiplier", value);
-
-                            gck.saveConfig();
-
-                            player.sendMessage(ChatColor.WHITE + "현재 " + ChatColor.YELLOW + "열쇠 드랍 확률 배수 부스트" + ChatColor.WHITE + "는 " + ChatColor.GREEN + gck.getConfig().getDouble("config.drop_boost.chance_multiplier") + ChatColor.WHITE + " 입니다. 입력한 값이 맞는지 확인해 주세요.");
-                        } catch (NumberFormatException e) {
-                            player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. 실수만 입력해 주세요.");
                             conLog("NOT-INTEGER-TYPE value was entered by " + username + ". (UUID :" + uuid + ") (Fc:L" + getLineNumber() + ")");
                         }
                     }
@@ -108,8 +106,7 @@ public class setCommand extends SubCommand {
             List<String> subcommandArgument = new ArrayList<>();
 
             subcommandArgument.add("drop_boost_amount");
-            subcommandArgument.add("drop_boost_chance_fixed");
-            subcommandArgument.add("drop_boost_chance_multiplier");
+            subcommandArgument.add("drop_boost_chance");
 
             return subcommandArgument;
         }

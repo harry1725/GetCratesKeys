@@ -22,7 +22,7 @@ public class reloadCommand extends SubCommand {
 
     @Override
     public String getDescription() {
-        return null;
+        return "Reload resource files of GCK plugin.";
     }
 
     @Override

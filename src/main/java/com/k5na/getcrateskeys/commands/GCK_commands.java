@@ -27,6 +27,7 @@ public class GCK_commands implements TabExecutor {
         subcommands.add(new disableCommand(plugin));
         subcommands.add(new setCommand(plugin));
         subcommands.add(new ceilingCommand(plugin));
+        subcommands.add(new boostCommand(plugin));
     }
 
     @Override

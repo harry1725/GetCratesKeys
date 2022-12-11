@@ -20,7 +20,7 @@ public class infoCommand extends SubCommand {
 
     @Override
     public String getDescription() {
-        return null;
+        return "Show information of GCK plugin.";
     }
 
     @Override

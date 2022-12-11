@@ -20,7 +20,7 @@ public class keysCommand extends SubCommand {
 
     @Override
     public String getDescription() {
-        return null;
+        return "Show a list of registered keys.";
     }
 
     @Override
@@ -33,9 +33,9 @@ public class keysCommand extends SubCommand {
         int total_key_num = Objects.requireNonNull(gck.getKeysConfig().getConfigurationSection("keys")).getKeys(false).size();
 
         if (gck.getConfig().getBoolean("config.enabled")) {
-            player.sendMessage(ChatColor.GREEN + "현재 열쇠 드랍이 활성화 되어있습니다!");
+            player.sendMessage(ChatColor.AQUA + "현재 열쇠 드랍이 + " + ChatColor.GREEN + "활성화" + ChatColor.AQUA + "되어있습니다!");
         } else {
-            player.sendMessage(ChatColor.RED + "현재 열쇠 드랍이 비활성화 되어있습니다! 등록되어 있는 모든 열쇠 목록을 볼 수는 있지만 실제로 드랍되지는 않습니다.");
+            player.sendMessage(ChatColor.YELLOW + "현재 열쇠 드랍이 + " + ChatColor.RED + "비활성화" + ChatColor.YELLOW + "되어있습니다! 등록되어 있는 모든 열쇠 목록을 볼 수는 있지만 실제로 드랍되지는 않습니다.");
         }
 
         player.sendMessage(ChatColor.GREEN + "현재 등록되어 있는 모든 열쇠 목록" + ChatColor.WHITE + ":");
