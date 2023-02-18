@@ -92,7 +92,7 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         plcdConfigFile = new File(getDataFolder(), "placed.yml");
 
         if (!plcdConfigFile.exists()) {
-            wasSuccessful = ceilConfigFile.getParentFile().mkdirs();
+            wasSuccessful = plcdConfigFile.getParentFile().mkdirs();
             saveResource("placed.yml", true);
         }
 
