@@ -139,7 +139,7 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
             plcdConfigFile = new File(getDataFolder(), "placed.yml");
         }
 
-        ceilConfig = YamlConfiguration.loadConfiguration(plcdConfigFile);
+        plcdConfig = YamlConfiguration.loadConfiguration(plcdConfigFile);
     }
 
     public void saveKeysConfig() {
