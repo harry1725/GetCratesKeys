@@ -3,36 +3,35 @@ package com.k5na.getcrateskeys;
 import com.k5na.getcrateskeys.commands.GCK_commands;
 import com.k5na.getcrateskeys.events.GCK_events;
 import com.k5na.getcrateskeys.expansions.GCK_expansions;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
 public final class GetCratesKeys extends JavaPlugin implements Listener {
+    public File keysConfigFile;
+    public File actsConfigFile;
+    public File ceilConfigFile;
+    public File plcdConfigFile;
+    public FileConfiguration keysConfig;
+    public FileConfiguration actsConfig;
+    public FileConfiguration ceilConfig;
+    public FileConfiguration plcdConfig;
+    PluginDescriptionFile pdfFile = this.getDescription();
+    PluginManager pManager = Bukkit.getPluginManager();
+    String pfName = pdfFile.getName() + " v" + pdfFile.getVersion();
+    boolean wasSuccessful;
+
     public static void conLog(final String msg) {
         GetCratesKeys.getPlugin(GetCratesKeys.class).getLogger().info(msg);
-    }
-
-    PluginDescriptionFile pdfFile = this.getDescription();
-
-    PluginManager pManager = Bukkit.getPluginManager();
-
-    String pfName = pdfFile.getName() + " v" + pdfFile.getVersion();
-
-    public PluginDescriptionFile getPdfFile() {
-        return pdfFile;
-    }
-
-    public String getFullName() {
-        return pfName;
     }
 
     public static void console(String message) {
@@ -43,17 +42,13 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
         return Thread.currentThread().getStackTrace()[2].getLineNumber();
     }
 
-    public File keysConfigFile;
-    public File actsConfigFile;
-    public File ceilConfigFile;
-    public File plcdConfigFile;
+    public PluginDescriptionFile getPdfFile() {
+        return pdfFile;
+    }
 
-    public FileConfiguration keysConfig;
-    public FileConfiguration actsConfig;
-    public FileConfiguration ceilConfig;
-    public FileConfiguration plcdConfig;
-
-    boolean wasSuccessful;
+    public String getFullName() {
+        return pfName;
+    }
 
     public void createKeysConfig() {
         keysConfigFile = new File(getDataFolder(), "keys.yml");
@@ -110,6 +105,7 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
     public FileConfiguration getCeilConfig() {
         return this.ceilConfig;
     }
+
     public FileConfiguration getPlcdConfig() {
         return this.plcdConfig;
     }

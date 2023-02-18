@@ -82,16 +82,16 @@ public class helpCommand extends SubCommand {
                 player.sendMessage(ChatColor.RED + "/gck set < drop_boost_amount / drop_boost_chance > < # >");
                 player.sendMessage(ChatColor.WHITE + ": 열쇠 갯수 드랍 부스트나 열쇠 드랍 확률 부스트의 수치를 설정합니다.");
                 player.sendMessage(ChatColor.RED + "이 명령어를 사용하기 위해서는 OP가 필요합니다.");
-            } else if(args[1].equalsIgnoreCase("ceiling")) {
+            } else if (args[1].equalsIgnoreCase("ceiling")) {
                 player.sendMessage(ChatColor.GREEN + "/gck ceiling" + ChatColor.WHITE + ": 플레이어의 현재 천장 수치를 불러옵니다.");
                 player.sendMessage(ChatColor.GREEN + "이 명령어를 사용하기 위해서는 OP가 필요하지 않습니다.");
-            } else if(args[1].equalsIgnoreCase("boost")) {
+            } else if (args[1].equalsIgnoreCase("boost")) {
                 player.sendMessage(ChatColor.GREEN + "/gck boost" + ChatColor.WHITE + ": 현재 드랍 부스트의 상태를 불러옵니다.");
                 player.sendMessage(ChatColor.GREEN + "이 명령어를 사용하기 위해서는 OP가 필요하지 않습니다.");
             } else {
                 player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. /gck help를 통해 입력 가능한 명령어를 확인해주세요.");
             }
-        } else if (args.length == 3){
+        } else if (args.length == 3) {
             if (args[1].equalsIgnoreCase("enable")) {
                 if (args[2].equalsIgnoreCase("key_drop")) {
                     player.sendMessage(ChatColor.RED + "/gck enable key_drop" + ChatColor.WHITE + ": 열쇠의 드랍을 활성화합니다.");

@@ -31,12 +31,11 @@ import static org.bukkit.event.player.PlayerFishEvent.State.CAUGHT_FISH;
 
 public class GCK_events implements Listener {
     public static GetCratesKeys gck;
+    ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 
     public GCK_events(GetCratesKeys plugin) {
         gck = plugin;
     }
-
-    ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 
     public ArrayList<String> placedBlockBlackList() {
         ArrayList<String> block_list = new ArrayList<>();
@@ -359,7 +358,7 @@ public class GCK_events implements Listener {
     }
 
     @EventHandler
-    public void onPlayerHarvestBerries (EntityInteractEvent event) {
+    public void onPlayerHarvestBerries(EntityInteractEvent event) {
         Entity entity = event.getEntity();
         Player player;
         UUID uuid;
