@@ -60,7 +60,7 @@ public class GCK_events implements Listener {
     }
 
     public boolean isNatural(BlockState block_state) {
-        return !gck.getPlcdConfig().getBoolean("placed." + block_state.getLocation().getWorld() + "." + block_state.getLocation().getWorld().getName() + "." + block_state.getLocation().getX() + "," + block_state.getLocation().getY() + "," + block_state.getLocation().getZ());
+        return !gck.getPlcdConfig().getBoolean("placed." + block_state.getLocation().getWorld() + "." + block_state.getLocation().getBlockX() + "," + block_state.getLocation().getBlockY() + "," + block_state.getLocation().getBlockZ());
     }
 
     public void keyDrop(String skill, Player player, String target) {
@@ -268,7 +268,7 @@ public class GCK_events implements Listener {
         ArrayList<String> block_list = placedBlockBlackList();
 
         if (block_list.contains(block_name)) {
-            gck.getPlcdConfig().set("placed." + block_state.getLocation().getWorld() + "." + block_state.getLocation().getWorld().getName() + "." + block_state.getLocation().getX() + "," + block_state.getLocation().getY() + "," + block_state.getLocation().getZ(), true);
+            gck.getPlcdConfig().set("placed." + block_state.getLocation().getWorld() + "." + block_state.getLocation().getBlockX() + "," + block_state.getLocation().getBlockY() + "," + block_state.getLocation().getBlockZ(), true);
 
             gck.savePlcdConfig();
         }
@@ -320,7 +320,7 @@ public class GCK_events implements Listener {
                 if (isNatural(block_state)) {
                     keyDrop("excavation", player, block_name);
                 } else {
-                    gck.getPlcdConfig().set("placed." + block_state.getLocation().getWorld() + "." + block_state.getLocation().getWorld().getName() + "." + block_state.getLocation().getX() + "," + block_state.getLocation().getY() + "," + block_state.getLocation().getZ(), false);
+                    gck.getPlcdConfig().set("placed." + block_state.getLocation().getWorld() + "." + block_state.getLocation().getBlockX() + "," + block_state.getLocation().getBlockY() + "," + block_state.getLocation().getBlockZ(), false);
                 }
             } else if (farming_enabled && farming_block_list.contains(block_name) && gck.getActsConfig().getBoolean("farming." + block_name + ".enabled")) {
                 if (block_data instanceof Ageable && !block_list.contains(block_name)) {
@@ -334,14 +334,14 @@ public class GCK_events implements Listener {
                     if (isNatural(block_state)) {
                         keyDrop("farming", player, block_name);
                     } else {
-                        gck.getPlcdConfig().set("placed." + block_state.getLocation().getWorld() + "." + block_state.getLocation().getWorld().getName() + "." + block_state.getLocation().getX() + "," + block_state.getLocation().getY() + "," + block_state.getLocation().getZ(), false);
+                        gck.getPlcdConfig().set("placed." + block_state.getLocation().getWorld() + "." + block_state.getLocation().getBlockX() + "," + block_state.getLocation().getBlockY() + "," + block_state.getLocation().getBlockZ(), false);
                     }
                 }
             } else if (foraging_enabled && foraging_block_list.contains(block_name) && gck.getActsConfig().getBoolean("foraging." + block_name + ".enabled")) {
                 if (isNatural(block_state)) {
                     keyDrop("foraging", player, block_name);
                 } else {
-                    gck.getPlcdConfig().set("placed." + block_state.getLocation().getWorld() + "." + block_state.getLocation().getWorld().getName() + "." + block_state.getLocation().getX() + "," + block_state.getLocation().getY() + "," + block_state.getLocation().getZ(), false);
+                    gck.getPlcdConfig().set("placed." + block_state.getLocation().getWorld() + "." + block_state.getLocation().getBlockX() + "," + block_state.getLocation().getBlockY() + "," + block_state.getLocation().getBlockZ(), false);
                 }
             } else if (mining_enabled && mining_block_list.contains(block_name) && gck.getActsConfig().getBoolean("mining." + block_name + ".enabled")) {
                 if (isNatural(block_state)) {
@@ -351,7 +351,7 @@ public class GCK_events implements Listener {
                         keyDrop("mining", player, block_name);
                     }
                 } else {
-                    gck.getPlcdConfig().set("placed." + block_state.getLocation().getWorld() + "." + block_state.getLocation().getWorld().getName() + "." + block_state.getLocation().getX() + "," + block_state.getLocation().getY() + "," + block_state.getLocation().getZ(), false);
+                    gck.getPlcdConfig().set("placed." + block_state.getLocation().getWorld() + "." + block_state.getLocation().getBlockX() + "," + block_state.getLocation().getBlockY() + "," + block_state.getLocation().getBlockZ(), false);
                 }
             }
         }
