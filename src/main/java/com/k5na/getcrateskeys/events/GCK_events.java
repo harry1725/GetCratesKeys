@@ -217,7 +217,7 @@ public class GCK_events implements Listener {
             chance += multiplier * level;
         }
         if (keyDropBoostEnabled && keyDropBoostChance != 0) {
-            chance *= Math.round((((double) keyDropBoostChance + 100) / 100));
+            chance *= (int) Math.round((((double) keyDropBoostChance + 100) / 100));
         }
 
         if (chance >= maxChance) {

@@ -13,7 +13,7 @@
 #     - 열쇠가 열 수 있는 상자 이름. 색코드 넣어도 상관 없음
 #
 #     crateName: < "상자 이름" >
-#     - SpecializedCrates 열쇠 지급 때 사용되는 상자 이름. 색코드 넣으면 안됨.
+#     - AquaticCrates 열쇠 지급 때 사용되는 상자 이름. 색코드 넣으면 안됨.
 #
 #     maxDrop: < # >
 #     - 열쇠 최대 드랍 갯수. 1 미만은 활성화 상태여도 드랍되지 않지만 드랍 갯수 부스트 활성화 시에는 드랍됨.
@@ -22,7 +22,7 @@ keys:
   _1:
     enabled: true
     displayName: 판도라의 상자
-    crateName: k5na_PandoraCrate
+    crateName: k5napandora
     maxDrop: 1
 
   _2:
