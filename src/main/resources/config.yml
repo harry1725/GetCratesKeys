@@ -8,14 +8,22 @@
 #   enabled: < true / false >
 #   - 전체 열쇠 드랍 여부. true는 활성화, false는 비활성화
 #
-#   max_chance: < # >
-#   - 최대 확률 단위 - 총 확률은 max_chance 분의 base_chance + Aureliumlevel * multiplier 확률.
-#   - 1이상의 10의 제곱 단위의 정수 추천. 기본 설정은 100000 (base_chance가 1이면 0.001 % 확률)
+#   changeSave: < # >
+#   - 서버에서 블럭이 파괴되거나 수확될 때 # 개마다 저장되는지 설정. 0 미만은 비활성화. 기본값은 1000.
+#   - 저장 실패로 인한 크래시가 자주 뜨거나 서버 렉이 너무 많이 걸린다 싶으면 끄거나 숫자 늘리는 것을 추천
 #
-#   multiplier_enabled: < true / false >
+#   connectionSave: < # >
+#   - 플레이어가 서버에 접속하거나 접속을 해제할 때 # 번마다 저장되는지 설정. 0 미만은 비활성화. 기본값은 20.
+#   - 저장 실패로 인한 크래시가 자주 뜨거나 서버 렉이 너무 많이 걸린다 싶으면 끄거나 숫자 늘리는 것을 추천
+#
+#   maxChance: < # >
+#   - 최대 확률 단위 - 총 확률은 maxChance 분의 baseChance + Aureliumlevel * multiplier 확률.
+#   - 1이상의 10의 제곱 단위의 정수 추천. 기본 설정은 100000 (baseChance가 1이면 0.001 % 확률)
+#
+#   multiplierEnabled: < true / false >
 #   - 전체 아우렐리움 스킬 배수 적용 여부. true는 활성화, false는 비활성화
 #
-#   drop_boost:
+#   dropBoost:
 #     enabled: < true / false >
 #     - 전체 열쇠에 대하여 드랍 부스트 적용. true는 활성화, false는 비활성화
 #
@@ -29,29 +37,30 @@
 #     enabled: < true / false >
 #     - 천장 시스템 설정. true는 활성화, false는 비활성화
 #
-#     excavation_max_num / farming_max_num / fishing_max_num / mining_max_num : < # >
+#     excavationMax / farmingMax / fishingMax / foragingMax / miningMax : < # >
 #     - 천장을 찍을 때까지 필요한 행동 횟수
 # ========================================================
 config:
   enabled: true
+  changeSave: 1000
+  connectionSave: 20
 
-  max_chance: 100000                  # 1 / 100000 * 100 = 0.001 %
+  maxChance: 100000                    # 1 / 100000 * 100 = 0.001 %
 
-  multiplier_enabled: false
+  multiplierEnabled: false
 
-  drop_boost:
+  dropBoost:
     enabled: false
 
     amount: -1
     chance: 0
 
-
   ceiling:
     enabled: true
 
-    excavation_max: 5000
-    farming_max: 5000
-    fishing_max: 1000
-    foraging_max: 5000
-    mining_max: 1000
+    excavationMax: 5000
+    farmingMax: 5000
+    fishingMax: 1000
+    foragingMax: 5000
+    miningMax: 1000
 

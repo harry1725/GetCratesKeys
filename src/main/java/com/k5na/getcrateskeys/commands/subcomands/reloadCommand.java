@@ -36,11 +36,15 @@ public class reloadCommand extends SubCommand {
         UUID uuid = player.getUniqueId();
 
         if (player.isOp()) {
-
             gck.reloadConfig();
             gck.saveDefaultConfig();
             gck.getConfig().options().copyDefaults(true);
             gck.saveConfig();
+
+            gck.saveKeysConfig();
+            gck.saveActsConfig();
+            gck.saveCeilConfig();
+            gck.savePlcdConfig();
 
             gck.reloadKeysConfig();
             gck.reloadActsConfig();

@@ -187,15 +187,17 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
             Bukkit.getPluginManager().disablePlugin(this);
         }
 
-        if (!getDataFolder().exists()) {
-            getConfig().options().copyDefaults(true);
-        }
+        if (!getDataFolder().exists()) getConfig().options().copyDefaults(true);
         saveConfig();
 
         createKeysConfig();
         createActsConfig();
         createCeilConfig();
         createPlcdConfig();
+
+        // Adds Changes
+        if (getConfig().isSet("config.changeSave")) getConfig().set("config.changeSave", 1000);
+        if (getConfig().isSet("config.connectionSave")) getConfig().set("config.connectionSave", 20);
 
         Objects.requireNonNull(getCommand("gck")).setExecutor(new GCK_commands(this));
         console(ChatColor.WHITE + "Commands " + ChatColor.YELLOW + "/gck" + ChatColor.WHITE + " has been added!");

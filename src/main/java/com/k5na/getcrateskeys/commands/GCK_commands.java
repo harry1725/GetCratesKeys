@@ -15,33 +15,35 @@ import java.util.List;
 public class GCK_commands implements TabExecutor {
     public static GetCratesKeys gck;
 
-    private final ArrayList<SubCommand> subcommands = new ArrayList<>();
+    private final ArrayList<SubCommand> subCommands = new ArrayList<>();
 
     public GCK_commands(GetCratesKeys plugin) {
         gck = plugin;
 
-        subcommands.add(new infoCommand(plugin));
-        subcommands.add(new helpCommand(plugin));
-        subcommands.add(new keysCommand(plugin));
-        subcommands.add(new reloadCommand(plugin));
-        subcommands.add(new enableCommand(plugin));
-        subcommands.add(new disableCommand(plugin));
-        subcommands.add(new setCommand(plugin));
-        subcommands.add(new ceilingCommand(plugin));
-        subcommands.add(new boostCommand(plugin));
+        subCommands.add(new infoCommand(plugin));
+        subCommands.add(new helpCommand(plugin));
+        subCommands.add(new keysCommand(plugin));
+        subCommands.add(new reloadCommand(plugin));
+        subCommands.add(new enableCommand(plugin));
+        subCommands.add(new disableCommand(plugin));
+        subCommands.add(new setCommand(plugin));
+        subCommands.add(new ceilingCommand(plugin));
+        subCommands.add(new boostCommand(plugin));
+        subCommands.add(new saveCommand(plugin));
+        //subCommands.add(new autoSaveCommand(plugin));
     }
 
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
 
-        if (args.length == 1) { //gck <subcommand> <args1> <args2>
-            ArrayList<String> subcommandsArguments = new ArrayList<>();
+        if (args.length == 1) { //gck <subCommand> <args1> <args2>
+            ArrayList<String> subCommandsArguments = new ArrayList<>();
 
             for (int i = 0; i < getSubCommands().size(); i++) {
-                subcommandsArguments.add(getSubCommands().get(i).getName());
+                subCommandsArguments.add(getSubCommands().get(i).getName());
             }
 
-            return subcommandsArguments;
+            return subCommandsArguments;
         } else if (args.length >= 2) {
             for (int i = 0; i < getSubCommands().size(); i++) {
                 if (args[0].equalsIgnoreCase(getSubCommands().get(i).getName())) {
@@ -78,6 +80,11 @@ public class GCK_commands implements TabExecutor {
                         gck.getConfig().options().copyDefaults(true);
                         gck.saveConfig();
 
+                        gck.saveKeysConfig();
+                        gck.saveActsConfig();
+                        gck.saveCeilConfig();
+                        gck.savePlcdConfig();
+
                         gck.reloadKeysConfig();
                         gck.reloadActsConfig();
                         gck.reloadCeilConfig();
@@ -93,6 +100,6 @@ public class GCK_commands implements TabExecutor {
     }
 
     public ArrayList<SubCommand> getSubCommands() {
-        return subcommands;
+        return subCommands;
     }
 }

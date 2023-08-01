@@ -9,24 +9,24 @@
 #     enabled: < true / false >
 #     - 해당 열쇠 드랍 여부. true는 활성화, false는 비활성화. 숫자 앞에 _ (언더바)를 꼭 붙여야 함.
 #
-#     display_name: < "상자 이름" >
+#     displayName: < "상자 이름" >
 #     - 열쇠가 열 수 있는 상자 이름. 색코드 넣어도 상관 없음
 #
-#     crate_name: < "상자 이름" >
+#     crateName: < "상자 이름" >
 #     - SpecializedCrates 열쇠 지급 때 사용되는 상자 이름. 색코드 넣으면 안됨.
 #
-#     max_drop: < # >
+#     maxDrop: < # >
 #     - 열쇠 최대 드랍 갯수. 1 미만은 활성화 상태여도 드랍되지 않지만 드랍 갯수 부스트 활성화 시에는 드랍됨.
 # ========================================================
 keys:
   _1:
     enabled: true
-    display_name: 판도라의 상자
-    crate_name: k5na_PandoraCrate
-    max_drop: 1
+    displayName: 판도라의 상자
+    crateName: k5na_PandoraCrate
+    maxDrop: 1
 
   _2:
     enabled: false
-    display_name: 테스트
-    crate_name: MiddleCrate
-    max_drop: 1
+    displayName: 테스트
+    crateName: MiddleCrate
+    maxDrop: 1

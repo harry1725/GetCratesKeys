@@ -38,12 +38,12 @@ public class GCK_expansions extends PlaceholderExpansion {
     @Override
     public String onRequest(OfflinePlayer player, @NotNull String params) {
         String username = player.getName();
-        Set<String> key_nums = Objects.requireNonNull(gck.getKeysConfig().getConfigurationSection("keys")).getKeys(false);
+        Set<String> keyNums = Objects.requireNonNull(gck.getKeysConfig().getConfigurationSection("keys")).getKeys(false);
 
-        String key_num = "_" + params;
+        String keyNum = "_" + params;
 
-        if (key_nums.contains(key_num)) {
-            return "scrates givekey " + gck.getKeysConfig().getString("keys." + key_num + ".crate_name") + " " + username + " 1";
+        if (keyNums.contains(keyNum)) {
+            return "acrates key give " + gck.getKeysConfig().getString("keys." + keyNum + ".crateName") + " 1 " + username;
         }
 
         return null;

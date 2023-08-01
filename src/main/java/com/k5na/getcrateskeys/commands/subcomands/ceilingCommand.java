@@ -39,19 +39,19 @@ public class ceilingCommand extends SubCommand {
         }
 
         if (gck.getActsConfig().getBoolean("farming.enabled")) {
-            player.sendMessage(ChatColor.GOLD + "농사" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".farming") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.farming_max") + ChatColor.WHITE + " 회");
+            player.sendMessage(ChatColor.GOLD + "농사" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".farming") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.farmingMax") + ChatColor.WHITE + " 회");
         }
         if (gck.getActsConfig().getBoolean("excavation.enabled")) {
-            player.sendMessage(ChatColor.DARK_AQUA + "삽질" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".excavation") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.excavation_max") + ChatColor.WHITE + " 회");
+            player.sendMessage(ChatColor.DARK_AQUA + "삽질" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".excavation") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.excavationMax") + ChatColor.WHITE + " 회");
         }
         if (gck.getActsConfig().getBoolean("mining.enabled")) {
-            player.sendMessage(ChatColor.GRAY + "광질" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".mining") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.mining_max") + ChatColor.WHITE + " 회");
+            player.sendMessage(ChatColor.GRAY + "광질" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".mining") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.miningMax") + ChatColor.WHITE + " 회");
         }
         if (gck.getActsConfig().getBoolean("foraging.enabled")) {
-            player.sendMessage(ChatColor.DARK_GREEN + "벌목" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".foraging") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.foraging_max") + ChatColor.WHITE + " 회");
+            player.sendMessage(ChatColor.DARK_GREEN + "벌목" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".foraging") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.foragingMax") + ChatColor.WHITE + " 회");
         }
         if (gck.getActsConfig().getBoolean("fishing.enabled")) {
-            player.sendMessage(ChatColor.AQUA + "낚시" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".fishing") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.fishing_max") + ChatColor.WHITE + " 회");
+            player.sendMessage(ChatColor.AQUA + "낚시" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".fishing") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.fishingMax") + ChatColor.WHITE + " 회");
         }
     }
 
