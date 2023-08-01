@@ -2,7 +2,7 @@
 # 오타 수정 및 궁금한 내용은 Derman_e (더맨이 / harry1725@naver.com) 에게 연락 바람
 # 여기서는 각 행동에 대한 열쇠 드랍을 설정할 수 있습니다.
 #
-# ======================= # 삽 질 # =======================
+# ======================= # 발 굴 # =======================
 # 블럭 추가 방법:
 # excavation:
 #   enabled: < true / false >
@@ -192,7 +192,7 @@ farming:
   # 비트
   BEETROOTS:
     enabled: true
-    baseChance: 20
+    baseChance: 7
     multiplierEnabled: false
     multiplier: 1
     onlyKey: -1
@@ -208,7 +208,7 @@ farming:
   # 당근
   CARROTS:
     enabled: true
-    baseChance: 20
+    baseChance: 5
     multiplierEnabled: false
     multiplier: 1
     onlyKey: -1
@@ -232,7 +232,7 @@ farming:
   # 후렴화
   CHORUS_FLOWER:
     enabled: true
-    baseChance: 20
+    baseChance: 10
     multiplierEnabled: false
     multiplier: 1
     onlyKey: -1
@@ -240,7 +240,7 @@ farming:
   # 후렴과 줄기 - MultipleFacing
   CHORUS_PLANT:
     enabled: true
-    baseChance: 20
+    baseChance: 5
     multiplierEnabled: false
     multiplier: 1
     onlyKey: -1
@@ -248,7 +248,7 @@ farming:
   # 코코아 콩
   COCOA:
     enabled: true
-    baseChance: 20
+    baseChance: 8
     multiplierEnabled: false
     multiplier: 1
     onlyKey: -1
@@ -272,7 +272,7 @@ farming:
   # 수박 - NOT Ageable
   MELON:
     enabled: true
-    baseChance: 60
+    baseChance: 10
     multiplierEnabled: false
     multiplier: 1
     onlyKey: -1
@@ -280,7 +280,7 @@ farming:
   # 네더 사마귀
   NETHER_WART:
     enabled: true
-    baseChance: 20
+    baseChance: 5
     multiplierEnabled: false
     multiplier: 1
     onlyKey: -1
@@ -288,7 +288,7 @@ farming:
   # 감자
   POTATOES:
     enabled: true
-    baseChance: 20
+    baseChance: 5
     multiplierEnabled: false
     multiplier: 1
     onlyKey: -1
@@ -296,15 +296,15 @@ farming:
   # 호박 - NOT Ageable
   PUMPKIN:
     enabled: true
-    baseChance: 60
+    baseChance: 10
     multiplierEnabled: false
     multiplier: 1
     onlyKey: -1
 
   # 사탕수수
   SUGAR_CANE:
-    enabled: true
-    baseChance: 20
+    enabled: false
+    baseChance: 1
     multiplierEnabled: false
     multiplier: 1
     onlyKey: -1
@@ -320,7 +320,7 @@ farming:
   # 밀
   WHEAT:
     enabled: true
-    baseChance: 20
+    baseChance: 7
     multiplierEnabled: false
     multiplier: 1
     onlyKey: -1
@@ -403,6 +403,14 @@ foraging:
 
   # 갈색 버섯 블록
   BROWN_MUSHROOM_BLOCK:
+    enabled: true
+    baseChance: 1000
+    multiplierEnabled: false
+    multiplier: 1
+    onlyKey: -1
+
+  # 벚나무 원목
+  CHERRY_LOG:
     enabled: true
     baseChance: 1000
     multiplierEnabled: false
@@ -516,7 +524,7 @@ mining:
     enabled: true
     baseChance: 323
     multiplierEnabled: false
-    multiplier: 100
+    multiplier: 1
     onlyKey: -1
 
   # 심층암 석탄 광석

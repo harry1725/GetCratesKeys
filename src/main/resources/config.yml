@@ -58,9 +58,9 @@ config:
   ceiling:
     enabled: true
 
-    excavationMax: 5000
-    farmingMax: 5000
-    fishingMax: 1000
+    excavationMax: 10000
+    farmingMax: 10000
+    fishingMax: 300
     foragingMax: 5000
-    miningMax: 1000
+    miningMax: 500
 
