@@ -30,7 +30,7 @@ public class keysCommand extends SubCommand {
 
     @Override
     public void perform(Player player, String[] args) {
-        int total_key_num = Objects.requireNonNull(gck.getKeysConfig().getConfigurationSection("keys")).getKeys(false).size();
+        int totalKeyNum = Objects.requireNonNull(gck.getKeysConfig().getConfigurationSection("keys")).getKeys(false).size();
 
         if (gck.getConfig().getBoolean("config.enabled")) {
             player.sendMessage(ChatColor.AQUA + "현재 열쇠 드랍이 " + ChatColor.GREEN + "활성화" + ChatColor.AQUA + "되어있습니다!");
@@ -39,11 +39,11 @@ public class keysCommand extends SubCommand {
         }
 
         player.sendMessage(ChatColor.GREEN + "현재 등록되어 있는 모든 열쇠 목록" + ChatColor.WHITE + ":");
-        for (int i = 1; i <= total_key_num; i++) {
+        for (int i = 1; i <= totalKeyNum; i++) {
             if (gck.getKeysConfig().getBoolean("keys._" + i + ".enabled")) {
-                player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + i + ".display_name"));
+                player.sendMessage(ChatColor.GREEN + gck.getKeysConfig().getString("keys._" + i + ".displayName"));
             } else {
-                player.sendMessage(ChatColor.RED + gck.getKeysConfig().getString("keys._" + i + ".display_name"));
+                player.sendMessage(ChatColor.RED + gck.getKeysConfig().getString("keys._" + i + ".displayName"));
             }
         }
     }

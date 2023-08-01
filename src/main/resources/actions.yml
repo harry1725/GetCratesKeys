@@ -12,16 +12,16 @@
 #     enabled: < true / false >
 #     - 해당 블럭을 캤을 때 열쇠 드랍 여부. true는 활성화, false는 비활성화
 #
-#     base_chance: < # >
+#     baseChance: < # >
 #     - 아우렐리움 레벨이 0일 때의 최소 확률. max_chance 분의 # * 100 = 확률 (%)
 #
-#     multiplier_enabled: < true / false >
+#     multiplierEnabled: < true / false >
 #     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수 적용 여부. true는 활성화, false는 비활성화
 #
 #     multiplier: < # >
 #     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수.
 #
-#     only_key: < # >
+#     onlyKey: < # >
 #     - #번 열쇠만 드랍 설정. 1 미만은 비활성화
 # ========================================================
 excavation:
@@ -30,130 +30,130 @@ excavation:
   # 점토
   CLAY:
     enabled: true
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 거친 흙
   COARSE_DIRT:
     enabled: true
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 흙
   DIRT:
     enabled: true
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 잔디 블록
   GRASS_BLOCK:
     enabled: true
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 자갈
   GRAVEL:
     enabled: true
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 진흙
   MUD:
     enabled: true
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 균사체
   MYCELIUM:
     enabled: true
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 회백토
   PODZOL:
     enabled: true
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 가루눈
   POWDER_SNOW:
     enabled: true
-    base_chance: 100
-    multiplier_enabled: false
+    baseChance: 100
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 붉은 모래
   RED_SAND:
     enabled: true
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 뿌리내린 흙
   ROOTED_DIRT:
     enabled: true
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 모래
   SAND:
     enabled: true
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 눈
   SNOW:
     enabled: true
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 눈 블록
   SNOW_BLOCK:
     enabled: true
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 영혼 모래
   SOUL_SAND:
     enabled: true
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 영혼 흙
   SOUL_SOIL:
     enabled: true
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
 
 # ======================= # 농 사 # =======================
@@ -166,16 +166,16 @@ excavation:
 #     enabled: < true / false >
 #     - 해당 블럭을 캤을 때 열쇠 드랍 여부. true는 활성화, false는 비활성화
 #
-#     base_chance: < # >
+#     baseChance: < # >
 #     - 아우렐리움 레벨이 0일 때의 최소 확률. max_chance 분의 # * 100 = 확률 (%)
 #
-#     multiplier_enabled: < true / false >
+#     multiplierEnabled: < true / false >
 #     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수 적용 여부. true는 활성화, false는 비활성화
 #
 #     multiplier: < # >
 #     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수.
 #
-#     only_key: < # >
+#     onlyKey: < # >
 #     - #번 열쇠만 드랍 설정. 1 미만은 비활성화
 # ========================================================
 farming:
@@ -184,146 +184,146 @@ farming:
   # 대나무 - Bamboo extends Sapling
   BAMBOO:
     enabled: false
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 비트
   BEETROOTS:
     enabled: true
-    base_chance: 20
-    multiplier_enabled: false
+    baseChance: 20
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 선인장
   CACTUS:
     enabled: false
-    base_chance: 20
-    multiplier_enabled: false
+    baseChance: 20
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 당근
   CARROTS:
     enabled: true
-    base_chance: 20
-    multiplier_enabled: false
+    baseChance: 20
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 발광 열매 뿌리 - CaveVines extends CaveVinesPlant, Can Be Interacted
   CAVE_VINES:
-    enabled: true
-    base_chance: 20
-    multiplier_enabled: false
+    enabled: false
+    baseChance: 20
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 발광 열매 줄기 - CaveVinesPlant, Can Be Interacted
   CAVE_VINES_PLANT:
-    enabled: true
-    base_chance: 20
-    multiplier_enabled: false
+    enabled: false
+    baseChance: 20
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 후렴화
   CHORUS_FLOWER:
     enabled: true
-    base_chance: 20
-    multiplier_enabled: false
+    baseChance: 20
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 후렴과 줄기 - MultipleFacing
   CHORUS_PLANT:
     enabled: true
-    base_chance: 20
-    multiplier_enabled: false
+    baseChance: 20
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 코코아 콩
   COCOA:
     enabled: true
-    base_chance: 20
-    multiplier_enabled: false
+    baseChance: 20
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 켈프 (켈프 줄기 제일 윗 부분)
   KELP:
     enabled: false
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 켈프 (켈프 줄기 제일 윗 부분을 제외한 나머지 아랫 부분)
   KELP_PLANT:
     enabled: false
-    base_chance: 5
-    multiplier_enabled: false
+    baseChance: 5
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 수박 - NOT Ageable
   MELON:
     enabled: true
-    base_chance: 60
-    multiplier_enabled: false
+    baseChance: 60
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 네더 사마귀
   NETHER_WART:
     enabled: true
-    base_chance: 20
-    multiplier_enabled: false
+    baseChance: 20
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 감자
   POTATOES:
     enabled: true
-    base_chance: 20
-    multiplier_enabled: false
+    baseChance: 20
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 호박 - NOT Ageable
   PUMPKIN:
     enabled: true
-    base_chance: 60
-    multiplier_enabled: false
+    baseChance: 60
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 사탕수수
   SUGAR_CANE:
     enabled: true
-    base_chance: 20
-    multiplier_enabled: false
+    baseChance: 20
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 달콤한 열매 덤불 - Can Be Interacted
   SWEET_BERRY_BUSH:
-    enabled: true
-    base_chance: 20
-    multiplier_enabled: false
+    enabled: false
+    baseChance: 20
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 밀
   WHEAT:
     enabled: true
-    base_chance: 20
-    multiplier_enabled: false
+    baseChance: 20
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
 
 # ======================= # 낚 시 # =======================
@@ -336,16 +336,16 @@ farming:
 #     enabled: < true / false >
 #     - 낚시에 성공했을 때 열쇠 드랍 여부. true는 활성화, false는 비활성화
 #
-#     base_chance: < # >
+#     baseChance: < # >
 #     - 아우렐리움 레벨이 0일 때의 최소 확률. max_chance 분의 # * 100 = 확률 (%)
 #
-#     multiplier_enabled: < true / false >
+#     multiplierEnabled: < true / false >
 #     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수 적용 여부. true는 활성화, false는 비활성화
 #
 #     multiplier: < # >
 #     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수.
 #
-#     only_key: < # >
+#     onlyKey: < # >
 #     - #번 열쇠만 드랍 설정. 1 미만은 비활성화
 # ========================================================
 fishing:
@@ -354,10 +354,10 @@ fishing:
   # 낚시
   fishing:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: false
+    baseChance: 1000
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
 
 # ======================= # 벌 목 # =======================
@@ -370,16 +370,16 @@ fishing:
 #     enabled: < true / false >
 #     - 해당 블럭을 캤을 때 열쇠 드랍 여부. true는 활성화, false는 비활성화
 #
-#     base_chance: < # >
+#     baseChance: < # >
 #     - 아우렐리움 레벨이 0일 때의 최소 확률. max_chance 분의 # * 100 = 확률 (%)
 #
-#     multiplier_enabled: < true / false >
+#     multiplierEnabled: < true / false >
 #     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수 적용 여부. true는 활성화, false는 비활성화
 #
 #     multiplier: < # >
 #     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수.
 #
-#     only_key: < # >
+#     onlyKey: < # >
 #     - #번 열쇠만 드랍 설정. 1 미만은 비활성화
 # ========================================================
 foraging:
@@ -388,98 +388,98 @@ foraging:
   # 아카시아나무 원목
   ACACIA_LOG:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: false
+    baseChance: 1000
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 자작나무 원목
   BIRCH_LOG:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: false
+    baseChance: 1000
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 갈색 버섯 블록
   BROWN_MUSHROOM_BLOCK:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: false
+    baseChance: 1000
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 진홍빛 자루
   CRIMSON_STEM:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: false
+    baseChance: 1000
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 짙은 참나무 원목
   DARK_OAK_LOG:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: false
+    baseChance: 1000
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 정글나무 원목
   JUNGLE_LOG:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: false
+    baseChance: 1000
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 맹그로브나무 원목
   MANGROVE_LOG:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: false
+    baseChance: 1000
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 참나무 원목
   OAK_LOG:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: false
+    baseChance: 1000
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 빨간색 버섯 블록
   RED_MUSHROOM_BLOCK:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: false
+    baseChance: 1000
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 버섯 자루
   MUSHROOM_STEM:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: false
+    baseChance: 1000
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 가문비나무 원목
   SPRUCE_LOG:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: false
+    baseChance: 1000
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 뒤틀린 자루
   WARPED_STEM:
     enabled: true
-    base_chance: 1000
-    multiplier_enabled: false
+    baseChance: 1000
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
 
 # ======================= # 광 질 # =======================
@@ -488,210 +488,210 @@ foraging:
 #   enabled: < true / false >
 #   - 해당 블럭을 "캤을 때" 열쇠 드랍 가능 여부. true는 활성화, false는 비활성화
 #
-#   silk_touch_drop: < true / false >
+#   silkTouchDrop: < true / false >
 #   - "섬세한 손길" 마법부여 된 곡괭이로 광물을 캤을 때 열쇠 드랍 가능 여부. true는 활성화, false는 비활성화
 #
 #   대문자 블럭 이름:
 #     enabled: < true / false >
 #     - 해당 블럭을 캤을 때 열쇠 드랍 여부. true는 활성화, false는 비활성화
 #
-#     base_chance: < # >
+#     baseChance: < # >
 #     - 아우렐리움 레벨이 0일 때의 최소 확률. max_chance 분의 # * 100 = 확률 (%)
 #
-#     multiplier_enabled: < true / false >
+#     multiplierEnabled: < true / false >
 #     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수 적용 여부. true는 활성화, false는 비활성화
 #
 #     multiplier: < # >
 #     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수.
 #
-#     only_key: < # >
+#     onlyKey: < # >
 #     - #번 열쇠만 드랍 설정. 1 미만은 비활성화
 # ========================================================
 mining:
   enabled: true
-  silk_touch_drop: false
+  silkTouchDrop: false
 
   # 석탄 광석
   COAL_ORE:
     enabled: true
-    base_chance: 323
-    multiplier_enabled: false
+    baseChance: 323
+    multiplierEnabled: false
     multiplier: 100
-    only_key: -1
+    onlyKey: -1
 
   # 심층암 석탄 광석
   DEEPSLATE_COAL_ORE:
     enabled: true
-    base_chance: 4554
-    multiplier_enabled: false
+    baseChance: 4554
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 구리 광석
   COPPER_ORE:
     enabled: true
-    base_chance: 308
-    multiplier_enabled: false
+    baseChance: 308
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 심층암 구리 광석
   DEEPSLATE_COPPER_ORE:
     enabled: true
-    base_chance: 374
-    multiplier_enabled: false
+    baseChance: 374
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 구리 원석 블록
   RAW_COPPER_BLOCK:
     enabled: false
-    base_chance: 308
-    multiplier_enabled: false
+    baseChance: 308
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 철 광석
   IRON_ORE:
     enabled: true
-    base_chance: 374
-    multiplier_enabled: false
+    baseChance: 374
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 심층암 철 광석
   DEEPSLATE_IRON_ORE:
     enabled: true
-    base_chance: 374
-    multiplier_enabled: false
+    baseChance: 374
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 철 원석 블록
   RAW_IRON_BLOCK:
     enabled: false
-    base_chance: 374
-    multiplier_enabled: false
+    baseChance: 374
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 청금석 광석
   LAPIS_ORE:
     enabled: true
-    base_chance: 374
-    multiplier_enabled: false
+    baseChance: 374
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 심층암 청금석 광석
   DEEPSLATE_LAPIS_ORE:
     enabled: true
-    base_chance: 465
-    multiplier_enabled: false
+    baseChance: 465
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 금 광석
   GOLD_ORE:
     enabled: true
-    base_chance: 465
-    multiplier_enabled: false
+    baseChance: 465
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 심층암 금 광석
   DEEPSLATE_GOLD_ORE:
     enabled: true
-    base_chance: 465
-    multiplier_enabled: false
+    baseChance: 465
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 금 원석 블록
   RAW_GOLD_BLOCK:
     enabled: false
-    base_chance: 465
-    multiplier_enabled: false
+    baseChance: 465
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 레드스톤 광석
   REDSTONE_ORE:
     enabled: true
-    base_chance: 323
-    multiplier_enabled: false
+    baseChance: 323
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 심층암 레드스톤 광석
   DEEPSLATE_REDSTONE_ORE:
     enabled: true
-    base_chance: 374
-    multiplier_enabled: false
+    baseChance: 374
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 다이아몬드 광석
   DIAMOND_ORE:
     enabled: true
-    base_chance: 7554
-    multiplier_enabled: false
+    baseChance: 7554
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 심층암 다이아몬드 광석
   DEEPSLATE_DIAMOND_ORE:
     enabled: true
-    base_chance: 4554
-    multiplier_enabled: false
+    baseChance: 4554
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 에메랄드 광석
   EMERALD_ORE:
     enabled: true
-    base_chance: 2227
-    multiplier_enabled: false
+    baseChance: 2227
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 심층암 에메랄드 광석
   DEEPSLATE_EMERALD_ORE:
     enabled: true
-    base_chance: 4554
-    multiplier_enabled: false
+    baseChance: 4554
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 네더 석영 광석
   NETHER_QUARTZ_ORE:
     enabled: true
-    base_chance: 374
-    multiplier_enabled: false
+    baseChance: 374
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 네더 금 광석
   NETHER_GOLD_ORE:
     enabled: true
-    base_chance: 374
-    multiplier_enabled: false
+    baseChance: 374
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 황금이 박힌 흑암
   GILDED_BLACKSTONE:
     enabled: false
-    base_chance: 4554
-    multiplier_enabled: false
+    baseChance: 4554
+    multiplierEnabled: false
     multiplier: 1
-    only_key: -1
+    onlyKey: -1
 
   # 고대 잔해
   ANCIENT_DEBRIS:
     enabled: false
-    base_chance: 4554
-    multiplier_enabled: false
+    baseChance: 4554
+    multiplierEnabled: false
     multiplier: 100
-    only_key: -1
+    onlyKey: -1
 

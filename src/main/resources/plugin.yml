@@ -3,7 +3,7 @@ version: '${project.version}'
 main: com.k5na.getcrateskeys.GetCratesKeys
 api-version: 1.19
 author: Derman_e
-description: SpecializedCrates 열쇠를 여러 행동을 통해 얻을 수 있게 한 플러그인입니다.
+description: AquaticCrates 열쇠를 여러 행동을 통해 얻을 수 있게 한 플러그인입니다.
 
 depend: [ PlaceholderAPI ]
 

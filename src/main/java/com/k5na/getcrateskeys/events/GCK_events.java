@@ -4,6 +4,7 @@ import com.k5na.getcrateskeys.GetCratesKeys;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
@@ -37,362 +38,445 @@ public class GCK_events implements Listener {
         gck = plugin;
     }
 
-    public ArrayList<String> placedBlockBlackList() {
-        ArrayList<String> block_list = new ArrayList<>();
+    public static int changes;
+    public static int connections;
 
-        Set<String> excavation_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("excavation")).getKeys(false);
-        Set<String> foraging_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("foraging")).getKeys(false);
-        Set<String> mining_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("mining")).getKeys(false);
+    public void ceilInit(UUID uuid) {
+        if (!gck.getCeilConfig().isSet("ceiling." + uuid + ".excavation")) {
+            gck.getCeilConfig().set("ceiling." + uuid + ".excavation", 0);
+        }
+        if (!gck.getCeilConfig().isSet("ceiling." + uuid + ".farming")) {
+            gck.getCeilConfig().set("ceiling." + uuid + ".farming", 0);
+        }
+        if (!gck.getCeilConfig().isSet("ceiling." + uuid + ".fishing")) {
+            gck.getCeilConfig().set("ceiling." + uuid + ".fishing", 0);
+        }
+        if (!gck.getCeilConfig().isSet("ceiling." + uuid + ".foraging")) {
+            gck.getCeilConfig().set("ceiling." + uuid + ".foraging", 0);
+        }
+        if (!gck.getCeilConfig().isSet("ceiling." + uuid + ".mining")) {
+            gck.getCeilConfig().set("ceiling." + uuid + ".mining", 0);
+        }
 
-        block_list.addAll(excavation_block_list);
-        block_list.addAll(foraging_block_list);
-        block_list.add("BAMBOO");
-        block_list.add("CACTUS");
-        block_list.add("KELP");
-        block_list.add("KELP_PLANT");
-        block_list.add("MELON");
-        block_list.add("PUMPKIN");
-        block_list.add("SUGAR_CANE");
-        block_list.add("SWEET_BERRY_BUSH");
-        block_list.addAll(mining_block_list);
-
-        return block_list;
+        gck.saveCeilConfig();
     }
 
-    public boolean isNatural(BlockState block_state) {
-        return !gck.getPlcdConfig().getBoolean("placed." + block_state.getLocation().getWorld() + "." + block_state.getLocation().getBlockX() + "," + block_state.getLocation().getBlockY() + "," + block_state.getLocation().getBlockZ());
+    public ArrayList<String> placedBlockBlackList() {
+        ArrayList<String> blockList = new ArrayList<>();
+
+        Set<String> excavationBlockList = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("excavation")).getKeys(false);
+        Set<String> foragingBlockList = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("foraging")).getKeys(false);
+        Set<String> miningBlockList = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("mining")).getKeys(false);
+
+        blockList.addAll(excavationBlockList);
+        blockList.addAll(foragingBlockList);
+        blockList.add("BAMBOO");
+        blockList.add("CACTUS");
+        blockList.add("KELP");
+        blockList.add("KELP_PLANT");
+        blockList.add("MELON");
+        blockList.add("PUMPKIN");
+        blockList.add("SUGAR_CANE");
+        blockList.add("SWEET_BERRY_BUSH");
+        blockList.addAll(miningBlockList);
+
+        return blockList;
+    }
+
+    public Set<String> getBlockList(String name) {
+        switch (name) {
+            case "ex":
+                return Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("excavation")).getKeys(false);
+            case "fa":
+                return Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("farming")).getKeys(false);
+            case "fo":
+                return Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("foraging")).getKeys(false);
+            case "mi":
+                return Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("mining")).getKeys(false);
+            default:
+                return null;
+        }
+    }
+
+    public int getNum(String name) {
+        switch (name) {
+            case "mc":
+                return gck.getConfig().getInt("config.maxChance");
+            case "ba":
+                return gck.getConfig().getInt("config.dropBoost.amount");
+            case "bc":
+                return gck.getConfig().getInt("config.dropBoost.chance");
+            case "kn":
+                return Objects.requireNonNull(gck.getKeysConfig().getConfigurationSection("keys")).getKeys(false).size();
+            default:
+                return 0;
+        }
+    }
+
+    public boolean isChangeSaveOn() {
+        return gck.getConfig().getInt("config.changeSave") > 0;
+    }
+
+    public boolean isConnectionSaveOn() {
+        return gck.getConfig().getInt("config.connectionSave") > 0;
+    }
+
+    public boolean isEnabled(String name) {
+        switch (name) {
+            case "kd":
+                return gck.getConfig().getBoolean("config.enabled");
+            case "mu":
+                return gck.getConfig().getBoolean("config.multiplierEnabled");
+            case "be":
+                return gck.getConfig().getBoolean("config.dropBoost.enabled");
+            case "ce":
+                return gck.getConfig().getBoolean("config.ceiling.enabled");
+            case "ex":
+                return gck.getActsConfig().getBoolean("excavation.enabled");
+            case "fa":
+                return gck.getActsConfig().getBoolean("farming.enabled");
+            case "fo":
+                return gck.getActsConfig().getBoolean("foraging.enabled");
+            case "mi":
+                return gck.getActsConfig().getBoolean("mining.enabled");
+            case "st":
+                return gck.getActsConfig().getBoolean("mining.silkTouchDrop");
+            default:
+                return false;
+        }
+    }
+
+    public boolean isBlockEnabled(String name, String block) {
+        switch (name) {
+            case "ex":
+                return gck.getActsConfig().getBoolean("excavation." + block + ".enabled");
+            case "fa":
+                return gck.getActsConfig().getBoolean("farming." + block + ".enabled");
+            case "fo":
+                return gck.getActsConfig().getBoolean("foraging." + block + ".enabled");
+            case "mi":
+                return gck.getActsConfig().getBoolean("mining." + block + ".enabled");
+            default:
+                return false;
+        }
+    }
+
+    public void setBlockPlaced(BlockState blockState, boolean placed) {
+        Location location = blockState.getLocation();
+
+        if (placed) {
+            gck.getPlcdConfig().set("placed." + location.getWorld() + "." + location.getBlockX() + "," + location.getBlockY() + "," + location.getBlockZ(), true);
+        } else {
+            gck.getPlcdConfig().set("placed." + location.getWorld() + "." + location.getBlockX() + "," + location.getBlockY() + "," + location.getBlockZ(), false);
+        }
+    }
+
+    public boolean isNatural(BlockState blockState) {
+        return !gck.getPlcdConfig().getBoolean("placed." + blockState.getLocation().getWorld() + "." + blockState.getLocation().getBlockX() + "," + blockState.getLocation().getBlockY() + "," + blockState.getLocation().getBlockZ());
     }
 
     public void keyDrop(String skill, Player player, String target) {
         UUID uuid = player.getUniqueId();
 
-        int max_chance = gck.getConfig().getInt("config.max_chance");
-        boolean multiplier_enabled = gck.getConfig().getBoolean("config.multiplier_enabled");
+        int maxChance = getNum("mc");
+        boolean multiplierEnabled = isEnabled("mu");
 
-        boolean key_drop_boost_enabled = gck.getConfig().getBoolean("config.drop_boost.enabled");
-        int key_drop_boost_amount = gck.getConfig().getInt("config.drop_boost.amount");
-        int key_drop_boost_chance = gck.getConfig().getInt("config.drop_boost.chance");
+        boolean keyDropBoostEnabled = isEnabled("be");
+        int keyDropBoostAmount = getNum("ba");
+        int keyDropBoostChance = getNum("bc");
 
-        boolean ceiling_enabled = gck.getConfig().getBoolean("config.ceiling.enabled");
-        int ceiling_skill_max = gck.getConfig().getInt("config.ceiling." + skill + "_max");
+        boolean ceilingEnabled = isEnabled("ce");
+        int ceilingSkillMax = gck.getConfig().getInt("config.ceiling." + skill + "Max");
 
-        int total_key_num = Objects.requireNonNull(gck.getKeysConfig().getConfigurationSection("keys")).getKeys(false).size();
-        String[] enabled_keys = new String[total_key_num + 1];
-        int total_enabled_key_num = 0;
+        int totalKeyNum = getNum("kn");
+        String[] enabledKeys = new String[totalKeyNum + 1];
+        int totalEnabledKeyNum = 0;
 
-        for (int i = 1; i <= total_key_num; i++) {
+        for (int i = 1; i <= totalKeyNum; i++) {
             if (gck.getKeysConfig().getBoolean("keys._" + i + ".enabled")) {
                 for (int j = 1; j <= i; j++) {
-                    if (enabled_keys[j] == null) {
-                        enabled_keys[j] = String.valueOf(i);
-                        total_enabled_key_num++;
+                    if (enabledKeys[j] == null) {
+                        enabledKeys[j] = String.valueOf(i);
+                        totalEnabledKeyNum++;
                         break;
                     }
                 }
             }
         }
 
-        String ceiling_skill_path = "ceiling." + uuid + "." + skill;
-        String skill_path = skill + "." + target;
+        String ceilingSkillPath = "ceiling." + uuid + "." + skill;
+        String skillPath = skill + "." + target;
 
-        int chance = gck.getActsConfig().getInt(skill_path + ".base_chance");
-        int extra_drop = 0;
+        int chance = gck.getActsConfig().getInt(skillPath + ".baseChance");
+        int extraDrop = 0;
 
-        if (multiplier_enabled && gck.getActsConfig().getBoolean(skill_path + ".multiplier_enabled")) {
-            int multiplier = gck.getActsConfig().getInt(skill_path + ".multiplier");
+        if (multiplierEnabled && gck.getActsConfig().getBoolean(skillPath + ".multiplierEnabled")) {
+            int multiplier = gck.getActsConfig().getInt(skillPath + ".multiplier");
             int level = Integer.parseInt(PlaceholderAPI.setPlaceholders(player, "%aureliumskills_" + skill + "%"));
 
             chance += multiplier * level;
         }
-        if (key_drop_boost_enabled && key_drop_boost_chance != 0) {
-            chance *= Math.round((((double) key_drop_boost_chance + 100) / 100));
+        if (keyDropBoostEnabled && keyDropBoostChance != 0) {
+            chance *= Math.round((((double) keyDropBoostChance + 100) / 100));
         }
 
-        if (chance >= max_chance) {
+        if (chance >= maxChance) {
             do {
-                chance -= max_chance;
-                extra_drop++;
-            } while (chance >= max_chance);
+                chance -= maxChance;
+                extraDrop++;
+            } while (chance >= maxChance);
         }
 
-        int key_num = 0;
-        int random_chance = (int) (Math.random() * max_chance + 1);
+        int keyNum = 0;
+        int randomChance = (int) (Math.random() * maxChance + 1);
 
-        if (extra_drop > 0) {
-            for (int i = 0; i <= extra_drop; i++) {
-                int only_key = gck.getActsConfig().getInt(skill_path + ".only_key");
+        if (extraDrop > 0) {
+            for (int i = 0; i <= extraDrop; i++) {
+                int onlyKey = gck.getActsConfig().getInt(skillPath + ".onlyKey");
 
-                if (only_key < 1) {
-                    String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
+                if (onlyKey < 1) {
+                    String random = String.valueOf((int) (Math.random() * totalEnabledKeyNum + 1));
 
-                    for (int j = 1; j <= total_enabled_key_num; j++) {
-                        if (enabled_keys[j].equalsIgnoreCase(random)) {
-                            key_num = j;
+                    for (int j = 1; j <= totalEnabledKeyNum; j++) {
+                        if (enabledKeys[j].equalsIgnoreCase(random)) {
+                            keyNum = j;
                             break;
                         }
                     }
                 } else {
-                    key_num = only_key;
+                    keyNum = onlyKey;
                 }
 
-                String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+                String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + keyNum + "%");
 
-                int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
-                int drop = (int) (Math.random() * max_drop + 1);
-                if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
-                    drop += key_drop_boost_amount;
+                int maxDrop = gck.getKeysConfig().getInt("keys._" + keyNum + ".maxDrop");
+                int drop = (int) (Math.random() * maxDrop + 1);
+                if (keyDropBoostEnabled && keyDropBoostAmount > 0) {
+                    drop += keyDropBoostAmount;
                 }
 
                 for (int j = 1; j <= drop; j++) {
                     Bukkit.dispatchCommand(console, command);
 
-                    player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.GREEN + ChatColor.BOLD + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
+                    player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.GREEN + ChatColor.BOLD + gck.getKeysConfig().getString("keys._" + keyNum + ".displayName") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
                 }
             }
         }
 
-        if (random_chance <= chance) {
-            int only_key = gck.getActsConfig().getInt(skill_path + ".only_key");
+        if (randomChance <= chance) {
+            int onlyKey = gck.getActsConfig().getInt(skillPath + ".onlyKey");
 
-            if (only_key < 1) {
-                String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
+            if (onlyKey < 1) {
+                String random = String.valueOf((int) (Math.random() * totalEnabledKeyNum + 1));
 
-                for (int i = 1; i <= total_enabled_key_num; i++) {
-                    if (enabled_keys[i].equalsIgnoreCase(random)) {
-                        key_num = i;
+                for (int i = 1; i <= totalEnabledKeyNum; i++) {
+                    if (enabledKeys[i].equalsIgnoreCase(random)) {
+                        keyNum = i;
                         break;
                     }
                 }
             } else {
-                key_num = only_key;
+                keyNum = onlyKey;
             }
 
-            String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+            String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + keyNum + "%");
 
-            int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
-            int drop = (int) (Math.random() * max_drop + 1);
+            int maxDrop = gck.getKeysConfig().getInt("keys._" + keyNum + ".maxDrop");
+            int drop = (int) (Math.random() * maxDrop + 1);
 
-            if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
-                drop += key_drop_boost_amount;
+            if (keyDropBoostEnabled && keyDropBoostAmount > 0) {
+                drop += keyDropBoostAmount;
             }
 
             for (int i = 1; i <= drop; i++) {
                 Bukkit.dispatchCommand(console, command);
 
-                player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.GREEN + ChatColor.BOLD + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
+                player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.GREEN + ChatColor.BOLD + gck.getKeysConfig().getString("keys._" + keyNum + ".displayName") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
             }
 
-            if (ceiling_enabled) {
-                gck.getCeilConfig().set(ceiling_skill_path, 0);
+            if (ceilingEnabled) {
+                gck.getCeilConfig().set(ceilingSkillPath, 0);
             }
         } else {
-            if (ceiling_enabled) {
-                gck.getCeilConfig().set(ceiling_skill_path, gck.getCeilConfig().getInt(ceiling_skill_path) + 1);
+            if (ceilingEnabled) {
+                gck.getCeilConfig().set(ceilingSkillPath, gck.getCeilConfig().getInt(ceilingSkillPath) + 1);
 
-                if (gck.getCeilConfig().getInt(ceiling_skill_path) >= ceiling_skill_max) {
-                    int only_key = gck.getActsConfig().getInt(skill_path + ".only_key");
+                if (gck.getCeilConfig().getInt(ceilingSkillPath) >= ceilingSkillMax) {
+                    int onlyKey = gck.getActsConfig().getInt(skillPath + ".onlyKey");
 
-                    if (only_key < 1) {
-                        String random = String.valueOf((int) (Math.random() * total_enabled_key_num + 1));
+                    if (onlyKey < 1) {
+                        String random = String.valueOf((int) (Math.random() * totalEnabledKeyNum + 1));
 
-                        for (int i = 1; i <= total_enabled_key_num; i++) {
-                            if (enabled_keys[i].equalsIgnoreCase(random)) {
-                                key_num = i;
+                        for (int i = 1; i <= totalEnabledKeyNum; i++) {
+                            if (enabledKeys[i].equalsIgnoreCase(random)) {
+                                keyNum = i;
                                 break;
                             }
                         }
                     } else {
-                        key_num = only_key;
+                        keyNum = onlyKey;
                     }
 
-                    String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + key_num + "%");
+                    String command = PlaceholderAPI.setPlaceholders(player, "%gck_" + keyNum + "%");
 
-                    int max_drop = gck.getKeysConfig().getInt("keys._" + key_num + ".max_drop");
-                    int drop = (int) (Math.random() * max_drop + 1);
-                    if (key_drop_boost_enabled && key_drop_boost_amount > 0) {
-                        drop += key_drop_boost_amount;
+                    int maxDrop = gck.getKeysConfig().getInt("keys._" + keyNum + ".maxDrop");
+                    int drop = (int) (Math.random() * maxDrop + 1);
+                    if (keyDropBoostEnabled && keyDropBoostAmount > 0) {
+                        drop += keyDropBoostAmount;
                     }
 
                     for (int i = 1; i <= drop; i++) {
                         Bukkit.dispatchCommand(console, command);
 
-                        player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.GREEN + ChatColor.BOLD + gck.getKeysConfig().getString("keys._" + key_num + ".display_name") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
+                        player.sendMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "[" + ChatColor.GREEN + ChatColor.BOLD + gck.getKeysConfig().getString("keys._" + keyNum + ".displayName") + ChatColor.GOLD + ChatColor.BOLD + "]" + ChatColor.DARK_GREEN + ChatColor.BOLD + " 을(를) 열어 보상을 획득하세요!");
                     }
 
-                    gck.getCeilConfig().set(ceiling_skill_path, gck.getCeilConfig().getInt(ceiling_skill_path) - ceiling_skill_max);
-                    if (gck.getCeilConfig().getInt(ceiling_skill_path) < 0) {
-                        gck.getCeilConfig().set(ceiling_skill_path, 0);
+                    gck.getCeilConfig().set(ceilingSkillPath, gck.getCeilConfig().getInt(ceilingSkillPath) - ceilingSkillMax);
+                    if (gck.getCeilConfig().getInt(ceilingSkillPath) < 0) {
+                        gck.getCeilConfig().set(ceilingSkillPath, 0);
                     }
                 }
             }
         }
-
-        gck.saveCeilConfig();
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        UUID uuid = player.getUniqueId();
 
-        String ceiling_excavation_path = "ceiling." + uuid + ".excavation";
-        String ceiling_farming_path = "ceiling." + uuid + ".farming";
-        String ceiling_fishing_path = "ceiling." + uuid + ".fishing";
-        String ceiling_foraging_path = "ceiling." + uuid + ".foraging";
-        String ceiling_mining_path = "ceiling." + uuid + ".mining";
+        ceilInit(player.getUniqueId());
 
-        if (!gck.getCeilConfig().isSet(ceiling_excavation_path)) {
-            gck.getCeilConfig().set(ceiling_excavation_path, 0);
-        }
-        if (!gck.getCeilConfig().isSet(ceiling_farming_path)) {
-            gck.getCeilConfig().set(ceiling_farming_path, 0);
-        }
-        if (!gck.getCeilConfig().isSet(ceiling_fishing_path)) {
-            gck.getCeilConfig().set(ceiling_fishing_path, 0);
-        }
-        if (!gck.getCeilConfig().isSet(ceiling_foraging_path)) {
-            gck.getCeilConfig().set(ceiling_foraging_path, 0);
-        }
-        if (!gck.getCeilConfig().isSet(ceiling_mining_path)) {
-            gck.getCeilConfig().set(ceiling_mining_path, 0);
-        }
+        if (isConnectionSaveOn()) {
+            connections++;
 
-        gck.saveCeilConfig();
+            if (connections >= gck.getConfig().getInt("config.connectionSave")) {
+                gck.saveCeilConfig();
+                gck.savePlcdConfig();
+
+                connections = 0;
+            }
+        }
     }
 
     @EventHandler
     public void onBlockPlaced(BlockPlaceEvent event) {
-        String block_name = event.getBlock().getBlockData().getMaterial().name();
-        BlockState block_state = event.getBlock().getState();
+        String blockName = event.getBlock().getBlockData().getMaterial().name();
+        BlockState blockState = event.getBlock().getState();
 
-        ArrayList<String> block_list = placedBlockBlackList();
+        ArrayList<String> blockList = placedBlockBlackList();
 
-        if (block_list.contains(block_name)) {
-            gck.getPlcdConfig().set("placed." + block_state.getLocation().getWorld() + "." + block_state.getLocation().getBlockX() + "," + block_state.getLocation().getBlockY() + "," + block_state.getLocation().getBlockZ(), true);
-
-            gck.savePlcdConfig();
-        }
+        if (blockList.contains(blockName)) setBlockPlaced(blockState, true);
     }
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
-        UUID uuid = player.getUniqueId();
-        BlockState block_state = event.getBlock().getState();
-        BlockData block_data = event.getBlock().getBlockData();
-        String block_name = block_data.getMaterial().name();
+        BlockState blockState = event.getBlock().getState();
+        BlockData blockData = event.getBlock().getBlockData();
+        String blockName = blockData.getMaterial().name();
 
-        ArrayList<String> block_list = placedBlockBlackList();
+        ArrayList<String> blockList = placedBlockBlackList();
 
-        boolean keys_drop_enabled = gck.getConfig().getBoolean("config.enabled");
+        boolean keyDropEnabled = isEnabled("kd");
 
-        Set<String> excavation_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("excavation")).getKeys(false);
-        boolean excavation_enabled = gck.getActsConfig().getBoolean("excavation.enabled");
-        Set<String> farming_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("farming")).getKeys(false);
-        boolean farming_enabled = gck.getActsConfig().getBoolean("farming.enabled");
-        Set<String> foraging_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("foraging")).getKeys(false);
-        boolean foraging_enabled = gck.getActsConfig().getBoolean("foraging.enabled");
-        Set<String> mining_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("mining")).getKeys(false);
-        boolean mining_enabled = gck.getActsConfig().getBoolean("mining.enabled");
+        Set<String> excavationBlockList = getBlockList("ex");
+        boolean excavationEnabled = isEnabled("ex");
+        Set<String> farmingBlockList = getBlockList("fa");
+        boolean farmingEnabled = isEnabled("fa");
+        Set<String> foragingBlockList = getBlockList("fo");
+        boolean foragingEnabled = isEnabled("fo");
+        Set<String> miningBlockList = getBlockList("mi");
+        boolean miningEnabled = isEnabled("mi");
 
-        String ceiling_excavation_path = "ceiling." + uuid + ".excavation";
-        String ceiling_farming_path = "ceiling." + uuid + ".farming";
-        String ceiling_foraging_path = "ceiling." + uuid + ".foraging";
-        String ceiling_mining_path = "ceiling." + uuid + ".mining";
-
-        if (!gck.getCeilConfig().isSet(ceiling_excavation_path)) {
-            gck.getCeilConfig().set(ceiling_excavation_path, 0);
-        }
-        if (!gck.getCeilConfig().isSet(ceiling_farming_path)) {
-            gck.getCeilConfig().set(ceiling_farming_path, 0);
-        }
-        if (!gck.getCeilConfig().isSet(ceiling_foraging_path)) {
-            gck.getCeilConfig().set(ceiling_foraging_path, 0);
-        }
-        if (!gck.getCeilConfig().isSet(ceiling_mining_path)) {
-            gck.getCeilConfig().set(ceiling_mining_path, 0);
-        }
-
-        gck.saveCeilConfig();
-
-        if (keys_drop_enabled) {
-            if (excavation_enabled && excavation_block_list.contains(block_name) && gck.getActsConfig().getBoolean("excavation." + block_name + ".enabled")) {
-                if (isNatural(block_state)) {
-                    keyDrop("excavation", player, block_name);
+        if (keyDropEnabled) {
+            if (excavationEnabled && excavationBlockList.contains(blockName) && isBlockEnabled("ex", blockName)) {
+                if (isNatural(blockState)) {
+                    keyDrop("excavation", player, blockName);
                 }
-            } else if (farming_enabled && farming_block_list.contains(block_name) && gck.getActsConfig().getBoolean("farming." + block_name + ".enabled")) {
-                if (block_data instanceof Ageable && !block_list.contains(block_name)) {
-                    int current_age = ((Ageable) block_data).getAge();
-                    int max_age = ((Ageable) block_data).getMaximumAge();
+            } else if (farmingEnabled && farmingBlockList.contains(blockName) && isBlockEnabled("fa", blockName)) {
+                if (blockData instanceof Ageable && !blockList.contains(blockName)) {
+                    int currentAge = ((Ageable) blockData).getAge();
+                    int maxAge = ((Ageable) blockData).getMaximumAge();
 
-                    if (current_age == max_age) {
-                        keyDrop("farming", player, block_name);
+                    if (currentAge == maxAge) {
+                        keyDrop("farming", player, blockName);
                     }
                 } else {
-                    if (isNatural(block_state)) {
-                        keyDrop("farming", player, block_name);
+                    if (isNatural(blockState)) {
+                        keyDrop("farming", player, blockName);
                     }
                 }
-            } else if (foraging_enabled && foraging_block_list.contains(block_name) && gck.getActsConfig().getBoolean("foraging." + block_name + ".enabled")) {
-                if (isNatural(block_state)) {
-                    keyDrop("foraging", player, block_name);
+            } else if (foragingEnabled && foragingBlockList.contains(blockName) && isBlockEnabled("fo", blockName)) {
+                if (isNatural(blockState)) {
+                    keyDrop("foraging", player, blockName);
                 }
-            } else if (mining_enabled && mining_block_list.contains(block_name) && gck.getActsConfig().getBoolean("mining." + block_name + ".enabled")) {
-                if (isNatural(block_state)) {
+            } else if (miningEnabled && miningBlockList.contains(blockName) && isBlockEnabled("mi", blockName)) {
+                if (isNatural(blockState)) {
                     ItemStack mainHand = player.getInventory().getItemInMainHand();
 
-                    if (gck.getActsConfig().getBoolean("mining.silk_touch_drop") || (!gck.getActsConfig().getBoolean("mining.silk_touch_drop") && !mainHand.containsEnchantment(SILK_TOUCH))) {
-                        keyDrop("mining", player, block_name);
+                    if (isEnabled("st") || (!isEnabled("st") && !mainHand.containsEnchantment(SILK_TOUCH))) {
+                        keyDrop("mining", player, blockName);
                     }
                 }
             }
         }
 
-        gck.getPlcdConfig().set("placed." + block_state.getLocation().getWorld() + "." + block_state.getLocation().getBlockX() + "," + block_state.getLocation().getBlockY() + "," + block_state.getLocation().getBlockZ(), false);
-        gck.savePlcdConfig();
+        setBlockPlaced(blockState, false);
+
+        if (isChangeSaveOn()) {
+            changes++;
+
+            if (changes >= gck.getConfig().getInt("config.changeSave")) {
+                gck.saveCeilConfig();
+                gck.savePlcdConfig();
+
+                changes = 0;
+            }
+        }
     }
 
     @EventHandler
     public void onPlayerHarvestBerries(EntityInteractEvent event) {
         Entity entity = event.getEntity();
         Player player;
-        UUID uuid;
-        BlockData block_data = event.getBlock().getBlockData();
-        String block_name = block_data.getMaterial().name();
+        BlockData blockData = event.getBlock().getBlockData();
+        String blockName = blockData.getMaterial().name();
 
         if (entity instanceof Player) {
             player = (Player) entity;
-            uuid = player.getUniqueId();
 
-            boolean keys_drop_enabled = gck.getConfig().getBoolean("config.enabled");
+            boolean keyDropEnabled = gck.getConfig().getBoolean("config.enabled");
 
-            Set<String> farming_block_list = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("farming")).getKeys(false);
-            boolean farming_enabled = gck.getActsConfig().getBoolean("farming.enabled");
+            Set<String> farmingBlockList = Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("farming")).getKeys(false);
+            boolean farmingEnabled = gck.getActsConfig().getBoolean("farming.enabled");
 
-            String ceiling_farming_path = "ceiling." + uuid + ".farming";
+            if (keyDropEnabled) {
+                if (farmingEnabled && farmingBlockList.contains(blockName) && gck.getActsConfig().getBoolean("farming." + blockName + ".enabled")) {
+                    if (blockData instanceof Ageable) {
+                        int currentAge = ((Ageable) blockData).getAge();
+                        int maxAge = ((Ageable) blockData).getMaximumAge();
 
-            if (!gck.getCeilConfig().isSet(ceiling_farming_path)) {
-                gck.getCeilConfig().set(ceiling_farming_path, 0);
-            }
-
-            gck.saveCeilConfig();
-
-            if (keys_drop_enabled) {
-                if (farming_enabled && farming_block_list.contains(block_name) && gck.getActsConfig().getBoolean("farming." + block_name + ".enabled")) {
-                    if (block_data instanceof Ageable) {
-                        int current_age = ((Ageable) block_data).getAge();
-                        int max_age = ((Ageable) block_data).getMaximumAge();
-
-                        if (current_age >= max_age - 1) {   // 현재는 Ageable 중 상호작용 가능한 농작물은 달콤한 열매 뿐임
-                            keyDrop("farming", player, block_name);
+                        if (currentAge >= maxAge - 1) {   // 현재는 Ageable 중 상호작용 가능한 농작물은 달콤한 열매 뿐임
+                            keyDrop("farming", player, blockName);
                         }
-                    } else if (block_data instanceof CaveVinesPlant) {
-                        boolean isBerries = ((CaveVinesPlant) block_data).isBerries();
+                    } else if (blockData instanceof CaveVinesPlant) {
+                        boolean isBerries = ((CaveVinesPlant) blockData).isBerries();
 
                         if (isBerries) {
-                            keyDrop("farming", player, block_name);
+                            keyDrop("farming", player, blockName);
                         }
                     }
+                }
+            }
+
+            if (isChangeSaveOn()) {
+                changes++;
+
+                if (changes >= gck.getConfig().getInt("config.changeSave")) {
+                    gck.saveCeilConfig();
+                    gck.savePlcdConfig();
+
+                    changes = 0;
                 }
             }
         }
@@ -401,30 +485,42 @@ public class GCK_events implements Listener {
     @EventHandler
     public void onFishingSuccess(PlayerFishEvent event) {
         Player player = event.getPlayer();
-        UUID uuid = player.getUniqueId();
         PlayerFishEvent.State state = event.getState();
 
-        boolean keys_drop_enabled = gck.getConfig().getBoolean("config.enabled");
+        boolean keyDropEnabled = gck.getConfig().getBoolean("config.enabled");
 
-        boolean fishing_enabled = gck.getActsConfig().getBoolean("fishing.enabled");
+        boolean fishingEnabled = gck.getActsConfig().getBoolean("fishing.enabled");
 
-        String fishing_path = "fishing.fishing";
-        String ceiling_fishing_path = "ceiling." + uuid + ".fishing";
-
-        if (!gck.getCeilConfig().isSet(ceiling_fishing_path)) {
-            gck.getCeilConfig().set(ceiling_fishing_path, 0);
+        if (keyDropEnabled) {
+            if (fishingEnabled && state.equals(CAUGHT_FISH) && gck.getActsConfig().getBoolean("fishing.fishing.enabled")) {
+                keyDrop("fishing", player, "fishing");
+            }
         }
 
-        if (keys_drop_enabled) {
-            if (fishing_enabled && state.equals(CAUGHT_FISH) && gck.getActsConfig().getBoolean(fishing_path + ".enabled")) {
-                keyDrop("fishing", player, "fishing");
+
+        if (isChangeSaveOn()) {
+            changes++;
+
+            if (changes >= gck.getConfig().getInt("config.changeSave")) {
+                gck.saveCeilConfig();
+                gck.savePlcdConfig();
+
+                changes = 0;
             }
         }
     }
 
     @EventHandler
     public void onPlayerQuitEvent(PlayerQuitEvent event) {
-        gck.saveCeilConfig();
-        gck.savePlcdConfig();
+        if (isConnectionSaveOn()) {
+            connections++;
+
+            if (connections >= gck.getConfig().getInt("config.connectionSave")) {
+                gck.saveCeilConfig();
+                gck.savePlcdConfig();
+
+                connections = 0;
+            }
+        }
     }
 }

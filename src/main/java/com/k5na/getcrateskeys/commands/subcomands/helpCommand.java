@@ -61,6 +61,8 @@ public class helpCommand extends SubCommand {
                 player.sendMessage(ChatColor.RED + "빨간색 명령어" + ChatColor.YELLOW + "는 입력할 때 OP가 필요합니다.");
                 player.sendMessage(ChatColor.GRAY + "-----------------------------------------------------");
                 player.sendMessage(ChatColor.RED + "/gck set" + ChatColor.WHITE + ": 열쇠 관련 수치를 설정합니다.");
+                player.sendMessage(ChatColor.RED + "/gck save" + ChatColor.WHITE + ": 플러그인의 모든 또는 특정한 컨피그 파일을 저장합니다.");
+                player.sendMessage(ChatColor.RED + "/gck autosave" + ChatColor.WHITE + ": 플러그인의 모든 컨피그 파일의 자동저장을 활성화 또는 비활성화합니다.");
             } else if (args[1].equalsIgnoreCase("info")) {
                 player.sendMessage(ChatColor.GREEN + "/gck info" + ChatColor.WHITE + ": 플러그인의 정보를 불러옵니다.");
                 player.sendMessage(ChatColor.GREEN + "이 명령어를 사용하기 위해서는 OP가 필요하지 않습니다.");
@@ -88,6 +90,14 @@ public class helpCommand extends SubCommand {
             } else if (args[1].equalsIgnoreCase("boost")) {
                 player.sendMessage(ChatColor.GREEN + "/gck boost" + ChatColor.WHITE + ": 현재 드랍 부스트의 상태를 불러옵니다.");
                 player.sendMessage(ChatColor.GREEN + "이 명령어를 사용하기 위해서는 OP가 필요하지 않습니다.");
+            } else if (args[1].equalsIgnoreCase("save")) {
+                player.sendMessage(ChatColor.RED + "/gck save [ config / keys / actions / ceiling / placed ]");
+                player.sendMessage(ChatColor.WHITE + ": 플러그인의 모든 또는 특정한 컨피그 파일을 저장합니다.");
+                player.sendMessage(ChatColor.RED + "이 명령어를 사용하기 위해서는 OP가 필요합니다.");
+            } else if (args[1].equalsIgnoreCase("autosave")) {
+                player.sendMessage(ChatColor.RED + "/gck autosave [ ON / OFF ]");
+                player.sendMessage(ChatColor.WHITE + ": 플러그인의 모든 컨피그 파일의 자동저장을 활성화 또는 비활성화합니다.");
+                player.sendMessage(ChatColor.RED + "이 명령어를 사용하기 위해서는 OP가 필요합니다.");
             } else {
                 player.sendMessage(ChatColor.RED + "알 수 없는 값이 입력되었습니다. /gck help를 통해 입력 가능한 명령어를 확인해주세요.");
             }
@@ -132,30 +142,32 @@ public class helpCommand extends SubCommand {
 
     @Override
     public List<String> getSubCommandArguments(Player player, String[] args) {
-        List<String> subcommandArgument = new ArrayList<>();
+        List<String> subCommandArgument = new ArrayList<>();
 
         if (args.length == 2) {
-            subcommandArgument.add("boost");
-            subcommandArgument.add("ceiling");
-            subcommandArgument.add("disable");
-            subcommandArgument.add("enable");
-            subcommandArgument.add("info");
-            subcommandArgument.add("keys");
-            subcommandArgument.add("reload");
-            subcommandArgument.add("set");
+            subCommandArgument.add("boost");
+            subCommandArgument.add("ceiling");
+            subCommandArgument.add("disable");
+            subCommandArgument.add("enable");
+            subCommandArgument.add("info");
+            subCommandArgument.add("keys");
+            subCommandArgument.add("reload");
+            subCommandArgument.add("set");
+            subCommandArgument.add("save");
+            subCommandArgument.add("autosave");
 
-            return subcommandArgument;
+            return subCommandArgument;
         } else if (args.length == 3) {
             if (args[1].equalsIgnoreCase("enable")) {
-                subcommandArgument.add("drop_boost");
-                subcommandArgument.add("key_drop");
+                subCommandArgument.add("drop_boost");
+                subCommandArgument.add("key_drop");
 
-                return subcommandArgument;
+                return subCommandArgument;
             } else if (args[1].equalsIgnoreCase("set")) {
-                subcommandArgument.add("drop_boost_amount");
-                subcommandArgument.add("drop_boost_chance");
+                subCommandArgument.add("drop_boost_amount");
+                subCommandArgument.add("drop_boost_chance");
 
-                return subcommandArgument;
+                return subCommandArgument;
             }
         }
 
