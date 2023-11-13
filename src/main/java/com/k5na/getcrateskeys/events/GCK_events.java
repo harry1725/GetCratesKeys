@@ -550,7 +550,6 @@ public class GCK_events implements Listener {
 
         if (keyDropEnabled) {
             if (fightingEnabled && MobList.contains(mob) && isMobEnabled(mob)) {
-                System.out.println("ENABLED");
                 keyDrop("fighting", player, mob);
             }
         }
