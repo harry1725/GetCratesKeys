@@ -63,4 +63,5 @@ config:
     fishingMax: 300
     foragingMax: 5000
     miningMax: 500
+    fightingMax: 500
 

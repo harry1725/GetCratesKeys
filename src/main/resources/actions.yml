@@ -703,3 +703,54 @@ mining:
     multiplier: 100
     onlyKey: -1
 
+
+# ======================= # 전 투  # =======================
+# 몹 추가 방법:
+# fighting:
+#   enabled: < true / false >
+#   - 몹을 "죽일 때" 열쇠 드랍 가능 여부. true는 활성화, false는 비활성화
+#
+#   대문자 블럭 이름:
+#     enabled: < true / false >
+#     - 해당 몹을 죽일 때 열쇠 드랍 여부. true는 활성화, false는 비활성화
+#
+#     baseChance: < # >
+#     - 아우렐리움 레벨이 0일 때의 최소 확률. max_chance 분의 # * 100 = 확률 (%)
+#
+#     multiplierEnabled: < true / false >
+#     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수 적용 여부. true는 활성화, false는 비활성화
+#
+#     multiplier: < # >
+#     - 아우렐리움 레벨 증가에 따른 드랍 확률 증가 배수.
+#
+#     onlyKey: < # >
+#     - #번 열쇠만 드랍 설정. 1 미만은 비활성화
+# ========================================================
+
+fighting:
+  enabled: true
+  # 좀비
+  ZOMBIE:
+    enabled: true
+    baseChance: 323
+    multiplierEnabled: false
+    multiplier: 1
+    onlyKey: -1
+  SKELETON:
+    enabled: true
+    baseChance: 323
+    multiplierEnabled: false
+    multiplier: 1
+    onlyKey: -1
+  SPIDER:
+    enabled: true
+    baseChance: 323
+    multiplierEnabled: false
+    multiplier: 1
+    onlyKey: -1
+  CREEPER:
+    enabled: true
+    baseChance: 90000
+    multiplierEnabled: false
+    multiplier: 1
+    onlyKey: -1

@@ -53,6 +53,9 @@ public class ceilingCommand extends SubCommand {
         if (gck.getActsConfig().getBoolean("fishing.enabled")) {
             player.sendMessage(ChatColor.AQUA + "낚시" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".fishing") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.fishingMax") + ChatColor.WHITE + " 회");
         }
+        if (gck.getActsConfig().getBoolean("fighting.enabled")) {
+            player.sendMessage(ChatColor.AQUA + "전투" + ChatColor.WHITE + " : " + ChatColor.GOLD + gck.getCeilConfig().getInt("ceiling." + uuid + ".fighting") + ChatColor.WHITE + " / " + gck.getConfig().getInt("config.ceiling.fightingMax") + ChatColor.WHITE + " 회");
+        }
     }
 
     @Override
