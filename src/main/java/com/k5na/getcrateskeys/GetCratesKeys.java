@@ -113,6 +113,7 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
     public void reloadKeysConfig() {
         if (keysConfigFile == null) {
             keysConfigFile = new File(getDataFolder(), "keys.yml");
+            conLog("keys.yml is null. Making a new file");
         }
 
         keysConfig = YamlConfiguration.loadConfiguration(keysConfigFile);
@@ -121,6 +122,7 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
     public void reloadActsConfig() {
         if (actsConfigFile == null) {
             actsConfigFile = new File(getDataFolder(), "actions.yml");
+            conLog("actions.yml is null. Making a new file");
         }
 
         actsConfig = YamlConfiguration.loadConfiguration(actsConfigFile);
@@ -129,6 +131,7 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
     public void reloadCeilConfig() {
         if (ceilConfigFile == null) {
             ceilConfigFile = new File(getDataFolder(), "ceiling.yml");
+            conLog("ceiling.yml is null. Making a new file");
         }
 
         ceilConfig = YamlConfiguration.loadConfiguration(ceilConfigFile);
@@ -137,6 +140,7 @@ public final class GetCratesKeys extends JavaPlugin implements Listener {
     public void reloadPlcdConfig() {
         if (plcdConfigFile == null) {
             plcdConfigFile = new File(getDataFolder(), "placed.yml");
+            conLog("placed.yml is null. Making a new file");
         }
 
         plcdConfig = YamlConfiguration.loadConfiguration(plcdConfigFile);
