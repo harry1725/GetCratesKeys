@@ -11,11 +11,14 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.CaveVinesPlant;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -56,6 +59,9 @@ public class GCK_events implements Listener {
         }
         if (!gck.getCeilConfig().isSet("ceiling." + uuid + ".mining")) {
             gck.getCeilConfig().set("ceiling." + uuid + ".mining", 0);
+        }
+        if (!gck.getCeilConfig().isSet("ceiling." + uuid + ".fighting")) {
+            gck.getCeilConfig().set("ceiling." + uuid + ".fighting", 0);
         }
 
         gck.saveCeilConfig();
@@ -141,6 +147,8 @@ public class GCK_events implements Listener {
                 return gck.getActsConfig().getBoolean("mining.enabled");
             case "st":
                 return gck.getActsConfig().getBoolean("mining.silkTouchDrop");
+            case "fi":
+                return gck.getActsConfig().getBoolean("fighting.enabled");
             default:
                 return false;
         }
@@ -497,6 +505,55 @@ public class GCK_events implements Listener {
             }
         }
 
+
+        if (isChangeSaveOn()) {
+            changes++;
+
+            if (changes >= gck.getConfig().getInt("config.changeSave")) {
+                gck.saveCeilConfig();
+                gck.savePlcdConfig();
+
+                changes = 0;
+            }
+        }
+    }
+
+    public Set<String> getMobList() {
+        return Objects.requireNonNull(gck.getActsConfig().getConfigurationSection("fighting")).getKeys(false);
+    }
+
+    public boolean isMobEnabled(String mob) {
+        return gck.getActsConfig().getBoolean("fighting." + mob + ".enabled");
+    }
+    @EventHandler
+    public void onEntityDeath(EntityDeathEvent event)  {
+        String mob = event.getEntity().getType().toString();
+        LivingEntity entity = event.getEntity();
+
+        if (entity.getKiller() == null) return;
+
+        if (!(entity.getLastDamageCause() instanceof EntityDamageByEntityEvent)) {
+            return;
+        }
+        //check whether the last damage is by player
+        EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) entity.getLastDamageCause();
+        if (!(entityDamageByEntityEvent.getDamager() instanceof Player)) {
+            return;
+        }
+
+        Player player = (Player) entityDamageByEntityEvent.getDamager();
+
+        Set<String> MobList = getMobList();
+
+        boolean keyDropEnabled = gck.getConfig().getBoolean("config.enabled");
+        boolean fightingEnabled = isEnabled("fi");
+
+        if (keyDropEnabled) {
+            if (fightingEnabled && MobList.contains(mob) && isMobEnabled(mob)) {
+                System.out.println("ENABLED");
+                keyDrop("fighting", player, mob);
+            }
+        }
 
         if (isChangeSaveOn()) {
             changes++;
